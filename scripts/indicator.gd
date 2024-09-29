@@ -3,6 +3,7 @@ class_name Indicator extends Node3D
 
 const SHIELD_CENTER := Vector3(0, 1.7, 0)
 
+@export var distance_to_center: float = 2.5
 @export var visible_on_ready: bool = true
 @export var editor_preview: bool = false
 
@@ -15,6 +16,6 @@ func _process(_delta: float) -> void:
 		var parent := get_parent_node_3d()
 		if parent:
 			var norm: Vector3 = (parent.global_position - SHIELD_CENTER).normalized()
-			global_position = SHIELD_CENTER + norm * 2.5
+			global_position = SHIELD_CENTER + norm * distance_to_center
 		if global_position.x != 0 or global_position.z != 0:
 			look_at(SHIELD_CENTER)

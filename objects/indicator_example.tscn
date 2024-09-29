@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bgocnol6lncjd"]
+[gd_scene load_steps=15 format=3 uid="uid://bgocnol6lncjd"]
 
 [ext_resource type="PackedScene" uid="uid://byap55qn6t83w" path="res://objects/indicator.tscn" id="1_0gmhg"]
 [ext_resource type="Script" path="res://scripts/indicator_example.gd" id="2_4qtfv"]
 [ext_resource type="Texture2D" uid="uid://c1nrebtteakhu" path="res://assets/textures/Kenney/Crosshairs/crosshair007b.png" id="2_5v7hb"]
+[ext_resource type="PackedScene" uid="uid://c2fybfvjcllyl" path="res://objects/quarter_circle_mesh.tscn" id="4_dkmav"]
+[ext_resource type="Shader" path="res://assets/shaders/hp_bar_enemy.gdshader" id="5_v0f8d"]
 
 [sub_resource type="GDScript" id="GDScript_cclgf"]
 script/source = "extends Sprite3D
@@ -13,50 +15,144 @@ func _process(delta: float) -> void:
 	rotate_z(rotation_speed * delta)
 "
 
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_r8l7g"]
+resource_local_to_scene = true
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_5okal"]
+resource_local_to_scene = true
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_u4hyi"]
+resource_local_to_scene = true
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_6l557"]
+resource_local_to_scene = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dt76v"]
+shading_mode = 0
+albedo_color = Color(0.91575, 0.391381, 0, 1)
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_psq6o"]
+resource_local_to_scene = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pos7f"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("5_v0f8d")
+shader_parameter/color = Color(0, 0.82, 0, 1)
+shader_parameter/max_segments = 3
+shader_parameter/visible_segments = 3
+shader_parameter/segment_spacing = 0.05
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_vms5f"]
+resource_local_to_scene = true
+
 [node name="Indicator" instance=ExtResource("1_0gmhg")]
 script = ExtResource("2_4qtfv")
 
 [node name="Crosshair" parent="." index="0"]
-modulate = Color(1, 0.643137, 0, 1)
+visible = false
+modulate = Color(0.5, 0.5, 0.5, 1)
 
 [node name="Crosshair2" type="Sprite3D" parent="." index="1"]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+transform = Transform3D(-5, 0, -4.37114e-07, 0, 5, 0, 4.37114e-07, 0, -5, 0, 0, 0)
 layers = 32
-modulate = Color(1, 0.643137, 0, 1)
+modulate = Color(0.5, 0.5, 0.5, 1)
+double_sided = false
 no_depth_test = true
 texture_filter = 0
 texture = ExtResource("2_5v7hb")
 script = SubResource("GDScript_cclgf")
 
-[node name="LabelReload" type="Label3D" parent="." index="2"]
+[node name="LabelAngle" type="Label3D" parent="." index="2"]
 unique_name_in_owner = true
-transform = Transform3D(-7.07107, 7.07107, 8.74228e-07, 7.07107, 7.07107, 0, -6.18172e-07, 6.18172e-07, -10, -2.5, -2.5, 0)
+transform = Transform3D(-3.53553, -3.53553, -7.54979e-07, -3.53553, 3.53553, 0, 5.33851e-07, 5.33851e-07, -5, 2, -2, 0)
 layers = 32
+double_sided = false
 texture_filter = 0
-modulate = Color(1, 0.643137, 0, 1)
-outline_modulate = Color(0.176471, 0, 0, 0.392157)
-text = "150 / 150"
+modulate = Color(0.5, 0.5, 0.5, 1)
+outline_modulate = Color(0.25, 0.25, 0.25, 0.392157)
+text = "180°"
 font_size = 16
 outline_size = 6
 
 [node name="LabelHP" type="Label3D" parent="." index="3"]
-unique_name_in_owner = true
-transform = Transform3D(-7.07107, -7.07107, -8.74228e-07, -7.07107, 7.07107, 0, 6.18173e-07, 6.18173e-07, -10, -2.5, 2.5, 0)
+transform = Transform3D(-3.53553, -3.53553, -7.54979e-07, -3.53553, 3.53553, 0, 5.33851e-07, 5.33851e-07, -5, -1.6, 1.6, 0)
 layers = 32
+double_sided = false
 texture_filter = 0
-modulate = Color(1, 0.643137, 0, 1)
-outline_modulate = Color(0.176471, 0, 0, 0.392157)
-text = "3 / 3"
+modulate = Color(0.5, 0.5, 0.5, 1)
+outline_modulate = Color(0.25, 0.25, 0.25, 0.392157)
+text = "HP"
 font_size = 16
 outline_size = 6
 
-[node name="LabelAngle" type="Label3D" parent="." index="4"]
-unique_name_in_owner = true
-transform = Transform3D(-7.07107, -7.07107, -8.74228e-07, -7.07107, 7.07107, 0, 6.18172e-07, 6.18172e-07, -10, 2.5, -2.5, 0)
+[node name="LabelWeapon" type="Label3D" parent="." index="4"]
+transform = Transform3D(-3.53553, 3.53553, 4.37114e-07, 3.53553, 3.53553, 0, -3.09086e-07, 3.09086e-07, -5, -1.6, -1.6, 0)
 layers = 32
+double_sided = false
 texture_filter = 0
-modulate = Color(1, 0.643137, 0, 1)
-outline_modulate = Color(0.176471, 0, 0, 0.392157)
-text = "180°"
+modulate = Color(0.5, 0.5, 0.5, 1)
+outline_modulate = Color(0.25, 0.25, 0.25, 0.392157)
+text = "WPN"
 font_size = 16
 outline_size = 6
+
+[node name="Visor" type="Node3D" parent="." index="5"]
+
+[node name="Visor1" parent="Visor" index="0" instance=ExtResource("4_dkmav")]
+transform = Transform3D(-0.996195, -0.0871557, 8.74228e-08, -0.0871557, 0.996195, 0, -8.70901e-08, -7.6194e-09, -1, 0, 0, 0)
+layers = 32
+mesh = SubResource("ImmediateMesh_r8l7g")
+skeleton = NodePath("../..")
+inner_radius = 2.5
+outer_radius = 2.6
+degrees = 80.0
+
+[node name="Visor2" parent="Visor" index="1" instance=ExtResource("4_dkmav")]
+transform = Transform3D(0.0871558, -0.996195, -8.74228e-08, -0.996195, -0.0871558, 0, -7.6194e-09, 8.70901e-08, -1, 0, 0, 0)
+layers = 32
+mesh = SubResource("ImmediateMesh_5okal")
+skeleton = NodePath("../..")
+inner_radius = 2.5
+outer_radius = 2.6
+degrees = 80.0
+
+[node name="Visor3" parent="Visor" index="2" instance=ExtResource("4_dkmav")]
+transform = Transform3D(0.996195, 0.0871558, -8.74228e-08, 0.0871558, -0.996195, 0, -8.70901e-08, -7.6194e-09, -1, 0, 0, 0)
+layers = 32
+mesh = SubResource("ImmediateMesh_u4hyi")
+skeleton = NodePath("../..")
+inner_radius = 2.5
+outer_radius = 2.6
+degrees = 80.0
+
+[node name="Visor4" parent="Visor" index="3" instance=ExtResource("4_dkmav")]
+transform = Transform3D(-0.0871557, 0.996195, -8.74228e-08, 0.996195, 0.0871557, 0, 7.6194e-09, -8.70901e-08, -1, 0, 0, 0)
+layers = 32
+mesh = SubResource("ImmediateMesh_6l557")
+skeleton = NodePath("../..")
+inner_radius = 2.5
+outer_radius = 2.6
+degrees = 80.0
+
+[node name="Load" parent="." index="6" instance=ExtResource("4_dkmav")]
+unique_name_in_owner = true
+transform = Transform3D(-0.996195, -0.0871558, 0, 0.0871558, -0.996195, 0, 0, 0, 1, 0, 0, 0)
+layers = 32
+material_override = SubResource("StandardMaterial3D_dt76v")
+mesh = SubResource("ImmediateMesh_psq6o")
+inner_radius = 2.7
+outer_radius = 2.9
+degrees = 80.0
+reverse = true
+
+[node name="HP" parent="." index="7" instance=ExtResource("4_dkmav")]
+unique_name_in_owner = true
+transform = Transform3D(0.0871557, -0.996195, 0, 0.996195, 0.0871557, 0, 0, 0, 1, 0, 0, 0)
+layers = 32
+material_override = SubResource("ShaderMaterial_pos7f")
+mesh = SubResource("ImmediateMesh_vms5f")
+inner_radius = 2.7
+outer_radius = 3.0
+degrees = 80.0
+reverse = true

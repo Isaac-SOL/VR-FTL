@@ -4,14 +4,15 @@ extends Indicator
 var max_hp: int
 
 func set_reload(reload: int):
-	%LabelReload.text = str(reload) + " / 150"
+	var ratio := reload / 150.0
+	%Load.degrees = ratio * 80
 
 func set_angle(angle: float):
 	%LabelAngle.text = str(floori(rad_to_deg(angle))) + "°"
 
 func set_max_hp(hp: int):
 	max_hp = hp
-	%LabelHP.text = str(max_hp) + " / " + str(max_hp)
+	%HP.material_override.set_shader_parameter("max_segments", max_hp)
 
 func set_hp(hp: int):
-	%LabelHP.text = str(hp) + " / " + str(max_hp)
+	%HP.material_override.set_shader_parameter("visible_segments", max_hp)
