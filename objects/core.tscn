@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://dyjpt2kj78udn"]
+
+[ext_resource type="Script" path="res://scripts/core.gd" id="1_ua8tx"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_my6ob"]
+radius = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fru0a"]
+albedo_color = Color(0.662745, 0, 1, 1)
+metallic = 0.2
+metallic_specular = 1.0
+roughness = 0.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_xqial"]
+material = SubResource("StandardMaterial3D_fru0a")
+radius = 0.1
+height = 0.2
+
+[node name="Core" type="RigidBody3D"]
+collision_mask = 256
+gravity_scale = 0.0
+freeze = true
+contact_monitor = true
+max_contacts_reported = 4
+script = ExtResource("1_ua8tx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_my6ob")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_xqial")
+
+[node name="LabelHP" type="Label3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, -0.2, 0)
+billboard = 1
+text = "10 / 10"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

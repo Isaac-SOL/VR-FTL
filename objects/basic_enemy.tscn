@@ -1,0 +1,82 @@
+[gd_scene load_steps=12 format=3 uid="uid://dg0cn1gvugvrf"]
+
+[ext_resource type="ArrayMesh" uid="uid://6dwpja848m71" path="res://assets/models/Ultimate Spaceships/Dispatcher/OBJ/Dispatcher.obj" id="1_6tmr4"]
+[ext_resource type="Script" path="res://scripts/basic_enemy.gd" id="1_lrmgy"]
+[ext_resource type="PackedScene" uid="uid://l41vqqu0yc67" path="res://objects/enemy_projectile.tscn" id="2_6w125"]
+[ext_resource type="Texture2D" uid="uid://dweag6h38blmm" path="res://assets/models/Ultimate Spaceships/Dispatcher/Textures/Dispatcher_Red.png" id="2_j33df"]
+[ext_resource type="PackedScene" uid="uid://bgocnol6lncjd" path="res://objects/indicator_example.tscn" id="5_okx2j"]
+[ext_resource type="AudioStream" uid="uid://e44s2urpbjo" path="res://assets/audio/Kenney/laserSmall_002.ogg" id="5_yhbux"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3nua4"]
+size = Vector3(4.36621, 4.64453, 1.89136)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_33iao"]
+radius = 0.603748
+height = 6.95075
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5twpm"]
+albedo_texture = ExtResource("2_j33df")
+
+[sub_resource type="SphereMesh" id="SphereMesh_8h2vi"]
+radius = 0.2
+height = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sj27o"]
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 16.0
+
+[node name="BasicEnemy" type="Area3D"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+collision_layer = 64
+collision_mask = 512
+script = ExtResource("1_lrmgy")
+projectile_scene = ExtResource("2_6w125")
+shoot_impulse = 3.0
+move_speed = 0.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.40522e-15, -0.922626, 0.385697, -1, 1.68594e-08, 4.03293e-08, -4.37114e-08, -0.385697, -0.922626, 1.62391, -0.105943, 1.08757)
+shape = SubResource("BoxShape3D_3nua4")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(2.45348e-15, -0.98867, 0.150105, -1, 6.5613e-09, 4.32161e-08, -4.37114e-08, -0.150105, -0.98867, -3.03594, 0.988087, 0.173195)
+shape = SubResource("CapsuleShape3D_33iao")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(2.45348e-15, -0.98867, 0.150105, -1, 6.5613e-09, 4.32161e-08, -4.37114e-08, -0.150105, -0.98867, -3.03606, -1.19994, 0.172885)
+shape = SubResource("CapsuleShape3D_33iao")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.91069e-15, -4.37114e-08, -1, -1, -4.37114e-08, 0, -4.37114e-08, 1, -4.37114e-08, 1.09894, -0.105943, 1.20488)
+mesh = ExtResource("1_6tmr4")
+surface_material_override/0 = SubResource("StandardMaterial3D_5twpm")
+
+[node name="Light1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.91069e-15, -4.37114e-08, -1, -1, -4.37114e-08, 0, -4.37114e-08, 1, -4.37114e-08, 1.70007, 0.444167, 2.04941)
+mesh = SubResource("SphereMesh_8h2vi")
+surface_material_override/0 = SubResource("StandardMaterial3D_sj27o")
+
+[node name="Indicator" parent="." instance=ExtResource("5_okx2j")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.66667, 0)
+editor_preview = true
+
+[node name="ShootSource" type="Marker3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1.91069e-15, -4.37114e-08, -1, -1, -4.37114e-08, 0, -4.37114e-08, 1, -4.37114e-08, 1.09894, -0.105943, 1.11657)
+
+[node name="ShootAudio" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(3.33333, 0, 0, 0, 3.33333, 0, 0, 0, 3.33333, 0, 0, 0)
+stream = ExtResource("5_yhbux")
+unit_size = 3.0
+
+[node name="ShootTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 4.5
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,78 @@
+[gd_scene load_steps=15 format=3 uid="uid://viqryrxonnre"]
+
+[ext_resource type="PackedScene" uid="uid://bnvxqb33lltmj" path="res://addons/godot-xr-tools/interactables/interactable_hinge.tscn" id="1_2o2r1"]
+[ext_resource type="PackedScene" uid="uid://bddj5m7ull6g0" path="res://addons/godot-xr-tools/interactables/interactable_handle.tscn" id="2_xhptg"]
+[ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="3_8q52a"]
+[ext_resource type="Animation" uid="uid://dd67rufxwj2u" path="res://addons/godot-xr-tools/hands/animations/left/Grip 3.res" id="4_gv34y"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="5_quiqp"]
+[ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="6_cem8h"]
+[ext_resource type="Animation" uid="uid://rs7vpclot07o" path="res://addons/godot-xr-tools/hands/animations/right/Grip 3.res" id="7_baj0d"]
+[ext_resource type="Material" uid="uid://bjll72djqr74q" path="res://assets/models/red_plastic.tres" id="8_4cuhn"]
+[ext_resource type="Material" uid="uid://deh62crvxwww0" path="res://assets/models/shiny_metal.tres" id="8_pvrbs"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_sdpkq"]
+radius = 0.05
+
+[sub_resource type="Resource" id="Resource_ewbo4"]
+script = ExtResource("5_quiqp")
+open_pose = ExtResource("4_gv34y")
+closed_pose = ExtResource("4_gv34y")
+
+[sub_resource type="Resource" id="Resource_cplv2"]
+script = ExtResource("5_quiqp")
+open_pose = ExtResource("7_baj0d")
+closed_pose = ExtResource("7_baj0d")
+
+[sub_resource type="SphereMesh" id="SphereMesh_d6hti"]
+material = ExtResource("8_4cuhn")
+radius = 0.05
+height = 0.1
+
+[sub_resource type="BoxMesh" id="BoxMesh_646cx"]
+size = Vector3(0.01, 0.05, 0.02)
+
+[node name="OrientableHinge" instance=ExtResource("1_2o2r1")]
+hinge_limit_min = -180.0
+hinge_limit_max = 180.0
+hinge_steps = 45.0
+
+[node name="HandleOrigin" type="Node3D" parent="." index="0"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.000207476, -0.10028, 0)
+
+[node name="InteractableHandle" parent="HandleOrigin" index="0" instance=ExtResource("2_xhptg")]
+unique_name_in_owner = true
+collision_layer = 262146
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HandleOrigin/InteractableHandle" index="0"]
+transform = Transform3D(1.91069e-15, -4.37114e-08, -1, -1, -4.37114e-08, 0, -4.37114e-08, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("SphereShape3D_sdpkq")
+
+[node name="GrabPointHandLeft" parent="HandleOrigin/InteractableHandle" index="1" instance=ExtResource("3_8q52a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0201903, 0.0473016, -0.0849472)
+hand_pose = SubResource("Resource_ewbo4")
+
+[node name="GrabPointHandRight" parent="HandleOrigin/InteractableHandle" index="2" instance=ExtResource("6_cem8h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0.047, -0.085)
+hand_pose = SubResource("Resource_cplv2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.000207476, -0.10028, 0)
+mesh = SubResource("SphereMesh_d6hti")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." index="2"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.111974, -0.000280265, 0)
+mesh = SubResource("BoxMesh_646cx")
+skeleton = NodePath("../MeshInstance3D")
+surface_material_override/0 = ExtResource("8_pvrbs")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." index="3"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.0635451, -0.10028, 0)
+mesh = SubResource("BoxMesh_646cx")
+skeleton = NodePath("../MeshInstance3D")
+surface_material_override/0 = ExtResource("8_pvrbs")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 2.2, 0, 0, 0, 1, -0.0836764, -0.0502803, 0)
+mesh = SubResource("BoxMesh_646cx")
+skeleton = NodePath("../MeshInstance3D")
+surface_material_override/0 = ExtResource("8_pvrbs")

@@ -1,0 +1,274 @@
+[gd_scene load_steps=31 format=3 uid="uid://cvglwib0nbv3w"]
+
+[ext_resource type="Script" path="res://scripts/main_xr.gd" id="1_xgn4l"]
+[ext_resource type="PackedScene" uid="uid://ddsj74hpt1kgb" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_physics_tac_glove.tscn" id="2_1fc4o"]
+[ext_resource type="PackedScene" uid="uid://btknduttnmoxf" path="res://addons/godot-xr-tools/misc/vr_common_shader_cache.tscn" id="2_r5drp"]
+[ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="3_bao6y"]
+[ext_resource type="PackedScene" uid="uid://b6xesntm4qeo5" path="res://addons/godot-xr-tools/hands/scenes/highpoly/right_physics_tac_glove.tscn" id="4_ajr61"]
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="6_47cmc"]
+[ext_resource type="PackedScene" uid="uid://dwxyvas5wnpv0" path="res://scenes/ui/ship_ui.tscn" id="7_n6b1w"]
+[ext_resource type="PackedScene" uid="uid://qly08yd4l6ag" path="res://objects/pickable_cube.tscn" id="8_qfk5h"]
+[ext_resource type="PackedScene" uid="uid://7r3anwvhrpdw" path="res://objects/omni_screen.tscn" id="9_8cl48"]
+[ext_resource type="PackedScene" uid="uid://dyjpt2kj78udn" path="res://objects/core.tscn" id="10_07g72"]
+[ext_resource type="PackedScene" uid="uid://dcb2rnjj7i53k" path="res://objects/shield.tscn" id="10_mnrau"]
+[ext_resource type="PackedScene" uid="uid://dfuaf5pb2eiea" path="res://objects/pickable_gun.tscn" id="11_iq5it"]
+[ext_resource type="PackedScene" uid="uid://dg0cn1gvugvrf" path="res://objects/basic_enemy.tscn" id="12_nvml8"]
+[ext_resource type="PackedScene" uid="uid://diqcwca2on1df" path="res://objects/pickable_energy_cell.tscn" id="14_trw2q"]
+[ext_resource type="PackedScene" uid="uid://b7lx1bvrt3glp" path="res://objects/nav_system_example.tscn" id="16_bwulk"]
+[ext_resource type="PackedScene" uid="uid://bhsx1muleg6rb" path="res://objects/weapon_system_example.tscn" id="16_pivml"]
+[ext_resource type="PackedScene" uid="uid://bq2us4wa6ntyh" path="res://objects/shield_system_example.tscn" id="17_5wwgv"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_0yy2b"]
+size = Vector3(2, 0.1, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jdo30"]
+size = Vector3(2, 0.1, 1.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_f08eb"]
+size = Vector3(2, 0.1, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u0l7m"]
+size = Vector3(2, 0.1, 0.3)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_kcmwr"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 1.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rt0sp"]
+radius = 0.05
+height = 1.0
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ci6b3"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r52ql"]
+size = Vector3(10, 0.05, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xljkp"]
+size = Vector3(0.5, 0.5, 0.016)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5qrol"]
+sky_top_color = Color(0.3526, 0.564017, 0.86, 1)
+sky_horizon_color = Color(0.79, 0.667813, 0.5372, 1)
+ground_horizon_color = Color(0.79, 0.667813, 0.5372, 1)
+
+[sub_resource type="Sky" id="Sky_h3ng5"]
+sky_material = SubResource("ProceduralSkyMaterial_5qrol")
+
+[sub_resource type="Environment" id="Environment_bssff"]
+background_mode = 2
+sky = SubResource("Sky_h3ng5")
+ssao_enabled = true
+glow_enabled = true
+glow_levels/2 = 0.2
+glow_levels/6 = 1.0
+glow_levels/7 = 1.0
+glow_strength = 0.68
+glow_blend_mode = 0
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_2pxkv"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_xgn4l")
+
+[node name="Ship" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="XROrigin3D" type="XROrigin3D" parent="Ship"]
+
+[node name="XRCamera3D" type="XRCamera3D" parent="Ship/XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+cull_mask = 1048543
+
+[node name="VRCommonShaderCache" parent="Ship/XROrigin3D/XRCamera3D" instance=ExtResource("2_r5drp")]
+
+[node name="LeftHand" type="XRController3D" parent="Ship/XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 1, -0.5)
+tracker = &"left_hand"
+
+[node name="LeftPhysicsHand2" parent="Ship/XROrigin3D/LeftHand" instance=ExtResource("2_1fc4o")]
+
+[node name="FunctionPickup" parent="Ship/XROrigin3D/LeftHand" instance=ExtResource("3_bao6y")]
+grab_distance = 0.1
+ranged_enable = false
+
+[node name="RightHand" type="XRController3D" parent="Ship/XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 1, -0.5)
+tracker = &"right_hand"
+
+[node name="RightPhysicsHand" parent="Ship/XROrigin3D/RightHand" instance=ExtResource("4_ajr61")]
+
+[node name="FunctionPickup" parent="Ship/XROrigin3D/RightHand" instance=ExtResource("3_bao6y")]
+grab_distance = 0.1
+ranged_enable = false
+
+[node name="World" type="Node3D" parent="Ship"]
+
+[node name="Hull" type="Node3D" parent="Ship/World"]
+
+[node name="Ground" type="StaticBody3D" parent="Ship/World/Hull"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ship/World/Hull/Ground"]
+mesh = SubResource("BoxMesh_0yy2b")
+skeleton = NodePath("../../../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ship/World/Hull/Ground"]
+shape = SubResource("BoxShape3D_jdo30")
+
+[node name="Stash1" type="StaticBody3D" parent="Ship/World/Hull"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0.6)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Ship/World/Hull/Stash1"]
+mesh = SubResource("BoxMesh_f08eb")
+skeleton = NodePath("../../../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ship/World/Hull/Stash1"]
+shape = SubResource("BoxShape3D_u0l7m")
+
+[node name="Stash2" type="StaticBody3D" parent="Ship/World/Hull"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, -0.6)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Ship/World/Hull/Stash2"]
+mesh = SubResource("BoxMesh_f08eb")
+skeleton = NodePath("../../../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ship/World/Hull/Stash2"]
+shape = SubResource("BoxShape3D_u0l7m")
+
+[node name="Pillar1" type="StaticBody3D" parent="Ship/World/Hull"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.45, -0.7)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ship/World/Hull/Pillar1"]
+mesh = SubResource("CylinderMesh_kcmwr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ship/World/Hull/Pillar1"]
+shape = SubResource("CapsuleShape3D_rt0sp")
+
+[node name="Pillar2" type="StaticBody3D" parent="Ship/World/Hull"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.45, -0.7)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ship/World/Hull/Pillar2"]
+mesh = SubResource("CylinderMesh_kcmwr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ship/World/Hull/Pillar2"]
+shape = SubResource("CapsuleShape3D_rt0sp")
+
+[node name="Pillar3" type="StaticBody3D" parent="Ship/World/Hull"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.45, 0.7)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ship/World/Hull/Pillar3"]
+mesh = SubResource("CylinderMesh_kcmwr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ship/World/Hull/Pillar3"]
+shape = SubResource("CapsuleShape3D_rt0sp")
+
+[node name="Pillar4" type="StaticBody3D" parent="Ship/World/Hull"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.45, 0.7)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ship/World/Hull/Pillar4"]
+mesh = SubResource("CylinderMesh_kcmwr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ship/World/Hull/Pillar4"]
+shape = SubResource("CapsuleShape3D_rt0sp")
+
+[node name="Boundaries" type="StaticBody3D" parent="Ship/World"]
+collision_layer = 16777216
+collision_mask = 196614
+physics_material_override = SubResource("PhysicsMaterial_ci6b3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ship/World/Boundaries"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, -0.750425)
+shape = SubResource("BoxShape3D_r52ql")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Ship/World/Boundaries"]
+transform = Transform3D(-1, -6.18172e-08, -6.18172e-08, 0, 0.707107, -0.707107, 8.74228e-08, -0.707107, -0.707107, 0, 0, 0.75)
+shape = SubResource("BoxShape3D_r52ql")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Ship/World/Boundaries"]
+transform = Transform3D(-4.37114e-08, 0.707107, 0.707107, 0, 0.707107, -0.707107, -1, -3.09086e-08, -3.09086e-08, -1, 0, 0)
+shape = SubResource("BoxShape3D_r52ql")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Ship/World/Boundaries"]
+transform = Transform3D(-4.37114e-08, -0.707107, -0.707107, 0, 0.707107, -0.707107, 1, -3.09086e-08, -3.09086e-08, 1, 0, 0)
+shape = SubResource("BoxShape3D_r52ql")
+
+[node name="ShipScreenHolder" type="Node3D" parent="Ship/World"]
+transform = Transform3D(-1, 1.13133e-08, -8.59334e-08, -1.13133e-08, 0.965926, 0.258819, 8.59334e-08, 0.258819, -0.965926, 0.688664, 1.30764, 0.58551)
+
+[node name="ShipScreenContent" parent="Ship/World/ShipScreenHolder" instance=ExtResource("6_47cmc")]
+unique_name_in_owner = true
+transform = Transform3D(1, 1.77636e-15, 0, 1.69407e-20, 1, -2.01882e-21, 7.10543e-15, 3.88235e-23, 1, 1.43466e-09, 0.00879443, -0.0328212)
+screen_size = Vector2(0.5, 0.5)
+scene = ExtResource("7_n6b1w")
+viewport_size = Vector2(400, 400)
+update_mode = 2
+scene_properties_keys = PackedStringArray("Built-in script")
+
+[node name="ShipScreenBody" type="StaticBody3D" parent="Ship/World/ShipScreenHolder"]
+collision_mask = 131072
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ship/World/ShipScreenHolder/ShipScreenBody"]
+transform = Transform3D(1, 3.47994e-13, -6.89226e-13, 1.69407e-20, 0.999997, -1.49012e-08, 1.42109e-14, 1.49012e-08, 0.999997, 1.38606e-09, 0.008497, -0.0416751)
+shape = SubResource("BoxShape3D_xljkp")
+
+[node name="OmniScreen" parent="Ship/World" instance=ExtResource("9_8cl48")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="Shield" parent="Ship/World" instance=ExtResource("10_mnrau")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="Core" parent="Ship/World" instance=ExtResource("10_07g72")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="Ship/World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+enable_shadows = true
+cull_mask = 1048543
+
+[node name="Dynamic" type="Node3D" parent="Ship"]
+
+[node name="PickableObject" parent="Ship/Dynamic" instance=ExtResource("8_qfk5h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.26404, 1.06562, 0.604591)
+
+[node name="PickableObject2" parent="Ship/Dynamic" instance=ExtResource("8_qfk5h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.101284, 1.06562, 0.604591)
+
+[node name="PickableObject3" parent="Ship/Dynamic" instance=ExtResource("8_qfk5h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.39927, 1.06562, 0.629675)
+
+[node name="PickableGun" parent="Ship/Dynamic" instance=ExtResource("11_iq5it")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.756285, 1.10079, -0.620969)
+
+[node name="PickableEnergyCell" parent="Ship/Dynamic" instance=ExtResource("14_trw2q")]
+transform = Transform3D(0.865029, -0.501722, 0, 0.501722, 0.865029, 0, 0, 0, 1, 0.00532749, 1.11955, 0.612887)
+
+[node name="WeaponSystem" parent="Ship/Dynamic" instance=ExtResource("16_pivml")]
+
+[node name="ShieldSystem" parent="Ship/Dynamic" node_paths=PackedStringArray("shield") instance=ExtResource("17_5wwgv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0, -0.6)
+shield = NodePath("../../World/Shield")
+
+[node name="NavigationSystem" parent="Ship/Dynamic" instance=ExtResource("16_bwulk")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.8, 0, 0.6)
+
+[node name="Enemies" type="Node3D" parent="."]
+
+[node name="BasicEnemy" parent="Enemies" instance=ExtResource("12_nvml8")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.365871, 2.21208, -5.96673)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_bssff")
+camera_attributes = SubResource("CameraAttributesPractical_2pxkv")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.888281, 0.282452, -0.362186, 0, 0.788558, 0.61496, 0.459301, -0.546257, 0.700461, 0, 4.42039, 0)
+shadow_enabled = true
+directional_shadow_mode = 1
+directional_shadow_split_1 = 0.3
+directional_shadow_max_distance = 10.0
+
+[connection signal="started_moving" from="Ship/Dynamic/NavigationSystem" to="." method="_on_navigation_system_started_moving"]

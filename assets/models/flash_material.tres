@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://clgewf1b0qhtf"]
+
+[ext_resource type="Shader" uid="uid://bunoqgimlsbx4" path="res://assets/models/muzzle_flash.tres" id="1_3x3l6"]
+[ext_resource type="Texture2D" uid="uid://c0vqpubvs84w0" path="res://assets/models/Julius/muzzleflash.png" id="2_cvrq0"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_3x3l6")
+shader_parameter/MuzzleTexture = ExtResource("2_cvrq0")

@@ -1,0 +1,93 @@
+[gd_scene load_steps=16 format=3 uid="uid://cyh65iifm0jco"]
+
+[ext_resource type="PackedScene" uid="uid://b0r6edl74ddo7" path="res://addons/godot-xr-tools/interactables/interactable_slider.tscn" id="1_uyt5q"]
+[ext_resource type="PackedScene" uid="uid://bddj5m7ull6g0" path="res://addons/godot-xr-tools/interactables/interactable_handle.tscn" id="2_lawo0"]
+[ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="3_jqpwb"]
+[ext_resource type="Animation" uid="uid://dd67rufxwj2u" path="res://addons/godot-xr-tools/hands/animations/left/Grip 3.res" id="4_jllr5"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="5_w2fb2"]
+[ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="6_v1jaa"]
+[ext_resource type="Animation" uid="uid://rs7vpclot07o" path="res://addons/godot-xr-tools/hands/animations/right/Grip 3.res" id="7_ibd40"]
+[ext_resource type="Material" uid="uid://deh62crvxwww0" path="res://assets/models/shiny_metal.tres" id="8_7xnnh"]
+
+[sub_resource type="GDScript" id="GDScript_wvisv"]
+script/source = "@tool
+extends XRToolsInteractableSlider
+
+var prev_position: float = 0.0
+
+signal top_reached
+signal bottom_reached
+
+func _on_slider_moved(pos: float) -> void:
+	if pos >= slider_limit_max and pos != prev_position:
+		top_reached.emit()
+	elif pos <= 0 and pos != prev_position:
+		bottom_reached.emit()
+	prev_position = pos
+"
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hvwef"]
+radius = 0.02
+height = 0.12
+
+[sub_resource type="Resource" id="Resource_6k67v"]
+script = ExtResource("5_w2fb2")
+open_pose = ExtResource("4_jllr5")
+closed_pose = ExtResource("4_jllr5")
+
+[sub_resource type="Resource" id="Resource_krwrv"]
+script = ExtResource("5_w2fb2")
+open_pose = ExtResource("7_ibd40")
+closed_pose = ExtResource("7_ibd40")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ckjqv"]
+top_radius = 0.02
+bottom_radius = 0.02
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7sgwh"]
+albedo_color = Color(1, 0, 0, 1)
+roughness = 0.28
+anisotropy_enabled = true
+anisotropy = 0.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_e43he"]
+size = Vector3(0.01, 0.07, 0.02)
+
+[node name="CylinderSlider" instance=ExtResource("1_uyt5q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0)
+script = SubResource("GDScript_wvisv")
+slider_limit_max = 0.2
+slider_position = 0.2
+default_position = 0.2
+default_on_release = true
+
+[node name="HandleOrigin" type="Node3D" parent="." index="0"]
+
+[node name="InteractableHandle" parent="HandleOrigin" index="0" instance=ExtResource("2_lawo0")]
+collision_layer = 262146
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HandleOrigin/InteractableHandle" index="0"]
+transform = Transform3D(1.91069e-15, -4.37114e-08, -1, -1, -4.37114e-08, 0, -4.37114e-08, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_hvwef")
+
+[node name="GrabPointHandLeft" parent="HandleOrigin/InteractableHandle" index="1" instance=ExtResource("3_jqpwb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0201903, 0.0473016, -0.0849472)
+hand_pose = SubResource("Resource_6k67v")
+
+[node name="GrabPointHandRight" parent="HandleOrigin/InteractableHandle" index="2" instance=ExtResource("6_v1jaa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0.047, -0.085)
+hand_pose = SubResource("Resource_krwrv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1"]
+transform = Transform3D(1.91069e-15, -4.37114e-08, -1, -1, -4.37114e-08, 0, -4.37114e-08, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_ckjqv")
+surface_material_override/0 = SubResource("StandardMaterial3D_7sgwh")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0523687, 0)
+mesh = SubResource("BoxMesh_e43he")
+skeleton = NodePath("../MeshInstance3D")
+surface_material_override/0 = ExtResource("8_7xnnh")
+
+[connection signal="slider_moved" from="." to="." method="_on_slider_moved"]

@@ -1,0 +1,80 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="VR FTL"
+run/main_scene="res://scenes/main_xr.tscn"
+config/features=PackedStringArray("4.3", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+XRToolsUserSettings="*res://addons/godot-xr-tools/user_settings/user_settings.gd"
+XRToolsRumbleManager="*res://addons/godot-xr-tools/rumble/rumble_manager.gd"
+Singletons="*res://scripts/general/singletons.gd"
+
+[editor]
+
+movie_writer/movie_file="A:/Pierre/Documents/GodotProjects/vr-ftl/movies/movie.avi"
+movie_writer/disable_vsync=true
+movie_writer/fps=90
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://assets/audio/": "yellow",
+"res://assets/models/": "teal",
+"res://assets/textures/": "green",
+"res://objects/": "orange",
+"res://scenes/": "gray",
+"res://scripts/": "blue"
+}
+
+[global_group]
+
+EnemyProjectile=""
+PlayerProjectile=""
+EnergyCell=""
+
+[layer_names]
+
+3d_render/layer_1="Visual"
+3d_render/layer_6="Omni Screen"
+3d_physics/layer_1="Static World"
+3d_physics/layer_2="Dynamic World"
+3d_physics/layer_3="Pickable Objects"
+3d_physics/layer_4="Wall Walking"
+3d_physics/layer_5="Grappling Target"
+3d_physics/layer_7="Enemies"
+3d_physics/layer_9="Enemy Projectiles"
+3d_physics/layer_10="Player Projectiles"
+3d_physics/layer_17="Held Objects"
+3d_physics/layer_18="Player Hands"
+3d_physics/layer_19="Grab Handles"
+3d_physics/layer_20="Player Body"
+3d_physics/layer_21="Pointable Objects"
+3d_physics/layer_22="Hand Pose Areas"
+3d_physics/layer_23="UI Objects"
+3d_physics/layer_25="Ship Boundary"
+
+[physics]
+
+common/physics_ticks_per_second=120
+3d/physics_engine="JoltPhysics3D"
+
+[xr]
+
+openxr/enabled=true
+shaders/enabled=true

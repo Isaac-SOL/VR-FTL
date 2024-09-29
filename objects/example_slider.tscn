@@ -1,0 +1,71 @@
+[gd_scene load_steps=16 format=3 uid="uid://cjxca3cw5mm3y"]
+
+[ext_resource type="PackedScene" uid="uid://b0r6edl74ddo7" path="res://addons/godot-xr-tools/interactables/interactable_slider.tscn" id="1_65kgr"]
+[ext_resource type="Script" path="res://scripts/interactable_slider_2d.gd" id="2_5mjl4"]
+[ext_resource type="PackedScene" uid="uid://bddj5m7ull6g0" path="res://addons/godot-xr-tools/interactables/interactable_handle.tscn" id="2_8c23x"]
+[ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="3_bvxly"]
+[ext_resource type="Animation" uid="uid://dd67rufxwj2u" path="res://addons/godot-xr-tools/hands/animations/left/Grip 3.res" id="4_xetmm"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="5_vq3bj"]
+[ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="6_uwu5i"]
+[ext_resource type="Animation" uid="uid://rs7vpclot07o" path="res://addons/godot-xr-tools/hands/animations/right/Grip 3.res" id="7_53bp2"]
+[ext_resource type="Material" uid="uid://deh62crvxwww0" path="res://assets/models/shiny_metal.tres" id="8_chmvd"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ghuxb"]
+radius = 0.05
+
+[sub_resource type="Resource" id="Resource_6k67v"]
+script = ExtResource("5_vq3bj")
+open_pose = ExtResource("4_xetmm")
+closed_pose = ExtResource("4_xetmm")
+
+[sub_resource type="Resource" id="Resource_krwrv"]
+script = ExtResource("5_vq3bj")
+open_pose = ExtResource("7_53bp2")
+closed_pose = ExtResource("7_53bp2")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7sgwh"]
+albedo_color = Color(1, 0, 0, 1)
+roughness = 0.28
+anisotropy_enabled = true
+anisotropy = 0.5
+
+[sub_resource type="SphereMesh" id="SphereMesh_kbwav"]
+material = SubResource("StandardMaterial3D_7sgwh")
+radius = 0.05
+height = 0.1
+
+[sub_resource type="BoxMesh" id="BoxMesh_nury4"]
+size = Vector3(0.01, 0.07, 0.02)
+
+[node name="InteractableSlider" instance=ExtResource("1_65kgr")]
+script = ExtResource("2_5mjl4")
+slider_limit_min = Vector2(0, 0)
+slider_limit_max = Vector2(1, 1)
+slider_steps = Vector2(0, 0)
+slider_position = Vector2(0, 0)
+default_position = Vector2(0, 0)
+
+[node name="HandleOrigin" type="Node3D" parent="." index="0"]
+
+[node name="InteractableHandle" parent="HandleOrigin" index="0" instance=ExtResource("2_8c23x")]
+collision_layer = 262146
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HandleOrigin/InteractableHandle" index="0"]
+shape = SubResource("SphereShape3D_ghuxb")
+
+[node name="GrabPointHandLeft" parent="HandleOrigin/InteractableHandle" index="1" instance=ExtResource("3_bvxly")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0201903, 0.0473016, -0.0849472)
+hand_pose = SubResource("Resource_6k67v")
+
+[node name="GrabPointHandRight" parent="HandleOrigin/InteractableHandle" index="2" instance=ExtResource("6_uwu5i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0.047, -0.085)
+hand_pose = SubResource("Resource_krwrv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1"]
+mesh = SubResource("SphereMesh_kbwav")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." index="2"]
+transform = Transform3D(-4.37114e-08, 0, -1, -1, -4.37114e-08, 4.37114e-08, -4.37114e-08, 1, 1.91069e-15, 0, -0.000137568, -0.072528)
+mesh = SubResource("BoxMesh_nury4")
+skeleton = NodePath("../MeshInstance3D")
+surface_material_override/0 = ExtResource("8_chmvd")

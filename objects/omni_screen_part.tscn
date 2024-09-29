@@ -1,0 +1,67 @@
+[gd_scene load_steps=7 format=3 uid="uid://bsqlx0lnp2veb"]
+
+[ext_resource type="ArrayMesh" uid="uid://fixe7x708k38" path="res://assets/models/out_cubesphere.obj" id="1_tegwj"]
+[ext_resource type="Material" uid="uid://deopmu8blia50" path="res://assets/models/omni_screen_part_1.tres" id="2_0o1dx"]
+
+[sub_resource type="GDScript" id="GDScript_fyeeg"]
+script/source = "@tool
+extends Node3D
+
+func _process(_delta: float) -> void:
+	%Camera3D.global_position = global_position
+	%Camera3D.global_rotation = global_rotation
+"
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_xre82"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bg2mh"]
+resource_local_to_scene = true
+render_priority = 2
+transparency = 4
+shading_mode = 0
+albedo_color = Color(1, 1, 1, 0.392157)
+albedo_texture = SubResource("ViewportTexture_xre82")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b3qb0"]
+resource_local_to_scene = true
+render_priority = 1
+transparency = 4
+shading_mode = 0
+albedo_color = Color(1, 1, 1, 0.392157)
+albedo_texture = SubResource("ViewportTexture_xre82")
+
+[node name="OmniScreenPart" type="Node3D"]
+script = SubResource("GDScript_fyeeg")
+
+[node name="Screen" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1.43446e-07, -1.9, -8.30516e-08, 0, 8.30516e-08, -1.9, -1.9, 1.43446e-07, 6.27022e-15, 0, 0, 0)
+layers = 2
+cast_shadow = 0
+mesh = ExtResource("1_tegwj")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_0o1dx")
+
+[node name="Screen2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1.50996e-07, -2, -8.74228e-08, 0, 8.74228e-08, -2, -2, 1.50996e-07, 6.60024e-15, 0, 0, 0)
+layers = 2
+cast_shadow = 0
+mesh = ExtResource("1_tegwj")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_bg2mh")
+
+[node name="Screen3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1.58546e-07, -2.1, -9.17939e-08, 0, 9.17939e-08, -2.1, -2.1, 1.58546e-07, 6.93025e-15, 0, 0, 0)
+layers = 2
+cast_shadow = 0
+mesh = ExtResource("1_tegwj")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_b3qb0")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+unique_name_in_owner = true
+cull_mask = 32
+fov = 90.0

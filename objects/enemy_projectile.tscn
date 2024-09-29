@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://l41vqqu0yc67"]
+
+[ext_resource type="Script" path="res://scripts/projectile.gd" id="1_gdbee"]
+[ext_resource type="PackedScene" uid="uid://bk4s7o5oj1n5" path="res://objects/indicator_projectile.tscn" id="2_hkt8g"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_chbtw"]
+radius = 0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gxwid"]
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 16.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_tawyh"]
+material = SubResource("StandardMaterial3D_gxwid")
+radius = 0.05
+height = 0.1
+
+[node name="EnemyProjectile" type="RigidBody3D" groups=["EnemyProjectile"]]
+collision_layer = 256
+collision_mask = 262143
+gravity_scale = 0.0
+linear_damp = 1.0
+script = ExtResource("1_gdbee")
+correction_force = 0.5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_chbtw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_tawyh")
+
+[node name="IndicatorProjectile" parent="." instance=ExtResource("2_hkt8g")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
+editor_preview = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

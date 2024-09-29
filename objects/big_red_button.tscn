@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=3 uid="uid://dv4qsnqvmovwh"]
+
+[ext_resource type="PackedScene" uid="uid://cme66uldrjl2i" path="res://addons/godot-xr-tools/interactables/interactable_area_button.tscn" id="1_hsppi"]
+[ext_resource type="Material" uid="uid://bsl8nqkej0v6p" path="res://assets/models/gold.tres" id="2_gdo01"]
+[ext_resource type="Material" uid="uid://bjll72djqr74q" path="res://assets/models/red_plastic.tres" id="3_6siad"]
+[ext_resource type="AudioStream" uid="uid://kadabevtbg5r" path="res://assets/audio/Kenney/Interface/switch_005b.ogg" id="4_t7hfb"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_lpj3d"]
+radius = 0.0431115
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_v0qln"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.01
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_migog"]
+top_radius = 0.04
+bottom_radius = 0.04
+height = 0.03
+
+[sub_resource type="GDScript" id="GDScript_4krem"]
+script/source = "extends AudioStreamPlayer3D
+
+func _ready() -> void:
+	get_parent().button_pressed.connect(_button)
+	get_parent().button_released.connect(_button)
+
+func _button(_butt: Variant) -> void:
+	play()
+"
+
+[node name="BigRedButton" instance=ExtResource("1_hsppi")]
+button = NodePath("MeshInstance3D2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.010325, 0)
+shape = SubResource("SphereShape3D_lpj3d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1"]
+mesh = SubResource("CylinderMesh_v0qln")
+surface_material_override/0 = ExtResource("2_gdo01")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("CylinderMesh_migog")
+surface_material_override/0 = ExtResource("3_6siad")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." index="3"]
+stream = ExtResource("4_t7hfb")
+unit_size = 3.0
+max_db = 1.0
+max_distance = 100.0
+script = SubResource("GDScript_4krem")

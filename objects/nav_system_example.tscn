@@ -1,0 +1,102 @@
+[gd_scene load_steps=16 format=3 uid="uid://b7lx1bvrt3glp"]
+
+[ext_resource type="Script" path="res://scripts/nav_system.gd" id="1_bguw4"]
+[ext_resource type="Material" uid="uid://c6j4a1mb0lsnn" path="res://assets/models/brushed_metal.tres" id="2_pdf5s"]
+[ext_resource type="AudioStream" uid="uid://dnanhnqqufs3e" path="res://assets/audio/Kenney/Interface/switch_002.ogg" id="3_5pv76"]
+[ext_resource type="PackedScene" uid="uid://ce7vysyvondf8" path="res://addons/godot-xr-tools/objects/snap_zone.tscn" id="3_taqe1"]
+[ext_resource type="Material" uid="uid://bsl8nqkej0v6p" path="res://assets/models/gold.tres" id="4_hbjg8"]
+[ext_resource type="Material" uid="uid://igospamby4es" path="res://assets/models/energy_on_material.tres" id="5_g37t7"]
+[ext_resource type="PackedScene" uid="uid://viqryrxonnre" path="res://objects/orientable_hinge.tscn" id="6_bt46a"]
+[ext_resource type="PackedScene" uid="uid://dv4qsnqvmovwh" path="res://objects/big_red_button.tscn" id="7_lp60l"]
+[ext_resource type="Material" uid="uid://bdtjv2pxcjyor" path="res://assets/models/energy_orange_material.tres" id="7_srk1t"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_j288w"]
+size = Vector3(0.41, 0.11, 0.31)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cusyt"]
+size = Vector3(0.41, 0.11, 0.31)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5ppw0"]
+material = ExtResource("4_hbjg8")
+size = Vector2(0.15, 0.15)
+
+[sub_resource type="BoxMesh" id="BoxMesh_q48ae"]
+size = Vector3(0.01, 0.01, 0.01)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_pf2ys"]
+top_radius = 0.0
+bottom_radius = 0.01
+height = 0.1
+
+[sub_resource type="SphereMesh" id="SphereMesh_f42ku"]
+radius = 0.01
+height = 0.02
+
+[node name="NavigationSystem" type="Node3D"]
+script = ExtResource("1_bguw4")
+degrees_per_second = 18.0
+idle_material = ExtResource("5_g37t7")
+moving_material = ExtResource("7_srk1t")
+
+[node name="Rack" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, -0.000139624)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Rack"]
+mesh = SubResource("BoxMesh_j288w")
+surface_material_override/0 = ExtResource("2_pdf5s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Rack"]
+shape = SubResource("BoxShape3D_cusyt")
+
+[node name="Label3D" type="Label3D" parent="Rack"]
+transform = Transform3D(0.44, 0, 0, 0, 0.44, 0, 0, 0, 0.44, 0, 0, 0.156462)
+shaded = true
+double_sided = false
+text = "Navigation"
+
+[node name="CellSnapZone" parent="." instance=ExtResource("3_taqe1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.113217, 1.02575, -0.0553132)
+stash_sound = ExtResource("3_5pv76")
+grab_distance = 0.1
+snap_require = "EnergyCell"
+
+[node name="Ground" type="MeshInstance3D" parent="CellSnapZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0193713, 0)
+mesh = SubResource("PlaneMesh_5ppw0")
+
+[node name="EnergyIndicator1" type="MeshInstance3D" parent="CellSnapZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.065, -0.015, -0.065)
+mesh = SubResource("BoxMesh_q48ae")
+surface_material_override/0 = ExtResource("5_g37t7")
+
+[node name="HingeOrigin" type="Node3D" parent="."]
+transform = Transform3D(1.91069e-15, 4.37114e-08, -1, 1, -4.37114e-08, 0, -4.37114e-08, -1, -4.37114e-08, -0.1, 1.137, 0)
+
+[node name="OrientableHinge" parent="HingeOrigin" instance=ExtResource("6_bt46a")]
+unique_name_in_owner = true
+hinge_steps = 0.0
+
+[node name="ArrowLocalCorrection" type="Node3D" parent="HingeOrigin"]
+transform = Transform3D(1.91069e-15, 1, -4.37114e-08, 4.37114e-08, -4.37114e-08, -1, -1, 0, -4.37114e-08, -0.127387, 5.56826e-09, 0)
+
+[node name="ArrowOrigin" type="Node3D" parent="HingeOrigin/ArrowLocalCorrection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00478053, 0)
+
+[node name="Arrow" type="MeshInstance3D" parent="HingeOrigin/ArrowLocalCorrection/ArrowOrigin"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.05)
+mesh = SubResource("CylinderMesh_pf2ys")
+skeleton = NodePath("../../../..")
+surface_material_override/0 = ExtResource("4_hbjg8")
+
+[node name="BigRedButton" parent="." instance=ExtResource("7_lp60l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.106522, 1.00904, 0.0868725)
+
+[node name="MovingIndicator" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0985429, 1.00314, 0.125902)
+mesh = SubResource("SphereMesh_f42ku")
+surface_material_override/0 = ExtResource("5_g37t7")
+
+[connection signal="has_dropped" from="CellSnapZone" to="." method="_on_cell_snap_zone_has_dropped"]
+[connection signal="has_picked_up" from="CellSnapZone" to="." method="_on_cell_snap_zone_has_picked_up"]
+[connection signal="button_pressed" from="BigRedButton" to="." method="_on_big_red_button_button_pressed"]

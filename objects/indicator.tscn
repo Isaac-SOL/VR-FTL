@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://byap55qn6t83w"]
+
+[ext_resource type="Texture2D" uid="uid://ce4b11hvr20ul" path="res://assets/textures/Kenney/Crosshairs/crosshair122.png" id="1_8srjc"]
+[ext_resource type="Script" path="res://scripts/indicator.gd" id="1_211lr"]
+
+[node name="Indicator" type="Node3D"]
+script = ExtResource("1_211lr")
+
+[node name="Crosshair" type="Sprite3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+layers = 32
+modulate = Color(1, 0, 0, 1)
+no_depth_test = true
+texture_filter = 0
+texture = ExtResource("1_8srjc")

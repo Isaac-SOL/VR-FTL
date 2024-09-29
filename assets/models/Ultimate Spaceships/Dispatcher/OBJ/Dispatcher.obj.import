@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://6dwpja848m71"
+path="res://.godot/imported/Dispatcher.obj-35083396676b1061c823dc80e193631e.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Dispatcher.obj-35083396676b1061c823dc80e193631e.mesh"]
+
+source_file="res://assets/models/Ultimate Spaceships/Dispatcher/OBJ/Dispatcher.obj"
+dest_files=["res://.godot/imported/Dispatcher.obj-35083396676b1061c823dc80e193631e.mesh", "res://.godot/imported/Dispatcher.obj-35083396676b1061c823dc80e193631e.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

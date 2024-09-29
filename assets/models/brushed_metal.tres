@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://c6j4a1mb0lsnn"]
+
+[resource]
+metallic = 1.0
+roughness = 0.5
+anisotropy_enabled = true
+anisotropy = 0.5

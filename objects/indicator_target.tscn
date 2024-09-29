@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bix0hstfrqieu"]
+
+[ext_resource type="PackedScene" uid="uid://byap55qn6t83w" path="res://objects/indicator.tscn" id="1_160gx"]
+[ext_resource type="Texture2D" uid="uid://cnv1tim3ecgav" path="res://assets/textures/Kenney/Crosshairs/crosshair177.png" id="2_8wbdx"]
+
+[node name="IndicatorTarget" instance=ExtResource("1_160gx")]
+
+[node name="Crosshair" parent="." index="0"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+modulate = Color(0, 1, 0, 1)
+texture = ExtResource("2_8wbdx")

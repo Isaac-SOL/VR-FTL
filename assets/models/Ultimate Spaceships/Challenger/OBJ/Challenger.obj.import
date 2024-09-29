@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cmr5d5t2a4aiy"
+path="res://.godot/imported/Challenger.obj-35fabae77f4ccf87c7c0516f607070c4.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Challenger.obj-35fabae77f4ccf87c7c0516f607070c4.mesh"]
+
+source_file="res://assets/models/Ultimate Spaceships/Challenger/OBJ/Challenger.obj"
+dest_files=["res://.godot/imported/Challenger.obj-35fabae77f4ccf87c7c0516f607070c4.mesh", "res://.godot/imported/Challenger.obj-35fabae77f4ccf87c7c0516f607070c4.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
