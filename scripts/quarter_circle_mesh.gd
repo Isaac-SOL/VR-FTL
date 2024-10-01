@@ -23,6 +23,10 @@ signal redrawn
 	set(new_value):
 		reverse = new_value
 		redraw_mesh()
+@export var swap_uv: bool = false:
+	set(new_value):
+		swap_uv = new_value
+		redraw_mesh()
 
 func _ready() -> void:
 	redraw_mesh()
@@ -45,12 +49,14 @@ func redraw_mesh():
 		
 		vert_pos.x = sin(curr_angle) * inner_radius
 		vert_pos.y = cos(curr_angle) * inner_radius
-		im_mesh.surface_set_uv(Vector2(fi / segments, 1))
+		im_mesh.surface_set_uv(Vector2(1, fi / segments) if swap_uv
+							   else Vector2(fi / segments, 1))
 		im_mesh.surface_add_vertex(vert_pos)
 		
 		vert_pos.x = sin(curr_angle) * outer_radius
 		vert_pos.y = cos(curr_angle) * outer_radius
-		im_mesh.surface_set_uv(Vector2(fi / segments, 0))
+		im_mesh.surface_set_uv(Vector2(0, fi / segments) if swap_uv
+							   else Vector2(fi / segments, 0))
 		im_mesh.surface_add_vertex(vert_pos)
 	
 	im_mesh.surface_end()

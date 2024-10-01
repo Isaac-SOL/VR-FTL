@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://ceff8bovxbblw"]
+
+[ext_resource type="PackedScene" uid="uid://damvskku830yr" path="res://objects/enemies/enemy_base.tscn" id="1_j55ub"]
+[ext_resource type="Shader" uid="uid://bid4x5lk8b8bf" path="res://assets/shaders/flame.tres" id="2_ooqwx"]
+[ext_resource type="Texture2D" uid="uid://c0vqpubvs84w0" path="res://assets/models/Julius/muzzleflash.png" id="3_8uq6t"]
+[ext_resource type="PackedScene" uid="uid://dnlbkq43d34y3" path="res://objects/flames/purple_flame.tscn" id="4_4gy1r"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_q6ysy"]
+size = Vector3(5.04356, 1.8396, 1.27045)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t0r3x"]
+size = Vector3(1.31553, 10.6631, 0.745087)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n2jgr"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_ooqwx")
+shader_parameter/Tint = Color(0.537255, 0, 1, 1)
+shader_parameter/FlashTexture = ExtResource("3_8uq6t")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ie17r"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_ooqwx")
+shader_parameter/Tint = Color(0.537255, 0, 1, 1)
+shader_parameter/FlashTexture = ExtResource("3_8uq6t")
+
+[node name="EnemyBasic" instance=ExtResource("1_j55ub")]
+max_hp = 5
+
+[node name="CollisionShape3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.41615, 0, -0.10151)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.578, 0, -0.220621)
+shape = SubResource("BoxShape3D_q6ysy")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.03193, 0, 0.0420595)
+shape = SubResource("BoxShape3D_t0r3x")
+
+[node name="Indicator" parent="." index="5"]
+transform = Transform3D(0.999999, 0, 0, 0, 1, -3.55271e-15, 0, 3.55271e-15, 1, 0, -2.66667, 0)
+
+[node name="PurpleFlame" parent="." index="6"]
+transform = Transform3D(-1.62921e-06, 0, -15, 0, 10, 0, 10, 0, -2.44381e-06, 4.17478, 1.13761, 0.241866)
+surface_material_override/0 = SubResource("ShaderMaterial_n2jgr")
+surface_material_override/1 = SubResource("ShaderMaterial_n2jgr")
+surface_material_override/2 = SubResource("ShaderMaterial_n2jgr")
+
+[node name="PurpleFlame2" parent="." index="7" instance=ExtResource("4_4gy1r")]
+transform = Transform3D(-1.62921e-06, 0, -15, 0, 10, 0, 10, 0, -2.44381e-06, 4.175, -1.138, 0.242)
+surface_material_override/0 = SubResource("ShaderMaterial_ie17r")
+surface_material_override/1 = SubResource("ShaderMaterial_ie17r")
+surface_material_override/2 = SubResource("ShaderMaterial_ie17r")

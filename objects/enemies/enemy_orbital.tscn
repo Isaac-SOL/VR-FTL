@@ -1,0 +1,78 @@
+[gd_scene load_steps=13 format=3 uid="uid://bf4ig4wt66p01"]
+
+[ext_resource type="PackedScene" uid="uid://damvskku830yr" path="res://objects/enemies/enemy_base.tscn" id="1_21m41"]
+[ext_resource type="ArrayMesh" uid="uid://d3vuqs25ayjcq" path="res://assets/models/Ultimate Spaceships/Spitfire/OBJ/Spitfire.obj" id="2_3yy0r"]
+[ext_resource type="Script" path="res://scripts/enemies/enemy_orbital.gd" id="2_gkbrv"]
+[ext_resource type="Shader" uid="uid://bid4x5lk8b8bf" path="res://assets/shaders/flame.tres" id="3_07rnj"]
+[ext_resource type="Texture2D" uid="uid://b66c5gt05p2hx" path="res://assets/models/Ultimate Spaceships/Spitfire/Textures/Spitfire_Red.png" id="3_gsukh"]
+[ext_resource type="Texture2D" uid="uid://c0vqpubvs84w0" path="res://assets/models/Julius/muzzleflash.png" id="4_8ov2b"]
+[ext_resource type="PackedScene" uid="uid://dnlbkq43d34y3" path="res://objects/flames/purple_flame.tscn" id="6_4hagr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rd85m"]
+albedo_texture = ExtResource("3_gsukh")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n2jgr"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("3_07rnj")
+shader_parameter/Tint = Color(0.537255, 0, 1, 1)
+shader_parameter/FlashTexture = ExtResource("4_8ov2b")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mrbyh"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("3_07rnj")
+shader_parameter/Tint = Color(0.537255, 0, 1, 1)
+shader_parameter/FlashTexture = ExtResource("4_8ov2b")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hw0x2"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("3_07rnj")
+shader_parameter/Tint = Color(0.537255, 0, 1, 1)
+shader_parameter/FlashTexture = ExtResource("4_8ov2b")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0arhk"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("3_07rnj")
+shader_parameter/Tint = Color(0.537255, 0, 1, 1)
+shader_parameter/FlashTexture = ExtResource("4_8ov2b")
+
+[node name="EnemyOrbital" instance=ExtResource("1_21m41")]
+script = ExtResource("2_gkbrv")
+degrees_per_second = 10.0
+
+[node name="WeaponAttachPoint" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -2.18358, 0, 0)
+
+[node name="MeshInstance3D" parent="." index="2"]
+mesh = ExtResource("2_3yy0r")
+surface_material_override/0 = SubResource("StandardMaterial3D_rd85m")
+
+[node name="Indicator" parent="." index="3"]
+transform = Transform3D(0.999999, 0, 0, 0, 1, -3.55271e-15, 0, 3.55271e-15, 1, 0, -2.66667, 0)
+
+[node name="PurpleFlame" parent="." index="4"]
+transform = Transform3D(-1.62921e-06, 0, -15, 0, 10, 0, 10, 0, -2.44381e-06, 4.53876, 4.49049, 0.152931)
+surface_material_override/0 = SubResource("ShaderMaterial_n2jgr")
+surface_material_override/1 = SubResource("ShaderMaterial_n2jgr")
+surface_material_override/2 = SubResource("ShaderMaterial_n2jgr")
+
+[node name="PurpleFlame2" parent="." index="5" instance=ExtResource("6_4hagr")]
+transform = Transform3D(-1.62921e-06, 0, -15, 0, 10, 0, 10, 0, -2.44381e-06, 4.53876, 4.49049, -1.25044)
+surface_material_override/0 = SubResource("ShaderMaterial_mrbyh")
+surface_material_override/1 = SubResource("ShaderMaterial_mrbyh")
+surface_material_override/2 = SubResource("ShaderMaterial_mrbyh")
+
+[node name="PurpleFlame3" parent="." index="6" instance=ExtResource("6_4hagr")]
+transform = Transform3D(-1.62921e-06, 0, -15, 0, 10, 0, 10, 0, -2.44381e-06, 4.53876, -4.52554, -1.25044)
+surface_material_override/0 = SubResource("ShaderMaterial_hw0x2")
+surface_material_override/1 = SubResource("ShaderMaterial_hw0x2")
+surface_material_override/2 = SubResource("ShaderMaterial_hw0x2")
+
+[node name="PurpleFlame4" parent="." index="7" instance=ExtResource("6_4hagr")]
+transform = Transform3D(-1.62921e-06, 0, -15, 0, 10, 0, 10, 0, -2.44381e-06, 4.53876, -4.52554, 0.166101)
+surface_material_override/0 = SubResource("ShaderMaterial_0arhk")
+surface_material_override/1 = SubResource("ShaderMaterial_0arhk")
+surface_material_override/2 = SubResource("ShaderMaterial_0arhk")

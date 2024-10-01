@@ -1,5 +1,7 @@
 class_name ShipCore extends RigidBody3D
 
+signal hp_changed(new_hp: int)
+
 @export var max_hp: int = 10
 
 @onready var hp: int = max_hp
@@ -9,8 +11,10 @@ func _ready() -> void:
 
 func check_hp():
 	if hp <= 0:
+		hp = 0
 		print("Perduent!")
 		queue_free()
+	hp_changed.emit(hp)
 
 func update_label():
 	if hp <= 0:

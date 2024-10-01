@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bgocnol6lncjd"]
+[gd_scene load_steps=17 format=3 uid="uid://bgocnol6lncjd"]
 
 [ext_resource type="PackedScene" uid="uid://byap55qn6t83w" path="res://objects/indicator.tscn" id="1_0gmhg"]
 [ext_resource type="Script" path="res://scripts/indicator_example.gd" id="2_4qtfv"]
@@ -34,16 +34,31 @@ albedo_color = Color(0.91575, 0.391381, 0, 1)
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_psq6o"]
 resource_local_to_scene = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pos7f"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_58n87"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("5_v0f8d")
 shader_parameter/color = Color(0, 0.82, 0, 1)
 shader_parameter/max_segments = 3
 shader_parameter/visible_segments = 3
-shader_parameter/segment_spacing = 0.05
+shader_parameter/segment_spacing = 0.03
+shader_parameter/last_space = false
+shader_parameter/reverse_order = false
 
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_vms5f"]
+resource_local_to_scene = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y7qga"]
+render_priority = 0
+shader = ExtResource("5_v0f8d")
+shader_parameter/color = Color(0, 1, 1, 1)
+shader_parameter/max_segments = 5
+shader_parameter/visible_segments = 0
+shader_parameter/segment_spacing = 0.086
+shader_parameter/last_space = false
+shader_parameter/reverse_order = true
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_1sf2u"]
 resource_local_to_scene = true
 
 [node name="Indicator" instance=ExtResource("1_0gmhg")]
@@ -150,9 +165,21 @@ reverse = true
 unique_name_in_owner = true
 transform = Transform3D(0.0871557, -0.996195, 0, 0.996195, 0.0871557, 0, 0, 0, 1, 0, 0, 0)
 layers = 32
-material_override = SubResource("ShaderMaterial_pos7f")
+material_override = SubResource("ShaderMaterial_58n87")
 mesh = SubResource("ImmediateMesh_vms5f")
 inner_radius = 2.7
 outer_radius = 3.0
 degrees = 80.0
 reverse = true
+
+[node name="Shield" parent="." index="8" instance=ExtResource("4_dkmav")]
+unique_name_in_owner = true
+transform = Transform3D(-0.996195, -0.0871557, 8.74228e-08, -0.0871557, 0.996195, 0, -8.70901e-08, -7.6194e-09, -1, 0, 0, 0)
+visible = false
+layers = 32
+material_override = SubResource("ShaderMaterial_y7qga")
+mesh = SubResource("ImmediateMesh_1sf2u")
+inner_radius = 3.1
+outer_radius = 4.25
+degrees = 80.0
+swap_uv = true

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://wnvmmlsqe474"]
+
+[ext_resource type="PackedScene" uid="uid://bfcgkjerxsay3" path="res://objects/weapons/weapon_base.tscn" id="1_fjf8r"]
+
+[node name="WeaponDual" instance=ExtResource("1_fjf8r")]
+weapon_cooldown = 5.5
+shots = 2

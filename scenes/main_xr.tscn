@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://cvglwib0nbv3w"]
+[gd_scene load_steps=40 format=3 uid="uid://cvglwib0nbv3w"]
 
 [ext_resource type="Script" path="res://scripts/main_xr.gd" id="1_xgn4l"]
 [ext_resource type="PackedScene" uid="uid://ddsj74hpt1kgb" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_physics_tac_glove.tscn" id="2_1fc4o"]
@@ -12,11 +12,18 @@
 [ext_resource type="PackedScene" uid="uid://dyjpt2kj78udn" path="res://objects/core.tscn" id="10_07g72"]
 [ext_resource type="PackedScene" uid="uid://dcb2rnjj7i53k" path="res://objects/shield.tscn" id="10_mnrau"]
 [ext_resource type="PackedScene" uid="uid://dfuaf5pb2eiea" path="res://objects/pickable_gun.tscn" id="11_iq5it"]
-[ext_resource type="PackedScene" uid="uid://dg0cn1gvugvrf" path="res://objects/basic_enemy.tscn" id="12_nvml8"]
+[ext_resource type="PackedScene" uid="uid://c2fybfvjcllyl" path="res://objects/quarter_circle_mesh.tscn" id="11_nb36m"]
+[ext_resource type="Shader" path="res://assets/shaders/hp_bar_enemy.gdshader" id="12_bxa7l"]
 [ext_resource type="PackedScene" uid="uid://diqcwca2on1df" path="res://objects/pickable_energy_cell.tscn" id="14_trw2q"]
 [ext_resource type="PackedScene" uid="uid://b7lx1bvrt3glp" path="res://objects/nav_system_example.tscn" id="16_bwulk"]
 [ext_resource type="PackedScene" uid="uid://bhsx1muleg6rb" path="res://objects/weapon_system_example.tscn" id="16_pivml"]
 [ext_resource type="PackedScene" uid="uid://bq2us4wa6ntyh" path="res://objects/shield_system_example.tscn" id="17_5wwgv"]
+[ext_resource type="Script" path="res://scripts/enemy_spawner.gd" id="19_w5q7l"]
+[ext_resource type="PackedScene" uid="uid://ceff8bovxbblw" path="res://objects/enemies/enemy_basic.tscn" id="20_r6ant"]
+[ext_resource type="PackedScene" uid="uid://bf4ig4wt66p01" path="res://objects/enemies/enemy_orbital.tscn" id="21_5n1s0"]
+[ext_resource type="PackedScene" uid="uid://bfcgkjerxsay3" path="res://objects/weapons/weapon_base.tscn" id="22_t2x7m"]
+[ext_resource type="PackedScene" uid="uid://1am3p863flny" path="res://objects/weapons/weapon_bl2.tscn" id="23_u3ac8"]
+[ext_resource type="PackedScene" uid="uid://wnvmmlsqe474" path="res://objects/weapons/weapon_dual.tscn" id="24_2saj3"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_0yy2b"]
 size = Vector3(2, 0.1, 1.5)
@@ -49,6 +56,19 @@ size = Vector3(10, 0.05, 10)
 [sub_resource type="BoxShape3D" id="BoxShape3D_xljkp"]
 size = Vector3(0.5, 0.5, 0.016)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_05k3x"]
+render_priority = 0
+shader = ExtResource("12_bxa7l")
+shader_parameter/color = Color(1, 0, 0, 1)
+shader_parameter/max_segments = 10
+shader_parameter/visible_segments = 10
+shader_parameter/segment_spacing = 0.01
+shader_parameter/last_space = true
+shader_parameter/reverse_order = false
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_qe543"]
+resource_local_to_scene = true
+
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5qrol"]
 sky_top_color = Color(0.3526, 0.564017, 0.86, 1)
 sky_horizon_color = Color(0.79, 0.667813, 0.5372, 1)
@@ -71,6 +91,7 @@ glow_blend_mode = 0
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_2pxkv"]
 
 [node name="Main" type="Node3D"]
+process_priority = -1
 script = ExtResource("1_xgn4l")
 
 [node name="Ship" type="Node3D" parent="."]
@@ -224,6 +245,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 [node name="Core" parent="Ship/World" instance=ExtResource("10_07g72")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
 
+[node name="CoreHP" parent="Ship/World" instance=ExtResource("11_nb36m")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 4.05354, 0)
+layers = 32
+material_override = SubResource("ShaderMaterial_05k3x")
+mesh = SubResource("ImmediateMesh_qe543")
+segments = 96
+inner_radius = 1.5
+outer_radius = 2.0
+degrees = 360.0
+
 [node name="ReflectionProbe" type="ReflectionProbe" parent="Ship/World"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 enable_shadows = true
@@ -255,10 +287,11 @@ shield = NodePath("../../World/Shield")
 [node name="NavigationSystem" parent="Ship/Dynamic" instance=ExtResource("16_bwulk")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.8, 0, 0.6)
 
-[node name="Enemies" type="Node3D" parent="."]
-
-[node name="BasicEnemy" parent="Enemies" instance=ExtResource("12_nvml8")]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.365871, 2.21208, -5.96673)
+[node name="EnemySpawner" type="Node3D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("19_w5q7l")
+enemies = Array[PackedScene]([ExtResource("20_r6ant"), ExtResource("21_5n1s0")])
+weapons = Array[PackedScene]([ExtResource("22_t2x7m"), ExtResource("23_u3ac8"), ExtResource("24_2saj3")])
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_bssff")
@@ -271,4 +304,5 @@ directional_shadow_mode = 1
 directional_shadow_split_1 = 0.3
 directional_shadow_max_distance = 10.0
 
+[connection signal="hp_changed" from="Ship/World/Core" to="." method="_on_core_hp_changed"]
 [connection signal="started_moving" from="Ship/Dynamic/NavigationSystem" to="." method="_on_navigation_system_started_moving"]
