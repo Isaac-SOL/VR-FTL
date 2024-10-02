@@ -19,7 +19,7 @@ size = Vector3(0.03, 0.15, 0.06)
 size = Vector3(0.03, 0.15, 0.06)
 
 [sub_resource type="BoxMesh" id="BoxMesh_liyr2"]
-size = Vector3(0.04, 0.035, 0.04)
+size = Vector3(0.04, 0.015, 0.04)
 
 [sub_resource type="Resource" id="Resource_hjshv"]
 script = ExtResource("5_g14sa")
@@ -34,7 +34,7 @@ closed_pose = ExtResource("8_iiom6")
 [node name="PickableEnergyCell" groups=["EnergyCell"] instance=ExtResource("1_74tt6")]
 collision_mask = 16842759
 script = ExtResource("2_1vl4k")
-max_energy = 3
+max_energy = 6
 energy = 0
 on_material = ExtResource("2_j3fyn")
 off_material = ExtResource("3_8r5vi")
@@ -50,20 +50,42 @@ mesh = SubResource("BoxMesh_i7nwj")
 unique_name_in_owner = true
 
 [node name="Energy1" type="MeshInstance3D" parent="Energy" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.045, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.057, 0)
 material_override = ExtResource("3_8r5vi")
 mesh = SubResource("BoxMesh_liyr2")
 skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("2_j3fyn")
 
 [node name="Energy2" type="MeshInstance3D" parent="Energy" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.035, 0)
 material_override = ExtResource("3_8r5vi")
 mesh = SubResource("BoxMesh_liyr2")
 skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("3_8r5vi")
 
 [node name="Energy3" type="MeshInstance3D" parent="Energy" index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.012, 0)
+material_override = ExtResource("3_8r5vi")
+mesh = SubResource("BoxMesh_liyr2")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_8r5vi")
+
+[node name="Energy4" type="MeshInstance3D" parent="Energy" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.012, 0)
+material_override = ExtResource("3_8r5vi")
+mesh = SubResource("BoxMesh_liyr2")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_8r5vi")
+
+[node name="Energy5" type="MeshInstance3D" parent="Energy" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.035, 0)
+material_override = ExtResource("3_8r5vi")
+mesh = SubResource("BoxMesh_liyr2")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_8r5vi")
+
+[node name="Energy6" type="MeshInstance3D" parent="Energy" index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.057, 0)
 material_override = ExtResource("3_8r5vi")
 mesh = SubResource("BoxMesh_liyr2")
 skeleton = NodePath("../..")

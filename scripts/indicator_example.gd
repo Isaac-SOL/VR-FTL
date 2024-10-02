@@ -7,9 +7,15 @@ func set_weapon_active(active: bool):
 	$LabelWeapon.visible = active
 	%Load.visible = active
 
-func set_reload(reload: int):
-	var ratio := reload / 150.0
-	%Load.degrees = ratio * 80
+func set_special_active(active: bool):
+	$LabelSpecial.visible = active
+	%SpecialLoad.visible = active
+
+func set_reload(reload: float):
+	%Load.degrees = reload * 80
+
+func set_special_reload(reload: float):
+	%SpecialLoad.degrees = reload * 80
 
 func set_angle(angle: float):
 	%LabelAngle.text = str(floori(rad_to_deg(angle))) + "°"

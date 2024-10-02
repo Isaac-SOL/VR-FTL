@@ -10,4 +10,5 @@ func spawn_enemy():
 	var new_enemy = enemies.pick_random().instantiate() as EnemyBase
 	new_enemy.position = Vector3.FORWARD.rotated(Vector3.UP, randf_range(0, TAU)) * randf_range(distance_min, distance_max)
 	add_child(new_enemy)
-	new_enemy.attach_weapon(weapons.pick_random())
+	if new_enemy.attach_weapons:
+		new_enemy.attach_weapon(weapons.pick_random())

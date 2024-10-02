@@ -35,7 +35,7 @@ albedo_texture = SubResource("ViewportTexture_xre82")
 script = SubResource("GDScript_fyeeg")
 
 [node name="Screen" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1.43446e-07, -1.9, -8.30516e-08, 0, 8.30516e-08, -1.9, -1.9, 1.43446e-07, 6.27022e-15, 0, 0, 0)
+transform = Transform3D(-1.47221e-07, -1.95, -8.52372e-08, 0, 8.52372e-08, -1.95, -1.95, 1.47221e-07, 6.43523e-15, 0, 0, 0)
 layers = 2
 cast_shadow = 0
 mesh = ExtResource("1_tegwj")
@@ -51,7 +51,7 @@ skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_bg2mh")
 
 [node name="Screen3" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1.58546e-07, -2.1, -9.17939e-08, 0, 9.17939e-08, -2.1, -2.1, 1.58546e-07, 6.93025e-15, 0, 0, 0)
+transform = Transform3D(-1.54771e-07, -2.05, -8.96083e-08, 0, 8.96083e-08, -2.05, -2.05, 1.54771e-07, 6.76524e-15, 0, 0, 0)
 layers = 2
 cast_shadow = 0
 mesh = ExtResource("1_tegwj")

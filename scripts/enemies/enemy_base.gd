@@ -4,6 +4,7 @@ class_name EnemyBase extends Area3D
 	set(new_value):
 		max_hp = new_value
 		%Indicator.set_max_hp(max_hp)
+@export var attach_weapons: bool = true
 
 const max_shield = 5
 
@@ -29,6 +30,8 @@ func _ready() -> void:
 	%Indicator.set_hp(hp)
 	if %WeaponAttachPoint.get_child_count() > 0:
 		weapon = %WeaponAttachPoint.get_child(0)
+	else:
+		%Indicator.set_weapon_active(false)
 
 func _process(delta: float) -> void:
 	frame(delta)
@@ -45,6 +48,7 @@ func frame(_delta: float):
 
 func update_indicator():
 	%Indicator.set_angle(get_angle())
+	if weapon: weapon.update_indicator()
 
 func attach_weapon(wpn: PackedScene):
 	weapon = wpn.instantiate() as WeaponBase
@@ -53,6 +57,9 @@ func attach_weapon(wpn: PackedScene):
 func _on_body_entered(body: Node3D) -> void:
 	if body.is_in_group("PlayerProjectile"):
 		body.queue_free()
-		hp -= 1
+		if shield > 0:
+			shield -= 1
+		else:
+			hp -= 1
 		if hp <= 0:
 			queue_free()

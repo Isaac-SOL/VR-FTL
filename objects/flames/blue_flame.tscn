@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://cnhiashwqus8r"]
+
+[ext_resource type="PackedScene" uid="uid://ydkx60t4yf63" path="res://objects/flames/flame.tscn" id="1_k70cl"]
+[ext_resource type="Shader" uid="uid://bid4x5lk8b8bf" path="res://assets/shaders/flame.tres" id="2_026ev"]
+[ext_resource type="Texture2D" uid="uid://c0vqpubvs84w0" path="res://assets/models/Julius/muzzleflash.png" id="3_gr7ol"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_422rg"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_026ev")
+shader_parameter/Tint = Color(0, 0.764706, 1, 1)
+shader_parameter/FlashTexture = ExtResource("3_gr7ol")
+
+[node name="Flame" instance=ExtResource("1_k70cl")]
+surface_material_override/0 = SubResource("ShaderMaterial_422rg")
+surface_material_override/1 = SubResource("ShaderMaterial_422rg")
+surface_material_override/2 = SubResource("ShaderMaterial_422rg")

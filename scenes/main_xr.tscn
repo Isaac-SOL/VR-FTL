@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://cvglwib0nbv3w"]
+[gd_scene load_steps=42 format=3 uid="uid://cvglwib0nbv3w"]
 
 [ext_resource type="Script" path="res://scripts/main_xr.gd" id="1_xgn4l"]
 [ext_resource type="PackedScene" uid="uid://ddsj74hpt1kgb" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_physics_tac_glove.tscn" id="2_1fc4o"]
@@ -21,9 +21,11 @@
 [ext_resource type="Script" path="res://scripts/enemy_spawner.gd" id="19_w5q7l"]
 [ext_resource type="PackedScene" uid="uid://ceff8bovxbblw" path="res://objects/enemies/enemy_basic.tscn" id="20_r6ant"]
 [ext_resource type="PackedScene" uid="uid://bf4ig4wt66p01" path="res://objects/enemies/enemy_orbital.tscn" id="21_5n1s0"]
+[ext_resource type="PackedScene" uid="uid://c114yohjuthyh" path="res://objects/enemies/enemy_shielder.tscn" id="22_ntop1"]
 [ext_resource type="PackedScene" uid="uid://bfcgkjerxsay3" path="res://objects/weapons/weapon_base.tscn" id="22_t2x7m"]
 [ext_resource type="PackedScene" uid="uid://1am3p863flny" path="res://objects/weapons/weapon_bl2.tscn" id="23_u3ac8"]
 [ext_resource type="PackedScene" uid="uid://wnvmmlsqe474" path="res://objects/weapons/weapon_dual.tscn" id="24_2saj3"]
+[ext_resource type="Texture2D" uid="uid://ducm03c8at157" path="res://assets/textures/NoLogoGames/skybox_panorama.png" id="26_hfid5"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_0yy2b"]
 size = Vector3(2, 0.1, 1.5)
@@ -69,13 +71,11 @@ shader_parameter/reverse_order = false
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_qe543"]
 resource_local_to_scene = true
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5qrol"]
-sky_top_color = Color(0.3526, 0.564017, 0.86, 1)
-sky_horizon_color = Color(0.79, 0.667813, 0.5372, 1)
-ground_horizon_color = Color(0.79, 0.667813, 0.5372, 1)
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_5nkra"]
+panorama = ExtResource("26_hfid5")
 
 [sub_resource type="Sky" id="Sky_h3ng5"]
-sky_material = SubResource("ProceduralSkyMaterial_5qrol")
+sky_material = SubResource("PanoramaSkyMaterial_5nkra")
 
 [sub_resource type="Environment" id="Environment_bssff"]
 background_mode = 2
@@ -216,6 +216,10 @@ shape = SubResource("BoxShape3D_r52ql")
 transform = Transform3D(-4.37114e-08, -0.707107, -0.707107, 0, 0.707107, -0.707107, 1, -3.09086e-08, -3.09086e-08, 1, 0, 0)
 shape = SubResource("BoxShape3D_r52ql")
 
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="Ship/World/Boundaries"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.49391, 0)
+shape = SubResource("BoxShape3D_r52ql")
+
 [node name="ShipScreenHolder" type="Node3D" parent="Ship/World"]
 transform = Transform3D(-1, 1.13133e-08, -8.59334e-08, -1.13133e-08, 0.965926, 0.258819, 8.59334e-08, 0.258819, -0.965926, 0.688664, 1.30764, 0.58551)
 
@@ -290,8 +294,11 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.8, 
 [node name="EnemySpawner" type="Node3D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("19_w5q7l")
-enemies = Array[PackedScene]([ExtResource("20_r6ant"), ExtResource("21_5n1s0")])
+enemies = Array[PackedScene]([ExtResource("20_r6ant"), ExtResource("21_5n1s0"), ExtResource("22_ntop1")])
 weapons = Array[PackedScene]([ExtResource("22_t2x7m"), ExtResource("23_u3ac8"), ExtResource("24_2saj3")])
+
+[node name="Projectiles" type="Node3D" parent="."]
+unique_name_in_owner = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_bssff")
@@ -299,7 +306,9 @@ camera_attributes = SubResource("CameraAttributesPractical_2pxkv")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.888281, 0.282452, -0.362186, 0, 0.788558, 0.61496, 0.459301, -0.546257, 0.700461, 0, 4.42039, 0)
+light_color = Color(0.842333, 0.78, 1, 1)
 shadow_enabled = true
+shadow_bias = 0.03
 directional_shadow_mode = 1
 directional_shadow_split_1 = 0.3
 directional_shadow_max_distance = 10.0

@@ -21,7 +21,7 @@ func shoot():
 	%Flash.visible = true
 	
 	var projectile: RigidBody3D = projectile_scene.instantiate()
-	get_parent_node_3d().add_child(projectile)
+	Singletons.projectiles.add_child(projectile)
 	projectile.global_position = %Flash.global_position
 	projectile.apply_impulse(-global_basis.z * projectile_impulse)
 	

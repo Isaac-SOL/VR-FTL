@@ -7,6 +7,7 @@ signal regenerate_shield_pressed
 signal spawn_enemy
 
 func _ready() -> void:
+	await get_tree().process_frame
 	spawn_enemy.connect(Singletons.main._on_spawn_enemy_pressed)
 
 func output_message(msg: String) -> void:

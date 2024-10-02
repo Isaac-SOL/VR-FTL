@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bhsx1muleg6rb"]
+[gd_scene load_steps=19 format=3 uid="uid://bhsx1muleg6rb"]
 
 [ext_resource type="Material" uid="uid://c6j4a1mb0lsnn" path="res://assets/models/brushed_metal.tres" id="1_o8xko"]
 [ext_resource type="Script" path="res://scripts/weapon_system.gd" id="1_svxjn"]
@@ -17,7 +17,10 @@
 size = Vector3(1.01, 0.11, 0.31)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cusyt"]
-size = Vector3(1.01, 0.11, 0.31)
+size = Vector3(0.539, 0.15, 0.23)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4lolr"]
+size = Vector3(0.539, 0.15, 0.23)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_5ppw0"]
 material = ExtResource("3_3gmll")
@@ -52,6 +55,17 @@ shaded = true
 double_sided = false
 text = "Weapon"
 
+[node name="Rack2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0, 0.997482, -0.6)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Rack2"]
+mesh = SubResource("BoxMesh_4lolr")
+skeleton = NodePath("../../..")
+surface_material_override/0 = ExtResource("1_o8xko")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Rack2"]
+shape = SubResource("BoxShape3D_cusyt")
+
 [node name="CellSnapZone" parent="." instance=ExtResource("2_mt5sv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.393983, 1.02575, -0.595761)
 stash_sound = ExtResource("6_3h5fb")
@@ -78,7 +92,7 @@ mesh = SubResource("BoxMesh_q48ae")
 surface_material_override/0 = ExtResource("5_h6iod")
 
 [node name="WeaponSliderOrigin" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.248441, 1.10494, -0.482427)
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, -0.248441, 1.08967, -0.43083)
 
 [node name="WeaponSlider" parent="WeaponSliderOrigin" instance=ExtResource("4_2e86t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.1, 0)
@@ -86,7 +100,7 @@ slider_limit_max = Vector2(0.5, 0.2)
 slider_position = Vector2(0.25, 0.1)
 
 [node name="Ground" type="MeshInstance3D" parent="WeaponSliderOrigin"]
-transform = Transform3D(-6.11817e-08, 0, 3.45681, 1.39967, -4.37114e-08, 1.51102e-07, 6.11817e-08, 1, 6.60489e-15, 0.248441, 0.0995734, -0.0995771)
+transform = Transform3D(-6.11817e-08, 0, 3.45681, 1.39967, -4.37114e-08, 1.51102e-07, 6.11817e-08, 1, 6.60489e-15, 0.248441, 0.0995734, -0.0890821)
 mesh = SubResource("PlaneMesh_5ppw0")
 skeleton = NodePath("../../CylinderSliderOrigin")
 
@@ -113,7 +127,6 @@ unique_name_in_owner = true
 min_rotation = Vector2(-0.785, -0.393)
 max_rotation = Vector2(0.785, 0.393)
 swap_x = true
-swap_y = true
 
 [node name="Shooters" type="Node3D" parent="."]
 

@@ -1,0 +1,9 @@
+[gd_resource type="ProceduralSkyMaterial" load_steps=2 format=3 uid="uid://bca40dmj788sl"]
+
+[ext_resource type="Texture2D" uid="uid://ducm03c8at157" path="res://assets/textures/NoLogoGames/skybox_panorama.png" id="1_l0six"]
+
+[resource]
+sky_top_color = Color(0, 0, 0, 1)
+sky_horizon_color = Color(0.79, 0.667813, 0.5372, 1)
+sky_cover = ExtResource("1_l0six")
+ground_horizon_color = Color(0.79, 0.667813, 0.5372, 1)

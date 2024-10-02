@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bgocnol6lncjd"]
+[gd_scene load_steps=19 format=3 uid="uid://bgocnol6lncjd"]
 
 [ext_resource type="PackedScene" uid="uid://byap55qn6t83w" path="res://objects/indicator.tscn" id="1_0gmhg"]
 [ext_resource type="Script" path="res://scripts/indicator_example.gd" id="2_4qtfv"]
@@ -34,7 +34,14 @@ albedo_color = Color(0.91575, 0.391381, 0, 1)
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_psq6o"]
 resource_local_to_scene = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_58n87"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nfaa3"]
+shading_mode = 0
+albedo_color = Color(0, 0.32549, 1, 1)
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_hg7rx"]
+resource_local_to_scene = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xld3s"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("5_v0f8d")
@@ -77,10 +84,11 @@ no_depth_test = true
 texture_filter = 0
 texture = ExtResource("2_5v7hb")
 script = SubResource("GDScript_cclgf")
+rotation_speed = 0.3
 
 [node name="LabelAngle" type="Label3D" parent="." index="2"]
 unique_name_in_owner = true
-transform = Transform3D(-3.53553, -3.53553, -7.54979e-07, -3.53553, 3.53553, 0, 5.33851e-07, 5.33851e-07, -5, 2, -2, 0)
+transform = Transform3D(-3.53553, 3.53553, 4.37114e-07, 3.53553, 3.53553, 0, -3.09086e-07, 3.09086e-07, -5, 1.6, 1.6, 0)
 layers = 32
 double_sided = false
 texture_filter = 0
@@ -112,7 +120,19 @@ text = "WPN"
 font_size = 16
 outline_size = 6
 
-[node name="Visor" type="Node3D" parent="." index="5"]
+[node name="LabelSpecial" type="Label3D" parent="." index="5"]
+transform = Transform3D(-3.53553, -3.53553, -4.37114e-07, -3.53553, 3.53553, 0, 3.09086e-07, 3.09086e-07, -5, 1.6, -1.6, 0)
+visible = false
+layers = 32
+double_sided = false
+texture_filter = 0
+modulate = Color(0.5, 0.5, 0.5, 1)
+outline_modulate = Color(0.25, 0.25, 0.25, 0.392157)
+text = "SPC"
+font_size = 16
+outline_size = 6
+
+[node name="Visor" type="Node3D" parent="." index="6"]
 
 [node name="Visor1" parent="Visor" index="0" instance=ExtResource("4_dkmav")]
 transform = Transform3D(-0.996195, -0.0871557, 8.74228e-08, -0.0871557, 0.996195, 0, -8.70901e-08, -7.6194e-09, -1, 0, 0, 0)
@@ -150,7 +170,7 @@ inner_radius = 2.5
 outer_radius = 2.6
 degrees = 80.0
 
-[node name="Load" parent="." index="6" instance=ExtResource("4_dkmav")]
+[node name="Load" parent="." index="7" instance=ExtResource("4_dkmav")]
 unique_name_in_owner = true
 transform = Transform3D(-0.996195, -0.0871558, 0, 0.0871558, -0.996195, 0, 0, 0, 1, 0, 0, 0)
 layers = 32
@@ -161,18 +181,29 @@ outer_radius = 2.9
 degrees = 80.0
 reverse = true
 
-[node name="HP" parent="." index="7" instance=ExtResource("4_dkmav")]
+[node name="SpecialLoad" parent="." index="8" instance=ExtResource("4_dkmav")]
+unique_name_in_owner = true
+transform = Transform3D(0.996195, 0.0871558, 8.74228e-08, 0.0871558, -0.996195, 0, 8.70901e-08, 7.6194e-09, -1, 0, 0, 0)
+visible = false
+layers = 32
+material_override = SubResource("StandardMaterial3D_nfaa3")
+mesh = SubResource("ImmediateMesh_hg7rx")
+inner_radius = 2.7
+outer_radius = 2.9
+degrees = 80.0
+
+[node name="HP" parent="." index="9" instance=ExtResource("4_dkmav")]
 unique_name_in_owner = true
 transform = Transform3D(0.0871557, -0.996195, 0, 0.996195, 0.0871557, 0, 0, 0, 1, 0, 0, 0)
 layers = 32
-material_override = SubResource("ShaderMaterial_58n87")
+material_override = SubResource("ShaderMaterial_xld3s")
 mesh = SubResource("ImmediateMesh_vms5f")
 inner_radius = 2.7
 outer_radius = 3.0
 degrees = 80.0
 reverse = true
 
-[node name="Shield" parent="." index="8" instance=ExtResource("4_dkmav")]
+[node name="Shield" parent="." index="10" instance=ExtResource("4_dkmav")]
 unique_name_in_owner = true
 transform = Transform3D(-0.996195, -0.0871557, 8.74228e-08, -0.0871557, 0.996195, 0, -8.70901e-08, -7.6194e-09, -1, 0, 0, 0)
 visible = false
