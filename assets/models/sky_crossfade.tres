@@ -1,0 +1,141 @@
+[gd_resource type="VisualShader" load_steps=13 format=3 uid="uid://njno053wxcjh"]
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_15v0m"]
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_3sjms"]
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_38t6l"]
+source = 5
+
+[sub_resource type="VisualShaderNodeVectorCompose" id="VisualShaderNodeVectorCompose_pr5bs"]
+op_type = 0
+
+[sub_resource type="VisualShaderNodeVectorCompose" id="VisualShaderNodeVectorCompose_a5qef"]
+op_type = 0
+
+[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_dwgmo"]
+default_input_values = [0, Quaternion(0, 0, 0, 0), 1, Quaternion(1, 1, 1, 1), 2, 0.5]
+expanded_output_ports = [0]
+op_type = 6
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_0md01"]
+parameter_name = "Panoramic"
+texture_type = 1
+color_default = 1
+texture_repeat = 1
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_7i3yi"]
+source = 5
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_e7erc"]
+expanded_output_ports = [0]
+input_name = "sky_coords"
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_510el"]
+parameter_name = "VerticalRotationA"
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_d3uvo"]
+parameter_name = "VerticalRotationB"
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_u3jkh"]
+parameter_name = "Blend"
+hint = 1
+
+[resource]
+code = "shader_type sky;
+uniform float VerticalRotationA;
+uniform sampler2D Panoramic : source_color, hint_default_black, repeat_enable;
+uniform float VerticalRotationB;
+uniform float Blend : hint_range(0, 1);
+
+
+
+void sky() {
+// FloatParameter:7
+	float n_out7p0 = VerticalRotationA;
+
+
+// Input:6
+	vec2 n_out6p0 = SKY_COORDS;
+	float n_out6p1 = n_out6p0.r;
+	float n_out6p2 = n_out6p0.g;
+
+
+// FloatOp:11
+	float n_out11p0 = n_out7p0 + n_out6p1;
+
+
+// VectorCompose:13
+	vec2 n_out13p0 = vec2(n_out11p0, n_out6p2);
+
+
+	vec4 n_out12p0;
+// Texture2D:12
+	n_out12p0 = texture(Panoramic, n_out13p0);
+
+
+// FloatParameter:8
+	float n_out8p0 = VerticalRotationB;
+
+
+// FloatOp:10
+	float n_out10p0 = n_out8p0 + n_out6p1;
+
+
+// VectorCompose:14
+	vec2 n_out14p0 = vec2(n_out10p0, n_out6p2);
+
+
+	vec4 n_out4p0;
+// Texture2D:4
+	n_out4p0 = texture(Panoramic, n_out14p0);
+
+
+// FloatParameter:9
+	float n_out9p0 = Blend;
+
+
+// Mix:15
+	vec4 n_out15p0 = mix(n_out12p0, n_out4p0, n_out9p0);
+	float n_out15p4 = n_out15p0.a;
+
+
+// Output:0
+	COLOR = vec3(n_out15p0.xyz);
+	ALPHA = n_out15p4;
+
+
+}
+"
+graph_offset = Vector2(-285.516, -351.999)
+mode = 3
+flags/use_half_res_pass = false
+flags/use_quarter_res_pass = false
+flags/disable_fog = false
+flags/use_debanding = false
+nodes/sky/0/position = Vector2(1120, -180)
+nodes/sky/2/node = SubResource("VisualShaderNodeTexture2DParameter_0md01")
+nodes/sky/2/position = Vector2(-240, 80)
+nodes/sky/4/node = SubResource("VisualShaderNodeTexture_7i3yi")
+nodes/sky/4/position = Vector2(320, -60)
+nodes/sky/6/node = SubResource("VisualShaderNodeInput_e7erc")
+nodes/sky/6/position = Vector2(-860, -140)
+nodes/sky/7/node = SubResource("VisualShaderNodeFloatParameter_510el")
+nodes/sky/7/position = Vector2(-860, -540)
+nodes/sky/8/node = SubResource("VisualShaderNodeFloatParameter_d3uvo")
+nodes/sky/8/position = Vector2(-860, -340)
+nodes/sky/9/node = SubResource("VisualShaderNodeFloatParameter_u3jkh")
+nodes/sky/9/position = Vector2(320, 140)
+nodes/sky/10/node = SubResource("VisualShaderNodeFloatOp_15v0m")
+nodes/sky/10/position = Vector2(-440, -280)
+nodes/sky/11/node = SubResource("VisualShaderNodeFloatOp_3sjms")
+nodes/sky/11/position = Vector2(-440, -440)
+nodes/sky/12/node = SubResource("VisualShaderNodeTexture_38t6l")
+nodes/sky/12/position = Vector2(320, -240)
+nodes/sky/13/node = SubResource("VisualShaderNodeVectorCompose_pr5bs")
+nodes/sky/13/position = Vector2(-120, -260)
+nodes/sky/14/node = SubResource("VisualShaderNodeVectorCompose_a5qef")
+nodes/sky/14/position = Vector2(-120, -100)
+nodes/sky/15/node = SubResource("VisualShaderNodeMix_dwgmo")
+nodes/sky/15/position = Vector2(740, -240)
+nodes/sky/connections = PackedInt32Array(2, 0, 4, 2, 6, 1, 10, 1, 8, 0, 10, 0, 7, 0, 11, 0, 6, 1, 11, 1, 11, 0, 13, 0, 10, 0, 14, 0, 6, 2, 14, 1, 6, 2, 13, 1, 2, 0, 12, 2, 13, 0, 12, 0, 14, 0, 4, 0, 4, 0, 15, 1, 12, 0, 15, 0, 9, 0, 15, 2, 15, 0, 0, 0, 15, 4, 0, 1)

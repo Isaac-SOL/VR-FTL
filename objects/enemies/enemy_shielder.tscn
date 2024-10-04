@@ -30,11 +30,15 @@ shader_parameter/FlashTexture = ExtResource("6_vaypu")
 script = ExtResource("2_vtu5d")
 max_shield_level = 1
 shield_cooldown = 7.0
+max_hp = 2
 attach_weapons = false
 
 [node name="MeshInstance3D" parent="." index="2"]
 mesh = ExtResource("2_le80y")
 surface_material_override/0 = SubResource("StandardMaterial3D_sirvg")
+
+[node name="Indicator" parent="." index="3"]
+transform = Transform3D(0.999999, 0, 0, 0, 1, -3.55271e-15, 0, 3.55271e-15, 1, 0, -2.66667, 0)
 
 [node name="PurpleFlame" parent="." index="4"]
 unique_name_in_owner = false

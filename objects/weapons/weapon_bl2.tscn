@@ -3,5 +3,5 @@
 [ext_resource type="PackedScene" uid="uid://bfcgkjerxsay3" path="res://objects/weapons/weapon_base.tscn" id="1_w483x"]
 
 [node name="WeaponBLII" instance=ExtResource("1_w483x")]
-weapon_cooldown = 7.5
+weapon_cooldown = 15.0
 shots = 3

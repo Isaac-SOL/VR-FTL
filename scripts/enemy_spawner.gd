@@ -1,5 +1,7 @@
 class_name EnemySpawner extends Node3D
 
+signal enemy_spawned(enemy: EnemyBase)
+
 @export var enemies: Array[PackedScene]
 @export var weapons: Array[PackedScene]
 
@@ -12,3 +14,4 @@ func spawn_enemy():
 	add_child(new_enemy)
 	if new_enemy.attach_weapons:
 		new_enemy.attach_weapon(weapons.pick_random())
+	enemy_spawned.emit(new_enemy)

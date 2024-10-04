@@ -1,6 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://b7lx1bvrt3glp"]
+[gd_scene load_steps=19 format=3 uid="uid://b7lx1bvrt3glp"]
 
 [ext_resource type="Script" path="res://scripts/nav_system.gd" id="1_bguw4"]
+[ext_resource type="PackedScene" uid="uid://cqigtmgwtll2j" path="res://objects/enemy_viewer.tscn" id="2_kx271"]
 [ext_resource type="Material" uid="uid://c6j4a1mb0lsnn" path="res://assets/models/brushed_metal.tres" id="2_pdf5s"]
 [ext_resource type="AudioStream" uid="uid://dnanhnqqufs3e" path="res://assets/audio/Kenney/Interface/switch_002.ogg" id="3_5pv76"]
 [ext_resource type="PackedScene" uid="uid://ce7vysyvondf8" path="res://addons/godot-xr-tools/objects/snap_zone.tscn" id="3_taqe1"]
@@ -23,6 +24,14 @@ size = Vector2(0.15, 0.15)
 [sub_resource type="BoxMesh" id="BoxMesh_q48ae"]
 size = Vector3(0.01, 0.01, 0.01)
 
+[sub_resource type="BoxMesh" id="BoxMesh_ci4v1"]
+material = ExtResource("4_hbjg8")
+size = Vector3(0.021, 0.02, 0.016)
+
+[sub_resource type="PrismMesh" id="PrismMesh_ckwv7"]
+material = ExtResource("5_g37t7")
+size = Vector3(0.12, 0.06, 0.003)
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_pf2ys"]
 top_radius = 0.0
 bottom_radius = 0.01
@@ -35,6 +44,7 @@ height = 0.02
 [node name="NavigationSystem" type="Node3D"]
 script = ExtResource("1_bguw4")
 degrees_per_second = 18.0
+enemy_viewer_scene = ExtResource("2_kx271")
 idle_material = ExtResource("5_g37t7")
 moving_material = ExtResource("7_srk1t")
 
@@ -76,8 +86,19 @@ transform = Transform3D(1.91069e-15, 4.37114e-08, -1, 1, -4.37114e-08, 0, -4.371
 unique_name_in_owner = true
 hinge_steps = 0.0
 
+[node name="ShipViewer" type="MeshInstance3D" parent="HingeOrigin/OrientableHinge"]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 3.55271e-15, -0.132367, 1.42109e-14, 0)
+mesh = SubResource("BoxMesh_ci4v1")
+skeleton = NodePath("")
+
+[node name="WeaponAngleViewer" type="MeshInstance3D" parent="HingeOrigin/OrientableHinge"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.132, -0.03, 0)
+mesh = SubResource("PrismMesh_ckwv7")
+skeleton = NodePath("")
+
 [node name="ArrowLocalCorrection" type="Node3D" parent="HingeOrigin"]
 transform = Transform3D(1.91069e-15, 1, -4.37114e-08, 4.37114e-08, -4.37114e-08, -1, -1, 0, -4.37114e-08, -0.127387, 5.56826e-09, 0)
+visible = false
 
 [node name="ArrowOrigin" type="Node3D" parent="HingeOrigin/ArrowLocalCorrection"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00478053, 0)
@@ -87,6 +108,12 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 
 mesh = SubResource("CylinderMesh_pf2ys")
 skeleton = NodePath("../../../..")
 surface_material_override/0 = ExtResource("4_hbjg8")
+
+[node name="EnemiesLocalCorrection" type="Node3D" parent="HingeOrigin"]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, -0.132367, 7.10543e-15, 0)
+
+[node name="EnemiesOrigin" type="Node3D" parent="HingeOrigin/EnemiesLocalCorrection"]
+unique_name_in_owner = true
 
 [node name="BigRedButton" parent="." instance=ExtResource("7_lp60l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.106522, 1.00904, 0.0868725)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://cvglwib0nbv3w"]
+[gd_scene load_steps=41 format=3 uid="uid://cvglwib0nbv3w"]
 
 [ext_resource type="Script" path="res://scripts/main_xr.gd" id="1_xgn4l"]
 [ext_resource type="PackedScene" uid="uid://ddsj74hpt1kgb" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_physics_tac_glove.tscn" id="2_1fc4o"]
@@ -25,7 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://bfcgkjerxsay3" path="res://objects/weapons/weapon_base.tscn" id="22_t2x7m"]
 [ext_resource type="PackedScene" uid="uid://1am3p863flny" path="res://objects/weapons/weapon_bl2.tscn" id="23_u3ac8"]
 [ext_resource type="PackedScene" uid="uid://wnvmmlsqe474" path="res://objects/weapons/weapon_dual.tscn" id="24_2saj3"]
-[ext_resource type="Texture2D" uid="uid://ducm03c8at157" path="res://assets/textures/NoLogoGames/skybox_panorama.png" id="26_hfid5"]
+[ext_resource type="Material" uid="uid://ds5mtrfu2ym3o" path="res://assets/models/sky_crossfade_mat.tres" id="26_2suw1"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_0yy2b"]
 size = Vector3(2, 0.1, 1.5)
@@ -71,11 +71,8 @@ shader_parameter/reverse_order = false
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_qe543"]
 resource_local_to_scene = true
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_5nkra"]
-panorama = ExtResource("26_hfid5")
-
 [sub_resource type="Sky" id="Sky_h3ng5"]
-sky_material = SubResource("PanoramaSkyMaterial_5nkra")
+sky_material = ExtResource("26_2suw1")
 
 [sub_resource type="Environment" id="Environment_bssff"]
 background_mode = 2
@@ -289,6 +286,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0, -0.6)
 shield = NodePath("../../World/Shield")
 
 [node name="NavigationSystem" parent="Ship/Dynamic" instance=ExtResource("16_bwulk")]
+unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.8, 0, 0.6)
 
 [node name="EnemySpawner" type="Node3D" parent="."]
@@ -301,6 +299,7 @@ weapons = Array[PackedScene]([ExtResource("22_t2x7m"), ExtResource("23_u3ac8"), 
 unique_name_in_owner = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+unique_name_in_owner = true
 environment = SubResource("Environment_bssff")
 camera_attributes = SubResource("CameraAttributesPractical_2pxkv")
 
@@ -315,3 +314,4 @@ directional_shadow_max_distance = 10.0
 
 [connection signal="hp_changed" from="Ship/World/Core" to="." method="_on_core_hp_changed"]
 [connection signal="started_moving" from="Ship/Dynamic/NavigationSystem" to="." method="_on_navigation_system_started_moving"]
+[connection signal="enemy_spawned" from="EnemySpawner" to="." method="_on_enemy_spawner_enemy_spawned"]

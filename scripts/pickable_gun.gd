@@ -27,10 +27,11 @@ func _process(delta: float) -> void:
 			%Laser.set_surface_override_material(0, laser_bad_material)
 
 func shoot():
-	var collider: Node3D = %ShootRayCast.get_collider()
+	var collider := %ShootRayCast.get_collider() as Projectile
 	if collider and collider.is_in_group("EnemyProjectile"):
-		collider.queue_free()
+		collider.destroy()
 		inject_energy()
+		%HitAudio.play()
 
 func inject_energy():
 	if %SnapZone.has_snapped_object() and %SnapZone.picked_up_object.has_method("add_energy"):

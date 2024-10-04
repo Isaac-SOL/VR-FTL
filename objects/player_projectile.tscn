@@ -1,4 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c4jw4lk5fvjek"]
+[gd_scene load_steps=8 format=3 uid="uid://c4jw4lk5fvjek"]
+
+[ext_resource type="Script" path="res://scripts/projectile.gd" id="1_i6olr"]
+[ext_resource type="Material" uid="uid://bv53a01uoe3rd" path="res://assets/models/projectile_explosion.tres" id="2_fvi6g"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_chbtw"]
 radius = 0.05
@@ -14,14 +17,43 @@ material = SubResource("StandardMaterial3D_pf6bh")
 radius = 0.05
 height = 0.1
 
-[node name="EnemyProjectile" type="RigidBody3D" groups=["PlayerProjectile"]]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qbn7u"]
+albedo_color = Color(0, 1, 0, 1)
+emission_enabled = true
+emission = Color(0, 1, 0, 1)
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_vmvpi"]
+material = SubResource("StandardMaterial3D_qbn7u")
+size = Vector2(0.04, 0.04)
+
+[node name="PlayerProjectile" type="RigidBody3D" groups=["PlayerProjectile"]]
 collision_layer = 512
 collision_mask = 262141
 gravity_scale = 0.0
-linear_damp = 1.0
+script = ExtResource("1_i6olr")
+kill_timer = 10.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_chbtw")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
 mesh = SubResource("SphereMesh_tawyh")
+
+[node name="IndicatorProjectile" type="Node3D" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="ExplosionParticles" type="GPUParticles3D" parent="."]
+unique_name_in_owner = true
+emitting = false
+amount = 30
+one_shot = true
+explosiveness = 1.0
+process_material = ExtResource("2_fvi6g")
+draw_pass_1 = SubResource("QuadMesh_vmvpi")

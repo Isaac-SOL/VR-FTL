@@ -12,7 +12,7 @@ signal amount_changed(new_amount: int)
 func _on_body_entered(body: Node3D) -> void:
 	if not body.is_in_group("EnemyProjectile"): return
 	
-	body.queue_free()
+	body.destroy(true, false)
 	
 	hp -= 1
 	

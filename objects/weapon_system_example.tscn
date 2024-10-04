@@ -126,7 +126,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 unique_name_in_owner = true
 min_rotation = Vector2(-0.785, -0.393)
 max_rotation = Vector2(0.785, 0.393)
-swap_x = true
+swap_y = true
 
 [node name="Shooters" type="Node3D" parent="."]
 

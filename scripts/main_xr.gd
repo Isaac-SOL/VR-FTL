@@ -1,10 +1,14 @@
 class_name MainXR extends Node3D
 
+@export var fixed_screen_rotation: bool = true
+
 var xr_interface: XRInterface
+@onready var sky_material: ShaderMaterial = %WorldEnvironment.environment.sky.sky_material
 
 func _ready() -> void:
 	Singletons.main = self
 	Singletons.projectiles = %Projectiles
+	Singletons.ship = %Ship
 	xr_interface = XRServer.find_interface("OpenXR")
 	if xr_interface and xr_interface.is_initialized():
 		print("OpenXR initialized successfully")
@@ -21,11 +25,32 @@ func _ready() -> void:
 func _on_navigation_system_started_moving(degrees: float, length: float) -> void:
 	var curr_rotation: Vector3 = %Ship.rotation
 	var new_rotation = curr_rotation + Vector3(0, deg_to_rad(degrees), 0)
-	var tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+	var tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT).set_parallel()
 	tween.tween_property(%Ship, "rotation", new_rotation, length)
+	if fixed_screen_rotation:
+		var turns: float = degrees / 360.0
+		var current_rotation: float = sky_material.get_shader_parameter("VerticalRotationA")
+		var target_rotation: float = current_rotation + turns
+		sky_material.set_shader_parameter("VerticalRotationB", target_rotation)
+		tween.tween_method(
+			func(rot: float): sky_material.set_shader_parameter("VerticalRotationA", rot),
+			current_rotation, target_rotation, length)
+		tween.tween_method(
+			func(rot: float): sky_material.set_shader_parameter("VerticalRotationB", rot),
+			target_rotation, target_rotation + turns, length)
+		tween.tween_method(
+			func(val: float): sky_material.set_shader_parameter("Blend", val),
+			0.0, 1.0, length)
+		await tween.finished
+		sky_material.set_shader_parameter("VerticalRotationA", target_rotation + turns)
+		sky_material.set_shader_parameter("Blend", 0.0)
 
 func _on_core_hp_changed(new_hp: int) -> void:
 	%CoreHP.material_override.set_shader_parameter("visible_segments", new_hp)
 
 func _on_spawn_enemy_pressed() -> void:
 	%EnemySpawner.spawn_enemy()
+
+
+func _on_enemy_spawner_enemy_spawned(enemy: EnemyBase) -> void:
+	%NavigationSystem._on_enemy_spawned(enemy)

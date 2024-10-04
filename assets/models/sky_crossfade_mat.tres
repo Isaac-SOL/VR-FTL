@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://ds5mtrfu2ym3o"]
+
+[ext_resource type="Shader" uid="uid://njno053wxcjh" path="res://assets/models/sky_crossfade.tres" id="1_kd14r"]
+[ext_resource type="Texture2D" uid="uid://ducm03c8at157" path="res://assets/textures/NoLogoGames/skybox_panorama.png" id="2_wd2n5"]
+
+[resource]
+shader = ExtResource("1_kd14r")
+shader_parameter/VerticalRotationA = 0.0
+shader_parameter/VerticalRotationB = 0.0
+shader_parameter/Blend = 0.0
+shader_parameter/Panoramic = ExtResource("2_wd2n5")

@@ -7,7 +7,8 @@
 [node name="WeaponBase" type="Node3D"]
 script = ExtResource("1_vppsp")
 projectile_scene = ExtResource("2_isycy")
-shoot_impulse = 3.0
+shoot_impulse = 2.0
+weapon_cooldown = 9.0
 
 [node name="ShootAudio" type="AudioStreamPlayer3D" parent="."]
 unique_name_in_owner = true

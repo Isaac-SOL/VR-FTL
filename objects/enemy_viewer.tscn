@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqigtmgwtll2j"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_hr1fb"]
+top_radius = 0.0
+bottom_radius = 0.01
+height = 0.02
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vs7f0"]
+albedo_color = Color(0.77, 0.2695, 0, 1)
+emission_enabled = true
+emission = Color(0.77, 0.2695, 0, 1)
+emission_energy_multiplier = 0.5
+
+[node name="EnemyViewer" type="MeshInstance3D"]
+unique_name_in_owner = true
+mesh = SubResource("CylinderMesh_hr1fb")
+surface_material_override/0 = SubResource("StandardMaterial3D_vs7f0")

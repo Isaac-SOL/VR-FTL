@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://l41vqqu0yc67"]
+[gd_scene load_steps=9 format=3 uid="uid://l41vqqu0yc67"]
 
 [ext_resource type="Script" path="res://scripts/projectile.gd" id="1_gdbee"]
 [ext_resource type="PackedScene" uid="uid://bk4s7o5oj1n5" path="res://objects/indicator_projectile.tscn" id="2_hkt8g"]
+[ext_resource type="Material" uid="uid://bv53a01uoe3rd" path="res://assets/models/projectile_explosion.tres" id="3_pvpfm"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_chbtw"]
 radius = 0.05
@@ -17,11 +18,27 @@ material = SubResource("StandardMaterial3D_gxwid")
 radius = 0.05
 height = 0.1
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mr1cg"]
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_asrbp"]
+material = SubResource("StandardMaterial3D_mr1cg")
+size = Vector2(0.04, 0.04)
+
 [node name="EnemyProjectile" type="RigidBody3D" groups=["EnemyProjectile"]]
 collision_layer = 256
 collision_mask = 262143
 gravity_scale = 0.0
-linear_damp = 1.0
+contact_monitor = true
+max_contacts_reported = 1
+linear_damp = 0.5
 script = ExtResource("1_gdbee")
 correction_force = 0.5
 
@@ -29,11 +46,21 @@ correction_force = 0.5
 shape = SubResource("SphereShape3D_chbtw")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
 mesh = SubResource("SphereMesh_tawyh")
 
 [node name="IndicatorProjectile" parent="." instance=ExtResource("2_hkt8g")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
 editor_preview = true
+
+[node name="ExplosionParticles" type="GPUParticles3D" parent="."]
+unique_name_in_owner = true
+emitting = false
+amount = 30
+one_shot = true
+explosiveness = 1.0
+process_material = ExtResource("3_pvpfm")
+draw_pass_1 = SubResource("QuadMesh_asrbp")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

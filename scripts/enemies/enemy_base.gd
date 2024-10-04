@@ -56,10 +56,12 @@ func attach_weapon(wpn: PackedScene):
 
 func _on_body_entered(body: Node3D) -> void:
 	if body.is_in_group("PlayerProjectile"):
-		body.queue_free()
+		body.destroy()
 		if shield > 0:
 			shield -= 1
+			%HitShieldAudio.play()
 		else:
 			hp -= 1
+			%HitAudio.play()
 		if hp <= 0:
 			queue_free()

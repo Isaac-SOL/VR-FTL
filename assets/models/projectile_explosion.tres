@@ -1,0 +1,24 @@
+[gd_resource type="ParticleProcessMaterial" load_steps=3 format=3 uid="uid://bv53a01uoe3rd"]
+
+[sub_resource type="Curve" id="Curve_hyexw"]
+max_value = 2.0
+_data = [Vector2(0.00280899, 1.34573), 0.0, 5.19004, 0, 0, Vector2(0.99999, 0), -6.17736, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_qti4a"]
+curve = SubResource("Curve_hyexw")
+
+[resource]
+lifetime_randomness = 0.5
+angle_min = -90.0
+angle_max = 90.0
+spread = 180.0
+initial_velocity_min = 0.5
+initial_velocity_max = 2.0
+angular_velocity_min = -360.0
+angular_velocity_max = 360.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -1.5
+linear_accel_max = -0.500002
+scale_min = 0.3
+scale_curve = SubResource("CurveTexture_qti4a")

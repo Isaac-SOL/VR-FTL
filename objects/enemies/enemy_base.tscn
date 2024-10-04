@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://damvskku830yr"]
+[gd_scene load_steps=13 format=3 uid="uid://damvskku830yr"]
 
 [ext_resource type="Script" path="res://scripts/enemies/enemy_base.gd" id="1_q7r62"]
 [ext_resource type="ArrayMesh" uid="uid://cmr5d5t2a4aiy" path="res://assets/models/Ultimate Spaceships/Challenger/OBJ/Challenger.obj" id="1_t6r4v"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://dnlbkq43d34y3" path="res://objects/flames/purple_flame.tscn" id="5_oqqlt"]
 [ext_resource type="Shader" uid="uid://bid4x5lk8b8bf" path="res://assets/shaders/flame.tres" id="6_dn67s"]
 [ext_resource type="Texture2D" uid="uid://c0vqpubvs84w0" path="res://assets/models/Julius/muzzleflash.png" id="7_0wbq6"]
+[ext_resource type="AudioStream" uid="uid://dbwyoo7ci7abk" path="res://assets/audio/Kenney/SciFi/explosionCrunch_000.ogg" id="8_wd3fo"]
+[ext_resource type="AudioStream" uid="uid://b65stun7ufvf0" path="res://assets/audio/Kenney/SciFi/impactMetal_003.ogg" id="9_govh8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3nua4"]
 size = Vector3(5.30225, 4.64453, 1.89136)
@@ -51,5 +53,14 @@ transform = Transform3D(-1.62921e-06, 0, -15, 0, 10, 0, 10, 0, -2.44381e-06, 4.5
 surface_material_override/0 = SubResource("ShaderMaterial_n2jgr")
 surface_material_override/1 = SubResource("ShaderMaterial_n2jgr")
 surface_material_override/2 = SubResource("ShaderMaterial_n2jgr")
+
+[node name="HitAudio" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("8_wd3fo")
+
+[node name="HitShieldAudio" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("9_govh8")
+volume_db = 3.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

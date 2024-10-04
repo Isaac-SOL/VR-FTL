@@ -14,8 +14,10 @@
 [ext_resource type="AudioStream" uid="uid://dy3q2gbruggvi" path="res://assets/audio/Kenney/Interface/click_001.ogg" id="10_msl2k"]
 [ext_resource type="PackedScene" uid="uid://ce7vysyvondf8" path="res://addons/godot-xr-tools/objects/snap_zone.tscn" id="11_8yire"]
 [ext_resource type="PackedScene" uid="uid://bikkxsbo8x7sd" path="res://addons/godot-xr-tools/audio/pickable_audio.tscn" id="12_oibv1"]
+[ext_resource type="AudioStream" uid="uid://coucikgmb5nip" path="res://assets/audio/Kenney/impactGlass_medium_001.ogg" id="13_du2rq"]
 [ext_resource type="AudioStream" uid="uid://cl5x10wugy0fp" path="res://assets/audio/Kenney/Interface/click_002.ogg" id="13_psec6"]
 [ext_resource type="AudioStream" uid="uid://dnanhnqqufs3e" path="res://assets/audio/Kenney/Interface/switch_002.ogg" id="14_4uld5"]
+[ext_resource type="QuadMesh" uid="uid://noyprayd78sx" path="res://assets/models/particle_mesh.tres" id="14_5lmef"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/audio/pickable_audio_type.gd" id="14_w05ea"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_x2xof"]
@@ -188,20 +190,6 @@ scale_min = 0.8
 scale_max = 1.2
 scale_curve = SubResource("CurveTexture_1lnvn")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dx1ug"]
-albedo_color = Color(0, 1, 1, 1)
-emission_enabled = true
-emission = Color(0, 1, 1, 1)
-billboard_mode = 3
-billboard_keep_scale = true
-particles_anim_h_frames = 1
-particles_anim_v_frames = 1
-particles_anim_loop = false
-
-[sub_resource type="QuadMesh" id="QuadMesh_1u5e5"]
-material = SubResource("StandardMaterial3D_dx1ug")
-size = Vector2(0.04, 0.04)
-
 [sub_resource type="Resource" id="Resource_t37ra"]
 script = ExtResource("14_w05ea")
 name = "PickableGun"
@@ -278,7 +266,14 @@ stream = ExtResource("10_msl2k")
 unit_size = 1.0
 max_polyphony = 4
 
-[node name="ShootParticles" type="GPUParticles3D" parent="." index="11"]
+[node name="HitAudio" type="AudioStreamPlayer3D" parent="." index="11"]
+unique_name_in_owner = true
+stream = ExtResource("13_du2rq")
+unit_size = 1.0
+pitch_scale = 1.45
+max_polyphony = 4
+
+[node name="ShootParticles" type="GPUParticles3D" parent="." index="12"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0224068, -0.135145)
 emitting = false
@@ -287,16 +282,16 @@ lifetime = 0.8
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_wq86h")
-draw_pass_1 = SubResource("QuadMesh_1u5e5")
+draw_pass_1 = ExtResource("14_5lmef")
 
-[node name="SnapZone" parent="." index="12" instance=ExtResource("11_8yire")]
+[node name="SnapZone" parent="." index="13" instance=ExtResource("11_8yire")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0, -0.0262274, -0.0735201)
 stash_sound = ExtResource("14_4uld5")
 grab_distance = 0.1
 snap_require = "EnergyCell"
 
-[node name="PickableAudio" parent="." index="13" instance=ExtResource("12_oibv1")]
+[node name="PickableAudio" parent="." index="14" instance=ExtResource("12_oibv1")]
 pickable_audio_type = SubResource("Resource_t37ra")
 
 [connection signal="action_pressed" from="." to="." method="_on_action_pressed"]
