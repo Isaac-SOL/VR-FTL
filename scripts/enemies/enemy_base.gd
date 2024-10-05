@@ -1,5 +1,7 @@
 class_name EnemyBase extends Area3D
 
+signal destroyed
+
 @export var max_hp: int = 3:
 	set(new_value):
 		max_hp = new_value
@@ -54,8 +56,18 @@ func attach_weapon(wpn: PackedScene):
 	weapon = wpn.instantiate() as WeaponBase
 	%WeaponAttachPoint.add_child(weapon)
 
+func destroy(effect: bool = true) -> void:
+	destroyed.emit()
+	if effect:
+		weapon.stop()
+		%DestroyedAudio.play()
+		$MeshInstance3D.visible = false
+		%ExplosionParticles.emitting = true
+		await %ExplosionParticles.finished
+	queue_free()
+
 func _on_body_entered(body: Node3D) -> void:
-	if body.is_in_group("PlayerProjectile"):
+	if body.is_in_group("PlayerProjectile") and hp > 0:
 		body.destroy()
 		if shield > 0:
 			shield -= 1
@@ -64,4 +76,4 @@ func _on_body_entered(body: Node3D) -> void:
 			hp -= 1
 			%HitAudio.play()
 		if hp <= 0:
-			queue_free()
+			destroy()

@@ -25,6 +25,7 @@ func destroy(effect: bool = true, intense: bool = true):
 		%MeshInstance3D.visible = false
 		%IndicatorProjectile.visible = false
 		freeze = true
+		set_deferred("collision_layer", 0)
 		if not intense:
 			%ExplosionParticles.amount_ratio = 0.3
 		%ExplosionParticles.emitting = true

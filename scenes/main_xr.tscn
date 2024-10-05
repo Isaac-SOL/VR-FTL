@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://cvglwib0nbv3w"]
+[gd_scene load_steps=43 format=3 uid="uid://cvglwib0nbv3w"]
 
 [ext_resource type="Script" path="res://scripts/main_xr.gd" id="1_xgn4l"]
 [ext_resource type="PackedScene" uid="uid://ddsj74hpt1kgb" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_physics_tac_glove.tscn" id="2_1fc4o"]
@@ -16,6 +16,7 @@
 [ext_resource type="Shader" path="res://assets/shaders/hp_bar_enemy.gdshader" id="12_bxa7l"]
 [ext_resource type="PackedScene" uid="uid://diqcwca2on1df" path="res://objects/pickable_energy_cell.tscn" id="14_trw2q"]
 [ext_resource type="PackedScene" uid="uid://b7lx1bvrt3glp" path="res://objects/nav_system_example.tscn" id="16_bwulk"]
+[ext_resource type="PackedScene" uid="uid://lkjo5h61h48m" path="res://objects/pickable_solar_cell.tscn" id="16_m57o7"]
 [ext_resource type="PackedScene" uid="uid://bhsx1muleg6rb" path="res://objects/weapon_system_example.tscn" id="16_pivml"]
 [ext_resource type="PackedScene" uid="uid://bq2us4wa6ntyh" path="res://objects/shield_system_example.tscn" id="17_5wwgv"]
 [ext_resource type="Script" path="res://scripts/enemy_spawner.gd" id="19_w5q7l"]
@@ -47,6 +48,10 @@ height = 1.0
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rt0sp"]
 radius = 0.05
 height = 1.0
+
+[sub_resource type="TorusMesh" id="TorusMesh_ett78"]
+inner_radius = 1.1
+outer_radius = 1.2
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ci6b3"]
 friction = 0.0
@@ -192,6 +197,11 @@ mesh = SubResource("CylinderMesh_kcmwr")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ship/World/Hull/Pillar4"]
 shape = SubResource("CapsuleShape3D_rt0sp")
 
+[node name="WeaponHolder" type="MeshInstance3D" parent="Ship/World/Hull"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.15, 0)
+mesh = SubResource("TorusMesh_ett78")
+skeleton = NodePath("../../../..")
+
 [node name="Boundaries" type="StaticBody3D" parent="Ship/World"]
 collision_layer = 16777216
 collision_mask = 196614
@@ -227,7 +237,7 @@ screen_size = Vector2(0.5, 0.5)
 scene = ExtResource("7_n6b1w")
 viewport_size = Vector2(400, 400)
 update_mode = 2
-scene_properties_keys = PackedStringArray("Built-in script")
+scene_properties_keys = PackedStringArray("ship_ui.gd")
 
 [node name="ShipScreenBody" type="StaticBody3D" parent="Ship/World/ShipScreenHolder"]
 collision_mask = 131072
@@ -278,6 +288,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.756285, 1.10079, -0.620969)
 
 [node name="PickableEnergyCell" parent="Ship/Dynamic" instance=ExtResource("14_trw2q")]
 transform = Transform3D(0.865029, -0.501722, 0, 0.501722, 0.865029, 0, 0, 0, 1, 0.00532749, 1.11955, 0.612887)
+
+[node name="PickableSolarCell" parent="Ship/Dynamic" instance=ExtResource("16_m57o7")]
+transform = Transform3D(0.841699, -0.539947, 0, 0.539947, 0.841699, 0, 0, 0, 1, 0.371229, 1.11955, 0.612887)
 
 [node name="WeaponSystem" parent="Ship/Dynamic" instance=ExtResource("16_pivml")]
 

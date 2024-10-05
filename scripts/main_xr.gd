@@ -2,8 +2,10 @@ class_name MainXR extends Node3D
 
 @export var fixed_screen_rotation: bool = true
 
+var scrap: int = 0
 var xr_interface: XRInterface
 @onready var sky_material: ShaderMaterial = %WorldEnvironment.environment.sky.sky_material
+@onready var ship_ui: ShipUI = %ShipScreenContent.get_node("Viewport/ShipUI")
 
 func _ready() -> void:
 	Singletons.main = self
@@ -20,6 +22,8 @@ func _ready() -> void:
 		get_viewport().use_xr = true
 	else:
 		print("OpenXR not initialized, check if headset is connected")
+	
+	ship_ui.regenerate_shield_pressed.connect(func(): %Shield.hp = %Shield.max_hp)
 
 
 func _on_navigation_system_started_moving(degrees: float, length: float) -> void:
@@ -49,8 +53,12 @@ func _on_core_hp_changed(new_hp: int) -> void:
 	%CoreHP.material_override.set_shader_parameter("visible_segments", new_hp)
 
 func _on_spawn_enemy_pressed() -> void:
-	%EnemySpawner.spawn_enemy()
-
+	var new_enemy: EnemyBase = %EnemySpawner.spawn_enemy()
+	new_enemy.destroyed.connect(_on_enemy_destroyed.bind(new_enemy))
 
 func _on_enemy_spawner_enemy_spawned(enemy: EnemyBase) -> void:
 	%NavigationSystem._on_enemy_spawned(enemy)
+
+func _on_enemy_destroyed(enemy: EnemyBase) -> void:
+	scrap += 10
+	ship_ui.set_scrap(scrap)

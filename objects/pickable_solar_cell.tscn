@@ -1,0 +1,91 @@
+[gd_scene load_steps=11 format=3 uid="uid://lkjo5h61h48m"]
+
+[ext_resource type="PackedScene" uid="uid://diqcwca2on1df" path="res://objects/pickable_energy_cell.tscn" id="1_3piev"]
+[ext_resource type="Script" path="res://scripts/pickable_solar_cell.gd" id="2_mh20a"]
+[ext_resource type="Material" uid="uid://dyctme5ipxdwq" path="res://assets/models/energy_off_material.tres" id="3_mxqa0"]
+[ext_resource type="PackedScene" uid="uid://c2fybfvjcllyl" path="res://objects/quarter_circle_mesh.tscn" id="3_uit7n"]
+[ext_resource type="Shader" path="res://assets/shaders/hp_bar_enemy.gdshader" id="4_n4cc8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p36jc"]
+albedo_color = Color(0.87, 0.76821, 0.6351, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bfuw6"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_n4cc8")
+shader_parameter/color = Color(0, 1, 0, 1)
+shader_parameter/max_segments = 1
+shader_parameter/visible_segments = 1
+shader_parameter/segment_spacing = 0.1
+shader_parameter/last_space = true
+shader_parameter/reverse_order = false
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_j02de"]
+resource_local_to_scene = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5ouyo"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_n4cc8")
+shader_parameter/color = Color(0, 1, 0, 1)
+shader_parameter/max_segments = 1
+shader_parameter/visible_segments = 1
+shader_parameter/segment_spacing = 0.1
+shader_parameter/last_space = true
+shader_parameter/reverse_order = false
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_bxqco"]
+resource_local_to_scene = true
+
+[node name="PickableSolarCell" instance=ExtResource("1_3piev")]
+script = ExtResource("2_mh20a")
+recharge_interval = 15.0
+max_energy = 3
+
+[node name="Body" parent="." index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_p36jc")
+
+[node name="Connector" parent="." index="2"]
+visible = false
+
+[node name="Energy1" parent="Energy" index="0"]
+surface_material_override/0 = ExtResource("3_mxqa0")
+
+[node name="Energy4" parent="Energy" index="3"]
+visible = false
+
+[node name="Energy5" parent="Energy" index="4"]
+visible = false
+
+[node name="Energy6" parent="Energy" index="5"]
+visible = false
+
+[node name="SnapZone" parent="." index="7"]
+process_mode = 4
+enabled = false
+
+[node name="SolarTimer" type="Timer" parent="." index="10"]
+unique_name_in_owner = true
+wait_time = 15.0
+autostart = true
+
+[node name="RechargeIndicator1" parent="." index="11" instance=ExtResource("3_uit7n")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.016343, 0.0407784, 0)
+material_override = SubResource("ShaderMaterial_bfuw6")
+mesh = SubResource("ImmediateMesh_j02de")
+segments = 96
+inner_radius = 0.015
+outer_radius = 0.02
+degrees = 360.0
+
+[node name="RechargeIndicator2" parent="." index="12" instance=ExtResource("3_uit7n")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.016, 0.041, 0)
+material_override = SubResource("ShaderMaterial_5ouyo")
+mesh = SubResource("ImmediateMesh_bxqco")
+segments = 96
+inner_radius = 0.015
+outer_radius = 0.02
+degrees = 360.0
+
+[connection signal="energy_changed" from="." to="." method="_on_energy_changed"]
+[connection signal="timeout" from="SolarTimer" to="." method="_on_solar_timer_timeout"]

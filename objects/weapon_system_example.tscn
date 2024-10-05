@@ -132,7 +132,7 @@ swap_y = true
 
 [node name="BigGun" parent="Shooters" node_paths=PackedStringArray("targetor") instance=ExtResource("7_mn488")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.409932, -1.33787)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -1.338)
 collision_layer = 2
 collision_mask = 0
 sync_to_physics = false

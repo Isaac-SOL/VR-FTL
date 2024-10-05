@@ -19,7 +19,9 @@ height = 0.2
 [node name="Core" type="RigidBody3D"]
 collision_mask = 256
 gravity_scale = 0.0
+can_sleep = false
 freeze = true
+freeze_mode = 1
 contact_monitor = true
 max_contacts_reported = 4
 script = ExtResource("1_ua8tx")

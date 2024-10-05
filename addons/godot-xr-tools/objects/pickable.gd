@@ -150,6 +150,10 @@ func can_pick_up(by: Node3D) -> bool:
 	# Refuse if not enabled
 	if not enabled:
 		return false
+	
+	# Refuse if zone is a child
+	if by == self or by.get_parent_node_3d() == self:
+		return false
 
 	# Allow if not held by anything
 	if not is_picked_up():

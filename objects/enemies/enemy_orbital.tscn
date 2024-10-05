@@ -41,7 +41,7 @@ shader_parameter/FlashTexture = ExtResource("4_8ov2b")
 
 [node name="EnemyOrbital" instance=ExtResource("1_21m41")]
 script = ExtResource("2_gkbrv")
-degrees_per_second = 10.0
+degrees_per_second = 7.2
 
 [node name="WeaponAttachPoint" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -2.18358, 0, 0)
@@ -49,9 +49,6 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -2.183
 [node name="MeshInstance3D" parent="." index="2"]
 mesh = ExtResource("2_3yy0r")
 surface_material_override/0 = SubResource("StandardMaterial3D_rd85m")
-
-[node name="Indicator" parent="." index="3"]
-transform = Transform3D(0.999999, 0, 0, 0, 1, -3.55271e-15, 0, 3.55271e-15, 1, 0, -2.66667, 0)
 
 [node name="PurpleFlame" parent="." index="4"]
 transform = Transform3D(-1.62921e-06, 0, -15, 0, 10, 0, 10, 0, -2.44381e-06, 4.53876, 4.49049, 0.152931)

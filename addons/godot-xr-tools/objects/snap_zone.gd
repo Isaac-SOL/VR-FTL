@@ -108,6 +108,10 @@ func can_pick_up(by: Node3D) -> bool:
 	# Refuse if not enabled
 	if not enabled:
 		return false
+	
+	# Refuse snapping a parent
+	if by == self or by == get_parent_node_3d():
+		return false
 
 	# Refuse if no object is held
 	if not is_instance_valid(picked_up_object):

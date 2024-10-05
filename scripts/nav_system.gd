@@ -60,7 +60,7 @@ func _on_big_red_button_button_pressed(_button: Variant) -> void:
 		stopped_moving.emit()
 
 func _on_enemy_spawned(enemy: EnemyBase) -> void:
-	enemy.tree_exited.connect(_on_enemy_destroyed.bind(enemy))
+	enemy.destroyed.connect(_on_enemy_destroyed.bind(enemy))
 	var viewer := spawn_enemy_viewer(enemy.global_position)
 	enemy_viewers[enemy] = viewer
 

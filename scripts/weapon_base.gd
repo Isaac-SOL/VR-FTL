@@ -33,7 +33,11 @@ func update_indicator():
 	var reload: float = 1 - %ShootTimer.time_left / %ShootTimer.wait_time
 	indicator.set_reload(reload)
 
+func stop():
+	%ShootTimer.stop()
+
 func _on_shoot_timer_timeout() -> void:
 	for i in range(shots):
-		shoot()
-		await get_tree().create_timer(shot_interval).timeout
+		if not %ShootTimer.is_stopped():
+			shoot()
+			await get_tree().create_timer(shot_interval).timeout

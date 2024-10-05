@@ -37,9 +37,6 @@ attach_weapons = false
 mesh = ExtResource("2_le80y")
 surface_material_override/0 = SubResource("StandardMaterial3D_sirvg")
 
-[node name="Indicator" parent="." index="3"]
-transform = Transform3D(0.999999, 0, 0, 0, 1, -3.55271e-15, 0, 3.55271e-15, 1, 0, -2.66667, 0)
-
 [node name="PurpleFlame" parent="." index="4"]
 unique_name_in_owner = false
 visible = false
