@@ -1,11 +1,24 @@
-[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://ds5mtrfu2ym3o"]
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://ds5mtrfu2ym3o"]
 
 [ext_resource type="Shader" uid="uid://njno053wxcjh" path="res://assets/models/sky_crossfade.tres" id="1_kd14r"]
 [ext_resource type="Texture2D" uid="uid://ducm03c8at157" path="res://assets/textures/NoLogoGames/skybox_panorama.png" id="2_wd2n5"]
+
+[sub_resource type="Gradient" id="Gradient_4vr44"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.521605, 0.737654, 0.87037, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.18, 0.18, 0.18, 1, 0.480672, 0.480672, 0.480672, 1, 1, 1, 1, 1, 2, 2, 2, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3vue5"]
+gradient = SubResource("Gradient_4vr44")
+use_hdr = true
 
 [resource]
 shader = ExtResource("1_kd14r")
 shader_parameter/VerticalRotationA = 0.0
 shader_parameter/VerticalRotationB = 0.0
 shader_parameter/Blend = 0.0
+shader_parameter/MinEnergy = 0.96
+shader_parameter/MaxEnergy = 1.0
 shader_parameter/Panoramic = ExtResource("2_wd2n5")
+shader_parameter/SunEnergyOverDistance = SubResource("GradientTexture1D_3vue5")
