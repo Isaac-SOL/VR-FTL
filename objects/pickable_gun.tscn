@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=4 uid="uid://dfuaf5pb2eiea"]
+[gd_scene load_steps=45 format=4 uid="uid://dfuaf5pb2eiea"]
 
 [ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_v1k7m"]
 [ext_resource type="Script" path="res://scripts/pickable_gun.gd" id="2_8m56e"]
@@ -19,6 +19,7 @@
 [ext_resource type="AudioStream" uid="uid://dnanhnqqufs3e" path="res://assets/audio/Kenney/Interface/switch_002.ogg" id="14_4uld5"]
 [ext_resource type="QuadMesh" uid="uid://noyprayd78sx" path="res://assets/models/particle_mesh.tres" id="14_5lmef"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/audio/pickable_audio_type.gd" id="14_w05ea"]
+[ext_resource type="Material" uid="uid://igospamby4es" path="res://assets/models/energy_on_material.tres" id="20_3xe6i"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_x2xof"]
 points = PackedVector3Array(0.031752, -0.0587333, -0.0106954, 0.0597594, 0.0579333, 0.00795571, 0.0597594, 0.0579333, -0.0106954, -0.136233, 0.0252607, 0.00329635, -0.0522114, -0.0167192, 0.0359667, 0.157756, -0.0493804, 0.00795571, -0.056889, -0.0260493, -0.0340333, 0.14843, 0.00192968, -0.0153616, 0.153078, 0.0205899, 0.0126288, -0.112874, 0.0392502, 0.0266274, -0.102599, 0.0360159, -0.0226009, -0.116708, -0.0160534, 0.012153, 0.0084516, 0.0299315, -0.0293603, 0.157756, -0.044721, -0.0106954, 0.031752, -0.0587333, 0.00795571, 0.0084516, 0.0345909, 0.0266274, -0.100845, -0.0236, -0.0222437, 0.0644078, -0.00271826, 0.0266274, -0.0833138, -0.0244923, 0.0294526, -0.0895447, 0.00658904, -0.0340333, 0.153078, 0.0205899, -0.0106954, -0.136233, 0.00658904, -0.00602922, 0.0364004, 0.0579333, -0.0106954, 0.157756, -0.0307201, 0.0126288, -0.0522114, 0.00192968, 0.0359667, 0.0644078, -0.00271826, -0.0246941, 0.0644078, -0.0587333, -0.0106954, -0.0971574, -0.0228492, 0.0234259, -0.136233, 0.0112598, 0.00795571, 0.0644078, -0.0587333, 0.00795571, 0.157756, 0.0112598, 0.0126288, -0.136233, 0.0252607, -0.00602922)
@@ -197,6 +198,21 @@ grab_sound = ExtResource("13_psec6")
 drop_sound = ExtResource("10_msl2k")
 hit_sound = ExtResource("10_msl2k")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fyb8x"]
+albedo_color = Color(0.4, 0.4, 0.4, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7jj7g"]
+material = SubResource("StandardMaterial3D_fyb8x")
+size = Vector3(0.04, 0.01, 0.07)
+
+[sub_resource type="PrismMesh" id="PrismMesh_6fupg"]
+material = ExtResource("20_3xe6i")
+size = Vector3(0.008, 0.008, 0.071)
+
+[sub_resource type="PrismMesh" id="PrismMesh_uoedt"]
+material = ExtResource("20_3xe6i")
+size = Vector3(0.008, 0.008, 0.041)
+
 [node name="PickableGun" instance=ExtResource("1_v1k7m")]
 collision_mask = 16842759
 center_of_mass_mode = 1
@@ -286,13 +302,25 @@ draw_pass_1 = ExtResource("14_5lmef")
 
 [node name="SnapZone" parent="." index="13" instance=ExtResource("11_8yire")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0, -0.0262274, -0.0735201)
+transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0, -0.0350614, -0.0735201)
 stash_sound = ExtResource("14_4uld5")
 grab_distance = 0.1
 snap_require = "EnergyCell"
 
 [node name="PickableAudio" parent="." index="14" instance=ExtResource("12_oibv1")]
 pickable_audio_type = SubResource("Resource_t37ra")
+
+[node name="Connector" type="MeshInstance3D" parent="." index="15"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.028502, -0.0732185)
+mesh = SubResource("BoxMesh_7jj7g")
+
+[node name="Arrows1" type="MeshInstance3D" parent="Connector" index="0"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("PrismMesh_6fupg")
+
+[node name="Arrows2" type="MeshInstance3D" parent="Connector" index="1"]
+transform = Transform3D(4.37114e-08, -3.82137e-15, -1, -8.74228e-08, -1, 0, -1, 8.74228e-08, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("PrismMesh_uoedt")
 
 [connection signal="action_pressed" from="." to="." method="_on_action_pressed"]
 [connection signal="dropped" from="." to="." method="_on_dropped"]

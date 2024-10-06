@@ -8,6 +8,8 @@ func _ready() -> void:
 	%ShieldTimer.wait_time = shield_cooldown
 	%ShieldTimer.start()
 	%Indicator.set_special_active(true)
+	started_ion.connect(_on_started_ion)
+	stopped_ion.connect(_on_stopped_ion)
 
 func update_indicator() -> void:
 	super.update_indicator()
@@ -17,8 +19,14 @@ func update_indicator() -> void:
 func _on_shield_timer_timeout() -> void:
 	var applied: bool = false
 	for enemy: EnemyBase in get_tree().get_nodes_in_group("Enemy"):
-		if enemy.shield < max_shield_level:
+		if not enemy.is_ionized() and enemy.shield < max_shield_level:
 			enemy.shield += 1
 			applied = true
 	if applied:
 		%ShieldAudio.play()
+
+func _on_started_ion():
+	%ShieldTimer.paused = true
+
+func _on_stopped_ion():
+	%ShieldTimer.paused = false

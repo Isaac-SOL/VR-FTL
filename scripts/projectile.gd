@@ -2,6 +2,7 @@ class_name Projectile extends RigidBody3D
 
 @export var correction_force: float = 10
 @export var kill_timer: float = 0
+@export var ion: bool = false
 
 var target: Node3D
 

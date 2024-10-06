@@ -1,15 +1,15 @@
-[gd_scene load_steps=17 format=3 uid="uid://bhsx1muleg6rb"]
+[gd_scene load_steps=16 format=3 uid="uid://bp61i5dl76be3"]
 
-[ext_resource type="Material" uid="uid://c6j4a1mb0lsnn" path="res://assets/models/brushed_metal.tres" id="1_o8xko"]
-[ext_resource type="Script" path="res://scripts/weapon_system.gd" id="1_svxjn"]
-[ext_resource type="Material" uid="uid://dyctme5ipxdwq" path="res://assets/models/energy_off_material.tres" id="2_e54hl"]
-[ext_resource type="Material" uid="uid://bsl8nqkej0v6p" path="res://assets/models/gold.tres" id="3_3gmll"]
-[ext_resource type="PackedScene" uid="uid://cjxca3cw5mm3y" path="res://objects/example_slider.tscn" id="4_2e86t"]
-[ext_resource type="PackedScene" uid="uid://bhanrnjta48os" path="res://objects/cell_snap_zone.tscn" id="5_47q8l"]
-[ext_resource type="PackedScene" uid="uid://cyh65iifm0jco" path="res://objects/cylinder_slider.tscn" id="5_y5onf"]
-[ext_resource type="PackedScene" uid="uid://tj0a1cujtsih" path="res://objects/targetor.tscn" id="6_pdwjr"]
-[ext_resource type="PackedScene" uid="uid://o82114q4g4vl" path="res://objects/big_gun.tscn" id="7_mn488"]
-[ext_resource type="Material" uid="uid://bdtjv2pxcjyor" path="res://assets/models/energy_orange_material.tres" id="8_65k5p"]
+[ext_resource type="Script" path="res://scripts/weapon_system.gd" id="1_y1mno"]
+[ext_resource type="Material" uid="uid://dyctme5ipxdwq" path="res://assets/models/energy_off_material.tres" id="2_f0gbx"]
+[ext_resource type="Material" uid="uid://bdtjv2pxcjyor" path="res://assets/models/energy_orange_material.tres" id="3_f3ui0"]
+[ext_resource type="Material" uid="uid://c6j4a1mb0lsnn" path="res://assets/models/brushed_metal.tres" id="4_fia62"]
+[ext_resource type="PackedScene" uid="uid://bhanrnjta48os" path="res://objects/cell_snap_zone.tscn" id="5_0457s"]
+[ext_resource type="PackedScene" uid="uid://cjxca3cw5mm3y" path="res://objects/example_slider.tscn" id="6_g5yar"]
+[ext_resource type="Material" uid="uid://bsl8nqkej0v6p" path="res://assets/models/gold.tres" id="7_rfmak"]
+[ext_resource type="PackedScene" uid="uid://cyh65iifm0jco" path="res://objects/cylinder_slider.tscn" id="8_3n3kq"]
+[ext_resource type="PackedScene" uid="uid://tj0a1cujtsih" path="res://objects/targetor.tscn" id="9_g1epr"]
+[ext_resource type="PackedScene" uid="uid://b7cea2r8li5ut" path="res://objects/big_ion_gun.tscn" id="10_girhn"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_j288w"]
 size = Vector3(1.01, 0.11, 0.31)
@@ -20,22 +20,19 @@ size = Vector3(0.539, 0.15, 0.23)
 [sub_resource type="BoxMesh" id="BoxMesh_4lolr"]
 size = Vector3(0.539, 0.15, 0.23)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_gvebs"]
-resource_local_to_scene = true
-radius = 0.09
-
 [sub_resource type="PlaneMesh" id="PlaneMesh_5ppw0"]
-material = ExtResource("3_3gmll")
+material = ExtResource("7_rfmak")
 size = Vector2(0.15, 0.15)
 
 [sub_resource type="SphereMesh" id="SphereMesh_t2fky"]
 radius = 0.01
 height = 0.02
 
-[node name="WeaponSystem" type="Node3D"]
-script = ExtResource("1_svxjn")
-load_off = ExtResource("2_e54hl")
-load_on = ExtResource("8_65k5p")
+[node name="WeaponIonSystem" type="Node3D"]
+script = ExtResource("1_y1mno")
+shoot_energy_cost = 1
+load_off = ExtResource("2_f0gbx")
+load_on = ExtResource("3_f3ui0")
 
 [node name="Rack" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, -0.6)
@@ -43,7 +40,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, -0.6)
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Rack"]
 mesh = SubResource("BoxMesh_j288w")
 skeleton = NodePath("../../..")
-surface_material_override/0 = ExtResource("1_o8xko")
+surface_material_override/0 = ExtResource("4_fia62")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Rack"]
 shape = SubResource("BoxShape3D_cusyt")
@@ -52,7 +49,7 @@ shape = SubResource("BoxShape3D_cusyt")
 transform = Transform3D(0.44, 0, 0, 0, 0.44, 0, 0, 0, 0.44, 0, 0, 0.156462)
 shaded = true
 double_sided = false
-text = "Weapon"
+text = "Weapon - Ion"
 
 [node name="Rack2" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0, 0.997482, -0.6)
@@ -60,27 +57,18 @@ transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0, 0.99748
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Rack2"]
 mesh = SubResource("BoxMesh_4lolr")
 skeleton = NodePath("../../..")
-surface_material_override/0 = ExtResource("1_o8xko")
+surface_material_override/0 = ExtResource("4_fia62")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Rack2"]
 shape = SubResource("BoxShape3D_cusyt")
 
-[node name="CellSnapZone" parent="." instance=ExtResource("5_47q8l")]
+[node name="CellSnapZone" parent="." instance=ExtResource("5_0457s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.385714, 1.01609, -0.594972)
-
-[node name="CollisionShape3D" parent="CellSnapZone" index="0"]
-shape = SubResource("SphereShape3D_gvebs")
-
-[node name="EnergyIndicator2" parent="CellSnapZone/CostIndicators" index="1"]
-visible = true
-
-[node name="EnergyIndicator3" parent="CellSnapZone/CostIndicators" index="2"]
-visible = true
 
 [node name="WeaponSliderOrigin" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, -0.248441, 1.08967, -0.43083)
 
-[node name="WeaponSlider" parent="WeaponSliderOrigin" instance=ExtResource("4_2e86t")]
+[node name="WeaponSlider" parent="WeaponSliderOrigin" instance=ExtResource("6_g5yar")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.1, 0)
 slider_limit_max = Vector2(0.5, 0.2)
 slider_position = Vector2(0.25, 0.1)
@@ -93,7 +81,7 @@ skeleton = NodePath("../../CylinderSliderOrigin")
 [node name="CylinderSliderOrigin" type="Node3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.404064, 1.06263, -0.482442)
 
-[node name="CylinderSlider" parent="CylinderSliderOrigin" instance=ExtResource("5_y5onf")]
+[node name="CylinderSlider" parent="CylinderSliderOrigin" instance=ExtResource("8_3n3kq")]
 
 [node name="Ground" type="MeshInstance3D" parent="CylinderSliderOrigin"]
 transform = Transform3D(1.39967, 0, 0, 0, 1, 0, 0, 0, 0.138342, 0.0999999, -0.057182, 0)
@@ -103,12 +91,12 @@ mesh = SubResource("PlaneMesh_5ppw0")
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, -0.056, 0.038)
 mesh = SubResource("SphereMesh_t2fky")
-surface_material_override/0 = ExtResource("8_65k5p")
+surface_material_override/0 = ExtResource("3_f3ui0")
 
 [node name="TargetorOrigin" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 
-[node name="Targetor" parent="TargetorOrigin" instance=ExtResource("6_pdwjr")]
+[node name="Targetor" parent="TargetorOrigin" instance=ExtResource("9_g1epr")]
 unique_name_in_owner = true
 min_rotation = Vector2(-0.785, -0.393)
 max_rotation = Vector2(0.785, 0.393)
@@ -116,7 +104,7 @@ swap_y = true
 
 [node name="Shooters" type="Node3D" parent="."]
 
-[node name="BigGun" parent="Shooters" node_paths=PackedStringArray("targetor") instance=ExtResource("7_mn488")]
+[node name="BigGun" parent="Shooters" node_paths=PackedStringArray("targetor") instance=ExtResource("10_girhn")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -1.338)
 collision_layer = 2
@@ -129,5 +117,3 @@ targetor = NodePath("../../TargetorOrigin/Targetor")
 [connection signal="slider_moved" from="WeaponSliderOrigin/WeaponSlider" to="." method="_on_weapon_slider_slider_moved"]
 [connection signal="bottom_reached" from="CylinderSliderOrigin/CylinderSlider" to="." method="_on_cylinder_slider_bottom_reached"]
 [connection signal="top_reached" from="CylinderSliderOrigin/CylinderSlider" to="." method="_on_cylinder_slider_top_reached"]
-
-[editable path="CellSnapZone"]

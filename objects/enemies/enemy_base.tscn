@@ -123,4 +123,10 @@ explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_m5wg0")
 draw_pass_1 = SubResource("QuadMesh_tr3na")
 
+[node name="IonTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 10.0
+one_shot = true
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="IonTimer" to="." method="_on_ion_timer_timeout"]

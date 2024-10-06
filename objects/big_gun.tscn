@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://o82114q4g4vl"]
+[gd_scene load_steps=12 format=4 uid="uid://o82114q4g4vl"]
 
 [ext_resource type="ArrayMesh" uid="uid://cvji65pjgw83u" path="res://assets/models/Julius/muzzleflash.obj" id="1_146mb"]
 [ext_resource type="Script" path="res://scripts/weapon.gd" id="1_ipurr"]
@@ -101,11 +101,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_7d7ss")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uyoj5"]
-albedo_color = Color(0.74, 0, 0.74, 1)
-emission_enabled = true
-emission = Color(0.74, 0, 0.74, 1)
-
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ewysn"]
 points = PackedVector3Array(0.031752, -0.0587333, -0.0106954, 0.0597594, 0.0579333, 0.00795571, 0.0597594, 0.0579333, -0.0106954, -0.136233, 0.0252607, 0.00329635, -0.0522114, -0.0167192, 0.0359667, 0.157756, -0.0493804, 0.00795571, -0.056889, -0.0260493, -0.0340333, 0.14843, 0.00192968, -0.0153616, 0.153078, 0.0205899, 0.0126288, -0.112874, 0.0392502, 0.0266274, -0.102599, 0.0360159, -0.0226009, -0.116708, -0.0160534, 0.012153, 0.0084516, 0.0299315, -0.0293603, 0.157756, -0.044721, -0.0106954, 0.031752, -0.0587333, 0.00795571, 0.0084516, 0.0345909, 0.0266274, -0.100845, -0.0236, -0.0222437, 0.0644078, -0.00271826, 0.0266274, -0.0833138, -0.0244923, 0.0294526, -0.0895447, 0.00658904, -0.0340333, 0.153078, 0.0205899, -0.0106954, -0.136233, 0.00658904, -0.00602922, 0.0364004, 0.0579333, -0.0106954, 0.157756, -0.0307201, 0.0126288, -0.0522114, 0.00192968, 0.0359667, 0.0644078, -0.00271826, -0.0246941, 0.0644078, -0.0587333, -0.0106954, -0.0971574, -0.0228492, 0.0234259, -0.136233, 0.0112598, 0.00795571, 0.0644078, -0.0587333, 0.00795571, 0.157756, 0.0112598, 0.0126288, -0.136233, 0.0252607, -0.00602922)
 
@@ -117,8 +112,6 @@ projectile_impulse = 6.0
 [node name="Gun" type="MeshInstance3D" parent="."]
 transform = Transform3D(3.93402e-07, 0, -3, 0, 3, 0, 3, 0, 3.93402e-07, -0.0116216, 0.00999384, -1.66131e-05)
 mesh = SubResource("ArrayMesh_k0ru0")
-skeleton = NodePath("")
-surface_material_override/1 = SubResource("StandardMaterial3D_uyoj5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(3.93402e-07, 0, -3, 0, 3, 0, 3, 0, 3.93402e-07, -0.0116216, 0.00999384, -1.66131e-05)

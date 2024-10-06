@@ -18,7 +18,7 @@ func set_special_reload(reload: float):
 	%SpecialLoad.degrees = reload * 80
 
 func set_angle(angle: float):
-	%LabelAngle.text = str(floori(rad_to_deg(angle))) + "°"
+	pass
 
 func set_max_hp(hp: int):
 	max_hp = hp
@@ -30,3 +30,12 @@ func set_hp(hp: int):
 func set_shield(amount: int):
 	%Shield.material_override.set_shader_parameter("visible_segments", amount)
 	%Shield.visible = amount > 0
+
+func set_ion(ratio: float):
+	if ratio > 0 and not %LabelIon.visible:
+		%LabelIon.visible = true
+		%Ion.visible = true
+	elif ratio == 0 and %LabelIon.visible:
+		%LabelIon.visible = false
+		%Ion.visible = false
+	%Ion.degrees = ratio * 80

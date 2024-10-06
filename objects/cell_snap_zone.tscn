@@ -1,0 +1,79 @@
+[gd_scene load_steps=12 format=3 uid="uid://bhanrnjta48os"]
+
+[ext_resource type="PackedScene" uid="uid://ce7vysyvondf8" path="res://addons/godot-xr-tools/objects/snap_zone.tscn" id="1_1hoa2"]
+[ext_resource type="AudioStream" uid="uid://dnanhnqqufs3e" path="res://assets/audio/Kenney/Interface/switch_002.ogg" id="2_xqmsn"]
+[ext_resource type="Material" uid="uid://bsl8nqkej0v6p" path="res://assets/models/gold.tres" id="3_rdjxl"]
+[ext_resource type="Material" uid="uid://igospamby4es" path="res://assets/models/energy_on_material.tres" id="4_ajvqr"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1hnuq"]
+resource_local_to_scene = true
+radius = 0.09
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_4lyxt"]
+material = ExtResource("3_rdjxl")
+size = Vector2(0.15, 0.15)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ajdnd"]
+size = Vector3(0.01, 0.01, 0.01)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bwfbv"]
+albedo_color = Color(0.4, 0.4, 0.4, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_u6auh"]
+material = SubResource("StandardMaterial3D_bwfbv")
+size = Vector3(0.04, 0.01, 0.07)
+
+[sub_resource type="PrismMesh" id="PrismMesh_1fiql"]
+material = ExtResource("4_ajvqr")
+size = Vector3(0.008, 0.008, 0.071)
+
+[sub_resource type="PrismMesh" id="PrismMesh_lxigm"]
+material = ExtResource("4_ajvqr")
+size = Vector3(0.008, 0.008, 0.041)
+
+[node name="CellSnapZone" instance=ExtResource("1_1hoa2")]
+stash_sound = ExtResource("2_xqmsn")
+grab_distance = 0.09
+snap_require = "EnergyCell"
+
+[node name="CollisionShape3D" parent="." index="0"]
+shape = SubResource("SphereShape3D_1hnuq")
+
+[node name="Ground" type="MeshInstance3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00980504, 0)
+mesh = SubResource("PlaneMesh_4lyxt")
+
+[node name="CostIndicators" type="Node3D" parent="." index="3"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.065, -0.00543374, -0.065)
+
+[node name="EnergyIndicator1" type="MeshInstance3D" parent="CostIndicators" index="0"]
+mesh = SubResource("BoxMesh_ajdnd")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("4_ajvqr")
+
+[node name="EnergyIndicator2" type="MeshInstance3D" parent="CostIndicators" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
+visible = false
+mesh = SubResource("BoxMesh_ajdnd")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("4_ajvqr")
+
+[node name="EnergyIndicator3" type="MeshInstance3D" parent="CostIndicators" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.04)
+visible = false
+mesh = SubResource("BoxMesh_ajdnd")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("4_ajvqr")
+
+[node name="Connector" type="MeshInstance3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00543374, 0)
+mesh = SubResource("BoxMesh_u6auh")
+
+[node name="Arrows1" type="MeshInstance3D" parent="Connector" index="0"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("PrismMesh_1fiql")
+
+[node name="Arrows2" type="MeshInstance3D" parent="Connector" index="1"]
+transform = Transform3D(4.37114e-08, -3.82137e-15, -1, -8.74228e-08, -1, 0, -1, 8.74228e-08, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("PrismMesh_lxigm")

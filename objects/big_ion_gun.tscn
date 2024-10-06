@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://b7cea2r8li5ut"]
+
+[ext_resource type="PackedScene" uid="uid://o82114q4g4vl" path="res://objects/big_gun.tscn" id="1_owxdb"]
+[ext_resource type="PackedScene" uid="uid://cx285m2psxgkk" path="res://objects/player_ion_projectile.tscn" id="2_gxylh"]
+[ext_resource type="AudioStream" uid="uid://dwbvxcxyehv61" path="res://assets/audio/Kenney/SciFi/laserLarge_001.ogg" id="3_vca44"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mcu6l"]
+albedo_color = Color(0, 1, 0.0333333, 1)
+emission_enabled = true
+emission = Color(0, 0.666, 0.74, 1)
+
+[node name="BigIonGun" instance=ExtResource("1_owxdb")]
+projectile_scene = ExtResource("2_gxylh")
+projectile_impulse = 3.0
+
+[node name="Gun" parent="." index="0"]
+surface_material_override/1 = SubResource("StandardMaterial3D_mcu6l")
+
+[node name="ShootAudio" parent="." index="3"]
+stream = ExtResource("3_vca44")
+volume_db = 5.0

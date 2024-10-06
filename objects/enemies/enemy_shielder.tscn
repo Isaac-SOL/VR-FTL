@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c114yohjuthyh"]
+[gd_scene load_steps=14 format=3 uid="uid://c114yohjuthyh"]
 
 [ext_resource type="PackedScene" uid="uid://damvskku830yr" path="res://objects/enemies/enemy_base.tscn" id="1_qitfe"]
 [ext_resource type="ArrayMesh" uid="uid://dquneugvm4n5p" path="res://assets/models/Ultimate Spaceships/Pancake/OBJ/Pancake.obj" id="2_le80y"]
@@ -8,6 +8,13 @@
 [ext_resource type="Shader" uid="uid://bid4x5lk8b8bf" path="res://assets/shaders/flame.tres" id="5_m5qdq"]
 [ext_resource type="Texture2D" uid="uid://c0vqpubvs84w0" path="res://assets/models/Julius/muzzleflash.png" id="6_vaypu"]
 [ext_resource type="AudioStream" uid="uid://m6aefs8puqt5" path="res://assets/audio/Kenney/SciFi/forceField_001.ogg" id="8_1vqxu"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_cwyoy"]
+height = 1.44344
+radius = 3.91737
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8dxsg"]
+height = 10.9751
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sirvg"]
 albedo_texture = ExtResource("3_0mdad")
@@ -33,30 +40,39 @@ shield_cooldown = 7.0
 max_hp = 2
 attach_weapons = false
 
-[node name="MeshInstance3D" parent="." index="2"]
+[node name="CollisionShape3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.277559, -0.105943, 0.0925121)
+shape = SubResource("CylinderShape3D_cwyoy")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.79389, -0.105943, 0.0925121)
+shape = SubResource("CapsuleShape3D_8dxsg")
+
+[node name="MeshInstance3D" parent="." index="3"]
 mesh = ExtResource("2_le80y")
 surface_material_override/0 = SubResource("StandardMaterial3D_sirvg")
 
-[node name="PurpleFlame" parent="." index="4"]
+[node name="PurpleFlame" parent="." index="5"]
 unique_name_in_owner = false
 visible = false
 surface_material_override/0 = SubResource("ShaderMaterial_n2jgr")
 surface_material_override/1 = SubResource("ShaderMaterial_n2jgr")
 surface_material_override/2 = SubResource("ShaderMaterial_n2jgr")
 
-[node name="Flame" parent="." index="5" instance=ExtResource("4_0yd3x")]
+[node name="Flame" parent="." index="11" instance=ExtResource("4_0yd3x")]
 unique_name_in_owner = false
 transform = Transform3D(-2.5828e-06, 0, -15, 0, 10, 0, 10, 0, -3.07954e-06, 4.53876, 0, 0)
 surface_material_override/0 = SubResource("ShaderMaterial_peby0")
 surface_material_override/1 = SubResource("ShaderMaterial_peby0")
 surface_material_override/2 = SubResource("ShaderMaterial_peby0")
 
-[node name="ShieldTimer" type="Timer" parent="." index="6"]
+[node name="ShieldTimer" type="Timer" parent="." index="12"]
 unique_name_in_owner = true
 wait_time = 7.0
 
-[node name="ShieldAudio" type="AudioStreamPlayer3D" parent="." index="7"]
+[node name="ShieldAudio" type="AudioStreamPlayer3D" parent="." index="13"]
 unique_name_in_owner = true
+transform = Transform3D(3.33333, 0, 0, 0, 3.33333, 0, 0, 0, 3.33333, 0, 0, 0)
 stream = ExtResource("8_1vqxu")
 volume_db = -10.0
 

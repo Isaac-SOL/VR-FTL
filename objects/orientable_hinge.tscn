@@ -29,7 +29,7 @@ radius = 0.05
 height = 0.1
 
 [sub_resource type="BoxMesh" id="BoxMesh_646cx"]
-size = Vector3(0.01, 0.05, 0.02)
+size = Vector3(0.01, 0.05, 0.015)
 
 [node name="OrientableHinge" instance=ExtResource("1_2o2r1")]
 hinge_limit_min = -180.0
@@ -37,7 +37,7 @@ hinge_limit_max = 180.0
 hinge_steps = 45.0
 
 [node name="HandleOrigin" type="Node3D" parent="." index="0"]
-transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.000207476, -0.10028, 0)
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.0212149, -0.10028, 0)
 
 [node name="InteractableHandle" parent="HandleOrigin" index="0" instance=ExtResource("2_xhptg")]
 unique_name_in_owner = true
@@ -56,7 +56,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0.047, -0.085)
 hand_pose = SubResource("Resource_cplv2")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1"]
-transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.000207476, -0.10028, 0)
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.0212149, -0.10028, 0)
 mesh = SubResource("SphereMesh_d6hti")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="." index="2"]
@@ -66,13 +66,13 @@ skeleton = NodePath("../MeshInstance3D")
 surface_material_override/0 = ExtResource("8_pvrbs")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="." index="3"]
-transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.0635451, -0.10028, 0)
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.0421227, -0.10028, 0)
 mesh = SubResource("BoxMesh_646cx")
 skeleton = NodePath("../MeshInstance3D")
 surface_material_override/0 = ExtResource("8_pvrbs")
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="." index="4"]
-transform = Transform3D(1, 0, 0, 0, 2.2, 0, 0, 0, 1, -0.0836764, -0.0502803, 0)
+transform = Transform3D(0.965926, -0.569402, 0, 0.258819, 2.12504, 0, 0, 0, 1, -0.0771047, -0.0502803, 0)
 mesh = SubResource("BoxMesh_646cx")
 skeleton = NodePath("../MeshInstance3D")
 surface_material_override/0 = ExtResource("8_pvrbs")

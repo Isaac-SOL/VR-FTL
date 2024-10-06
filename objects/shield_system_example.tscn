@@ -1,13 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://bq2us4wa6ntyh"]
+[gd_scene load_steps=12 format=3 uid="uid://bq2us4wa6ntyh"]
 
 [ext_resource type="Script" path="res://scripts/shield_system.gd" id="1_t80j3"]
 [ext_resource type="Material" uid="uid://dyctme5ipxdwq" path="res://assets/models/energy_off_material.tres" id="2_lmt2h"]
 [ext_resource type="Material" uid="uid://bdtjv2pxcjyor" path="res://assets/models/energy_orange_material.tres" id="3_17cdw"]
 [ext_resource type="Material" uid="uid://c6j4a1mb0lsnn" path="res://assets/models/brushed_metal.tres" id="4_1fc5v"]
-[ext_resource type="AudioStream" uid="uid://dnanhnqqufs3e" path="res://assets/audio/Kenney/Interface/switch_002.ogg" id="4_o2vkd"]
-[ext_resource type="PackedScene" uid="uid://ce7vysyvondf8" path="res://addons/godot-xr-tools/objects/snap_zone.tscn" id="5_mrcas"]
+[ext_resource type="PackedScene" uid="uid://bhanrnjta48os" path="res://objects/cell_snap_zone.tscn" id="5_ektv7"]
 [ext_resource type="Material" uid="uid://bsl8nqkej0v6p" path="res://assets/models/gold.tres" id="6_idgxd"]
-[ext_resource type="Material" uid="uid://igospamby4es" path="res://assets/models/energy_on_material.tres" id="7_hfa4o"]
 [ext_resource type="PackedScene" uid="uid://cyh65iifm0jco" path="res://objects/cylinder_slider.tscn" id="9_p8exv"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_j288w"]
@@ -19,9 +17,6 @@ size = Vector3(0.41, 0.11, 0.31)
 [sub_resource type="PlaneMesh" id="PlaneMesh_5ppw0"]
 material = ExtResource("6_idgxd")
 size = Vector2(0.15, 0.15)
-
-[sub_resource type="BoxMesh" id="BoxMesh_q48ae"]
-size = Vector3(0.01, 0.01, 0.01)
 
 [sub_resource type="SphereMesh" id="SphereMesh_t2fky"]
 radius = 0.01
@@ -48,20 +43,8 @@ shaded = true
 double_sided = false
 text = "Shields"
 
-[node name="CellSnapZone" parent="." instance=ExtResource("5_mrcas")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0696204, 1.02575, -0.0600678)
-stash_sound = ExtResource("4_o2vkd")
-grab_distance = 0.1
-snap_require = "EnergyCell"
-
-[node name="Ground" type="MeshInstance3D" parent="CellSnapZone"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0193713, 0)
-mesh = SubResource("PlaneMesh_5ppw0")
-
-[node name="EnergyIndicator1" type="MeshInstance3D" parent="CellSnapZone"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.065, -0.015, -0.065)
-mesh = SubResource("BoxMesh_q48ae")
-surface_material_override/0 = ExtResource("7_hfa4o")
+[node name="CellSnapZone" parent="." instance=ExtResource("5_ektv7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0678077, 1.01704, -0.0456132)
 
 [node name="CylinderSliderOrigin" type="Node3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.11049, 1.06263, 0.117418)

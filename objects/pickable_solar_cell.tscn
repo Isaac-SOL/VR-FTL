@@ -9,7 +9,7 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p36jc"]
 albedo_color = Color(0.87, 0.76821, 0.6351, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bfuw6"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1jrlr"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_n4cc8")
@@ -23,7 +23,7 @@ shader_parameter/reverse_order = false
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_j02de"]
 resource_local_to_scene = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5ouyo"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_65fhf"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_n4cc8")
@@ -34,7 +34,7 @@ shader_parameter/segment_spacing = 0.1
 shader_parameter/last_space = true
 shader_parameter/reverse_order = false
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_bxqco"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_snbgq"]
 resource_local_to_scene = true
 
 [node name="PickableSolarCell" instance=ExtResource("1_3piev")]
@@ -71,7 +71,7 @@ autostart = true
 
 [node name="RechargeIndicator1" parent="." index="11" instance=ExtResource("3_uit7n")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.016343, 0.0407784, 0)
-material_override = SubResource("ShaderMaterial_bfuw6")
+material_override = SubResource("ShaderMaterial_1jrlr")
 mesh = SubResource("ImmediateMesh_j02de")
 segments = 96
 inner_radius = 0.015
@@ -79,13 +79,14 @@ outer_radius = 0.02
 degrees = 360.0
 
 [node name="RechargeIndicator2" parent="." index="12" instance=ExtResource("3_uit7n")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.016, 0.041, 0)
-material_override = SubResource("ShaderMaterial_5ouyo")
-mesh = SubResource("ImmediateMesh_bxqco")
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 0.016, 0.041, 0)
+material_override = SubResource("ShaderMaterial_65fhf")
+mesh = SubResource("ImmediateMesh_snbgq")
 segments = 96
 inner_radius = 0.015
 outer_radius = 0.02
 degrees = 360.0
+reverse = true
 
 [connection signal="energy_changed" from="." to="." method="_on_energy_changed"]
 [connection signal="timeout" from="SolarTimer" to="." method="_on_solar_timer_timeout"]

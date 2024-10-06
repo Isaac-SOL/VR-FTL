@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bf4ig4wt66p01"]
+[gd_scene load_steps=15 format=3 uid="uid://bf4ig4wt66p01"]
 
 [ext_resource type="PackedScene" uid="uid://damvskku830yr" path="res://objects/enemies/enemy_base.tscn" id="1_21m41"]
 [ext_resource type="ArrayMesh" uid="uid://d3vuqs25ayjcq" path="res://assets/models/Ultimate Spaceships/Spitfire/OBJ/Spitfire.obj" id="2_3yy0r"]
@@ -7,6 +7,12 @@
 [ext_resource type="Texture2D" uid="uid://b66c5gt05p2hx" path="res://assets/models/Ultimate Spaceships/Spitfire/Textures/Spitfire_Red.png" id="3_gsukh"]
 [ext_resource type="Texture2D" uid="uid://c0vqpubvs84w0" path="res://assets/models/Julius/muzzleflash.png" id="4_8ov2b"]
 [ext_resource type="PackedScene" uid="uid://dnlbkq43d34y3" path="res://objects/flames/purple_flame.tscn" id="6_4hagr"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qinak"]
+size = Vector3(7.623, 1.629, 1.891)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vwrax"]
+size = Vector3(2.182, 10.414, 1.891)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rd85m"]
 albedo_texture = ExtResource("3_gsukh")
@@ -46,29 +52,37 @@ degrees_per_second = 7.2
 [node name="WeaponAttachPoint" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -2.18358, 0, 0)
 
-[node name="MeshInstance3D" parent="." index="2"]
+[node name="CollisionShape3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.475018, 0.0194769, 0.0925121)
+shape = SubResource("BoxShape3D_qinak")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.19474, 0.0194769, 0.0925121)
+shape = SubResource("BoxShape3D_vwrax")
+
+[node name="MeshInstance3D" parent="." index="3"]
 mesh = ExtResource("2_3yy0r")
 surface_material_override/0 = SubResource("StandardMaterial3D_rd85m")
 
-[node name="PurpleFlame" parent="." index="4"]
+[node name="PurpleFlame" parent="." index="5"]
 transform = Transform3D(-1.62921e-06, 0, -15, 0, 10, 0, 10, 0, -2.44381e-06, 4.53876, 4.49049, 0.152931)
 surface_material_override/0 = SubResource("ShaderMaterial_n2jgr")
 surface_material_override/1 = SubResource("ShaderMaterial_n2jgr")
 surface_material_override/2 = SubResource("ShaderMaterial_n2jgr")
 
-[node name="PurpleFlame2" parent="." index="5" instance=ExtResource("6_4hagr")]
+[node name="PurpleFlame2" parent="." index="6" instance=ExtResource("6_4hagr")]
 transform = Transform3D(-1.62921e-06, 0, -15, 0, 10, 0, 10, 0, -2.44381e-06, 4.53876, 4.49049, -1.25044)
 surface_material_override/0 = SubResource("ShaderMaterial_mrbyh")
 surface_material_override/1 = SubResource("ShaderMaterial_mrbyh")
 surface_material_override/2 = SubResource("ShaderMaterial_mrbyh")
 
-[node name="PurpleFlame3" parent="." index="6" instance=ExtResource("6_4hagr")]
+[node name="PurpleFlame3" parent="." index="7" instance=ExtResource("6_4hagr")]
 transform = Transform3D(-1.62921e-06, 0, -15, 0, 10, 0, 10, 0, -2.44381e-06, 4.53876, -4.52554, -1.25044)
 surface_material_override/0 = SubResource("ShaderMaterial_hw0x2")
 surface_material_override/1 = SubResource("ShaderMaterial_hw0x2")
 surface_material_override/2 = SubResource("ShaderMaterial_hw0x2")
 
-[node name="PurpleFlame4" parent="." index="7" instance=ExtResource("6_4hagr")]
+[node name="PurpleFlame4" parent="." index="8" instance=ExtResource("6_4hagr")]
 transform = Transform3D(-1.62921e-06, 0, -15, 0, 10, 0, 10, 0, -2.44381e-06, 4.53876, -4.52554, 0.166101)
 surface_material_override/0 = SubResource("ShaderMaterial_0arhk")
 surface_material_override/1 = SubResource("ShaderMaterial_0arhk")

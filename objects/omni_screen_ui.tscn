@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=3 uid="uid://ixj7l3f60i34"]
+
+[ext_resource type="Script" path="res://scripts/omni_screen_ui.gd" id="1_endtb"]
+[ext_resource type="AudioStream" uid="uid://bugce4yfifwr3" path="res://assets/audio/Kenney/big_warning1.ogg" id="2_de3x4"]
+
+[node name="OmniScreenUI" type="Node3D"]
+script = ExtResource("1_endtb")
+
+[node name="BigWarningAudio" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("2_de3x4")
+
+[node name="BigWarning" type="Node3D" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="Label3D" type="Label3D" parent="BigWarning"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.41135, -1.90988)
+layers = 32
+double_sided = false
+modulate = Color(1, 0, 0, 1)
+text = "WARNING
+Hull <50%"
+font_size = 64
+
+[node name="Label3D2" type="Label3D" parent="BigWarning"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.411, 1.91)
+layers = 32
+double_sided = false
+modulate = Color(1, 0, 0, 1)
+text = "WARNING
+Hull <50%"
+font_size = 64
+
+[node name="Label3D3" type="Label3D" parent="BigWarning"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.91, 1.411, 0)
+layers = 32
+double_sided = false
+modulate = Color(1, 0, 0, 1)
+text = "WARNING
+Hull <50%"
+font_size = 64
+
+[node name="Label3D4" type="Label3D" parent="BigWarning"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.91, 1.411, 0)
+layers = 32
+double_sided = false
+modulate = Color(1, 0, 0, 1)
+text = "WARNING
+Hull <50%"
+font_size = 64

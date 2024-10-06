@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://diqcwca2on1df"]
+[gd_scene load_steps=23 format=3 uid="uid://diqcwca2on1df"]
 
 [ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_74tt6"]
 [ext_resource type="Script" path="res://scripts/pickable_energy_cell.gd" id="2_1vl4k"]
@@ -20,12 +20,20 @@ size = Vector3(0.03, 0.15, 0.06)
 [sub_resource type="BoxMesh" id="BoxMesh_i7nwj"]
 size = Vector3(0.03, 0.15, 0.06)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fyb8x"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xj28p"]
 albedo_color = Color(0.4, 0.4, 0.4, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_4wqth"]
-material = SubResource("StandardMaterial3D_fyb8x")
+material = SubResource("StandardMaterial3D_xj28p")
 size = Vector3(0.04, 0.01, 0.07)
+
+[sub_resource type="PrismMesh" id="PrismMesh_5p1og"]
+material = ExtResource("2_j3fyn")
+size = Vector3(0.008, 0.008, 0.071)
+
+[sub_resource type="PrismMesh" id="PrismMesh_k2rmb"]
+material = ExtResource("2_j3fyn")
+size = Vector3(0.008, 0.008, 0.041)
 
 [sub_resource type="BoxMesh" id="BoxMesh_liyr2"]
 size = Vector3(0.04, 0.015, 0.04)
@@ -58,6 +66,14 @@ mesh = SubResource("BoxMesh_i7nwj")
 [node name="Connector" type="MeshInstance3D" parent="." index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08, 0)
 mesh = SubResource("BoxMesh_4wqth")
+
+[node name="Arrows1" type="MeshInstance3D" parent="Connector" index="0"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("PrismMesh_5p1og")
+
+[node name="Arrows2" type="MeshInstance3D" parent="Connector" index="1"]
+transform = Transform3D(4.37114e-08, -3.82137e-15, -1, -8.74228e-08, -1, 0, -1, 8.74228e-08, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("PrismMesh_k2rmb")
 
 [node name="Energy" type="Node3D" parent="." index="3"]
 unique_name_in_owner = true

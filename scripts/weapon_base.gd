@@ -36,6 +36,12 @@ func update_indicator():
 func stop():
 	%ShootTimer.stop()
 
+func pause():
+	%ShootTimer.paused = true
+
+func unpause():
+	%ShootTimer.paused = false
+
 func _on_shoot_timer_timeout() -> void:
 	for i in range(shots):
 		if not %ShootTimer.is_stopped():

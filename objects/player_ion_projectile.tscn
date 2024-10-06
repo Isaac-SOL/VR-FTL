@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://cx285m2psxgkk"]
+
+[ext_resource type="PackedScene" uid="uid://c4jw4lk5fvjek" path="res://objects/player_projectile.tscn" id="1_guetx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ie72h"]
+albedo_color = Color(0, 1, 1, 1)
+emission_enabled = true
+emission = Color(0, 1, 1, 1)
+emission_energy_multiplier = 16.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pma8y"]
+albedo_color = Color(0, 1, 1, 1)
+emission_enabled = true
+emission = Color(0, 1, 1, 1)
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_scet2"]
+material = SubResource("StandardMaterial3D_pma8y")
+size = Vector2(0.04, 0.04)
+
+[node name="PlayerIonProjectile" instance=ExtResource("1_guetx")]
+ion = true
+
+[node name="MeshInstance3D" parent="." index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_ie72h")
+
+[node name="ExplosionParticles" parent="." index="3"]
+draw_pass_1 = SubResource("QuadMesh_scet2")

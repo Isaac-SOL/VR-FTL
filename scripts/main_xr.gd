@@ -6,6 +6,7 @@ var scrap: int = 0
 var xr_interface: XRInterface
 @onready var sky_material: ShaderMaterial = %WorldEnvironment.environment.sky.sky_material
 @onready var ship_ui: ShipUI = %ShipScreenContent.get_node("Viewport/ShipUI")
+@onready var prev_core_hp: int = %Core.hp
 
 func _ready() -> void:
 	Singletons.main = self
@@ -59,6 +60,13 @@ func _on_spawn_enemy_pressed() -> void:
 func _on_enemy_spawner_enemy_spawned(enemy: EnemyBase) -> void:
 	%NavigationSystem._on_enemy_spawned(enemy)
 
-func _on_enemy_destroyed(enemy: EnemyBase) -> void:
+func _on_enemy_destroyed(_enemy: EnemyBase) -> void:
 	scrap += 10
 	ship_ui.set_scrap(scrap)
+
+func _on_core_hit(_by: Projectile) -> void:
+	if %Core.hp <= %Core.max_hp / 2 and prev_core_hp > %Core.max_hp / 2:
+		%OmniScreenUI.flash_big_warning(OmniScreenUI.WARNING_HULL_50)
+	if %Core.hp <= %Core.max_hp * 0.2 and prev_core_hp > %Core.max_hp * 0.2:
+		%OmniScreenUI.flash_big_warning(OmniScreenUI.WARNING_HULL_20)
+	prev_core_hp = %Core.hp

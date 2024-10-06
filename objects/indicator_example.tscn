@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bgocnol6lncjd"]
+[gd_scene load_steps=23 format=3 uid="uid://bgocnol6lncjd"]
 
 [ext_resource type="PackedScene" uid="uid://byap55qn6t83w" path="res://objects/indicator.tscn" id="1_0gmhg"]
 [ext_resource type="Script" path="res://scripts/indicator_example.gd" id="2_4qtfv"]
@@ -41,7 +41,7 @@ albedo_color = Color(0, 0.32549, 1, 1)
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_hg7rx"]
 resource_local_to_scene = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xld3s"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d2jle"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("5_v0f8d")
@@ -68,6 +68,19 @@ shader_parameter/reverse_order = true
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_1sf2u"]
 resource_local_to_scene = true
 
+[sub_resource type="Gradient" id="Gradient_q55fd"]
+colors = PackedColorArray(0, 0, 1, 1, 0, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0nrli"]
+gradient = SubResource("Gradient_q55fd")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ri3gw"]
+shading_mode = 0
+albedo_texture = SubResource("GradientTexture1D_0nrli")
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_cy4hr"]
+resource_local_to_scene = true
+
 [node name="Indicator" instance=ExtResource("1_0gmhg")]
 script = ExtResource("2_4qtfv")
 
@@ -86,19 +99,7 @@ texture = ExtResource("2_5v7hb")
 script = SubResource("GDScript_cclgf")
 rotation_speed = 0.3
 
-[node name="LabelAngle" type="Label3D" parent="." index="2"]
-unique_name_in_owner = true
-transform = Transform3D(-3.53553, 3.53553, 4.37114e-07, 3.53553, 3.53553, 0, -3.09086e-07, 3.09086e-07, -5, 1.6, 1.6, 0)
-layers = 32
-double_sided = false
-texture_filter = 0
-modulate = Color(0.5, 0.5, 0.5, 1)
-outline_modulate = Color(0.25, 0.25, 0.25, 0.392157)
-text = "180°"
-font_size = 16
-outline_size = 6
-
-[node name="LabelHP" type="Label3D" parent="." index="3"]
+[node name="LabelHP" type="Label3D" parent="." index="2"]
 transform = Transform3D(-3.53553, -3.53553, -7.54979e-07, -3.53553, 3.53553, 0, 5.33851e-07, 5.33851e-07, -5, -1.6, 1.6, 0)
 layers = 32
 double_sided = false
@@ -109,7 +110,7 @@ text = "HP"
 font_size = 16
 outline_size = 6
 
-[node name="LabelWeapon" type="Label3D" parent="." index="4"]
+[node name="LabelWeapon" type="Label3D" parent="." index="3"]
 transform = Transform3D(-3.53553, 3.53553, 4.37114e-07, 3.53553, 3.53553, 0, -3.09086e-07, 3.09086e-07, -5, -1.6, -1.6, 0)
 layers = 32
 double_sided = false
@@ -120,7 +121,7 @@ text = "WPN"
 font_size = 16
 outline_size = 6
 
-[node name="LabelSpecial" type="Label3D" parent="." index="5"]
+[node name="LabelSpecial" type="Label3D" parent="." index="4"]
 transform = Transform3D(-3.53553, -3.53553, -4.37114e-07, -3.53553, 3.53553, 0, 3.09086e-07, 3.09086e-07, -5, 1.6, -1.6, 0)
 visible = false
 layers = 32
@@ -129,6 +130,19 @@ texture_filter = 0
 modulate = Color(0.5, 0.5, 0.5, 1)
 outline_modulate = Color(0.25, 0.25, 0.25, 0.392157)
 text = "SPC"
+font_size = 16
+outline_size = 6
+
+[node name="LabelIon" type="Label3D" parent="." index="5"]
+unique_name_in_owner = true
+transform = Transform3D(-3.53553, 3.53553, 4.37114e-07, 3.53553, 3.53553, 0, -3.09086e-07, 3.09086e-07, -5, 1.6, 1.6, 0)
+visible = false
+layers = 32
+double_sided = false
+texture_filter = 0
+modulate = Color(0.5, 0.5, 0.5, 1)
+outline_modulate = Color(0.25, 0.25, 0.25, 0.392157)
+text = "ION"
 font_size = 16
 outline_size = 6
 
@@ -196,7 +210,7 @@ degrees = 80.0
 unique_name_in_owner = true
 transform = Transform3D(0.0871557, -0.996195, 0, 0.996195, 0.0871557, 0, 0, 0, 1, 0, 0, 0)
 layers = 32
-material_override = SubResource("ShaderMaterial_xld3s")
+material_override = SubResource("ShaderMaterial_d2jle")
 mesh = SubResource("ImmediateMesh_vms5f")
 inner_radius = 2.7
 outer_radius = 3.0
@@ -214,3 +228,14 @@ inner_radius = 3.1
 outer_radius = 4.25
 degrees = 80.0
 swap_uv = true
+
+[node name="Ion" parent="." index="11" instance=ExtResource("4_dkmav")]
+unique_name_in_owner = true
+transform = Transform3D(-0.0871559, 0.996195, -8.74228e-08, 0.996195, 0.0871559, 0, 7.61941e-09, -8.70901e-08, -1, 0, 0, 0)
+visible = false
+layers = 32
+material_override = SubResource("StandardMaterial3D_ri3gw")
+mesh = SubResource("ImmediateMesh_cy4hr")
+inner_radius = 2.7
+outer_radius = 2.9
+degrees = 80.0
