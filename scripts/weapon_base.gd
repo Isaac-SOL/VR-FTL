@@ -11,7 +11,7 @@ class_name WeaponBase extends Node3D
 @onready var ship: EnemyBase = get_parent().get_parent()
 
 func _ready() -> void:
-	%ShootTimer.wait_time = weapon_cooldown
+	%ShootTimer.wait_time = weapon_cooldown / Parameters.game_speed
 	%ShootTimer.start()
 
 func _process(_delta: float) -> void:

@@ -1,0 +1,114 @@
+[gd_scene load_steps=15 format=3 uid="uid://dy0gd3byhm3x0"]
+
+[ext_resource type="Script" path="res://scripts/oxygen_leak.gd" id="1_eouwf"]
+[ext_resource type="Script" path="res://scripts/indicator.gd" id="1_nieyq"]
+[ext_resource type="Texture2D" uid="uid://ysolxx2cpgyp" path="res://assets/textures/Kenney/leak0.png" id="2_ac7t0"]
+[ext_resource type="Texture2D" uid="uid://dbk6tdgqhy1qc" path="res://assets/textures/Kenney/leak1.png" id="3_8o2mg"]
+[ext_resource type="AudioStream" uid="uid://dux5fvt3ppsaj" path="res://assets/audio/Soniss/pipe.ogg" id="4_j35gn"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fbah2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ac7t0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_8o2mg")
+}],
+"loop": true,
+"name": &"warning",
+"speed": 2.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_dtilk"]
+offsets = PackedFloat32Array(0, 0.77439, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_nm22b"]
+gradient = SubResource("Gradient_dtilk")
+
+[sub_resource type="Curve" id="Curve_q0026"]
+max_value = 3.0
+_data = [Vector2(0, 0), 0.0, 25.832, 0, 0, Vector2(0.0505618, 1.07987), 1.35026, 1.35026, 0, 0, Vector2(0.570225, 1.27188), 0.666245, 0.666245, 0, 0, Vector2(1, 3), 5.06346, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_b4nem"]
+curve = SubResource("Curve_q0026")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rg1my"]
+lifetime_randomness = 0.2
+angle_min = -90.0
+angle_max = 90.0
+direction = Vector3(0, 0, 1)
+spread = 10.0
+initial_velocity_min = 2.5
+initial_velocity_max = 3.5
+gravity = Vector3(0, 0, 0)
+damping_min = 2.0
+damping_max = 2.0
+scale_curve = SubResource("CurveTexture_b4nem")
+color_ramp = SubResource("GradientTexture1D_nm22b")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lm0hu"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.5, 0.5, 0.5, 0.784314)
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_bqmxg"]
+material = SubResource("StandardMaterial3D_lm0hu")
+size = Vector2(0.1, 0.1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_uj54o"]
+
+[node name="OxygenLeak" type="Area3D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_eouwf")
+
+[node name="Indicator" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+script = ExtResource("1_nieyq")
+distance_to_center = 2.2
+editor_preview = true
+
+[node name="Crosshair" type="AnimatedSprite3D" parent="Indicator"]
+layers = 32
+modulate = Color(1, 0, 0, 1)
+no_depth_test = true
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_fbah2")
+animation = &"warning"
+autoplay = "warning"
+frame = 1
+frame_progress = 0.999031
+
+[node name="Label3D" type="Label3D" parent="Indicator"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.269058, 0)
+layers = 32
+double_sided = false
+modulate = Color(1, 0, 0, 1)
+text = "LEAK"
+font_size = 24
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+amount = 10
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_rg1my")
+draw_pass_1 = SubResource("QuadMesh_bqmxg")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_j35gn")
+attenuation_model = 1
+unit_size = 1.0
+pitch_scale = 0.63
+autoplay = true
+max_distance = 3.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_uj54o")

@@ -2,6 +2,8 @@ class_name OmniScreenUI extends Node3D
 
 const WARNING_HULL_50: String = "WARNING\nHull <50%"
 const WARNING_HULL_20: String = "WARNING\nHULL CRITICAL"
+const WARNING_O2_50: String = "WARNING\nOXYGEN <50%"
+const WARNING_O2_25: String = "WARNING\nOXYGEN CRITICAL"
 
 var big_warning_labels: Array[Label3D] = []
 

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/weapon_base.gd" id="1_vppsp"]
 [ext_resource type="AudioStream" uid="uid://e44s2urpbjo" path="res://assets/audio/Kenney/laserSmall_002.ogg" id="2_dxxpn"]
-[ext_resource type="PackedScene" uid="uid://l41vqqu0yc67" path="res://objects/enemy_projectile.tscn" id="2_isycy"]
+[ext_resource type="PackedScene" uid="uid://l41vqqu0yc67" path="res://objects/projectiles/enemy_projectile.tscn" id="2_isycy"]
 
 [node name="WeaponBase" type="Node3D"]
 script = ExtResource("1_vppsp")

@@ -1,13 +1,23 @@
-[gd_scene load_steps=16 format=4 uid="uid://dqgy1wurwytqu"]
+[gd_scene load_steps=33 format=4 uid="uid://cu3gi5eyhp7r7"]
 
-[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_4ye46"]
-[ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="2_dn2xy"]
-[ext_resource type="Animation" uid="uid://ddbo6ioa282en" path="res://addons/godot-xr-tools/hands/animations/left/Pistol.res" id="3_6rt34"]
-[ext_resource type="Script" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="4_r8rk6"]
-[ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="5_n6mbb"]
-[ext_resource type="Animation" uid="uid://csp3fdknowmi5" path="res://addons/godot-xr-tools/hands/animations/right/Pistol.res" id="6_080ay"]
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_dxbeg"]
+[ext_resource type="Script" path="res://scripts/pickable_repairer.gd" id="2_w42jp"]
+[ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="5_ukx26"]
+[ext_resource type="Animation" uid="uid://ddbo6ioa282en" path="res://addons/godot-xr-tools/hands/animations/left/Pistol.res" id="6_11pgc"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="7_syll8"]
+[ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="8_qlsgm"]
+[ext_resource type="AudioStream" uid="uid://ckyyesf6rk1le" path="res://assets/audio/Soniss/hologram.ogg" id="9_jfn2c"]
+[ext_resource type="Animation" uid="uid://csp3fdknowmi5" path="res://addons/godot-xr-tools/hands/animations/right/Pistol.res" id="9_jii82"]
+[ext_resource type="PackedScene" uid="uid://da2qgxxwwitl6" path="res://addons/godot-xr-tools/objects/highlight/highlight_ring.tscn" id="10_qdpak"]
+[ext_resource type="AudioStream" uid="uid://dy3q2gbruggvi" path="res://assets/audio/Kenney/Interface/click_001.ogg" id="12_oxmf3"]
+[ext_resource type="PackedScene" uid="uid://bikkxsbo8x7sd" path="res://addons/godot-xr-tools/audio/pickable_audio.tscn" id="17_fantb"]
+[ext_resource type="AudioStream" uid="uid://cl5x10wugy0fp" path="res://assets/audio/Kenney/Interface/click_002.ogg" id="18_8c3se"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/audio/pickable_audio_type.gd" id="19_73heb"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_26sju"]
+[sub_resource type="Gradient" id="Gradient_aend0"]
+colors = PackedColorArray(1, 0, 0, 1, 0.392157, 1, 0, 1)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_x2xof"]
 points = PackedVector3Array(0.031752, -0.0587333, -0.0106954, 0.0597594, 0.0579333, 0.00795571, 0.0597594, 0.0579333, -0.0106954, -0.136233, 0.0252607, 0.00329635, -0.0522114, -0.0167192, 0.0359667, 0.157756, -0.0493804, 0.00795571, -0.056889, -0.0260493, -0.0340333, 0.14843, 0.00192968, -0.0153616, 0.153078, 0.0205899, 0.0126288, -0.112874, 0.0392502, 0.0266274, -0.102599, 0.0360159, -0.0226009, -0.116708, -0.0160534, 0.012153, 0.0084516, 0.0299315, -0.0293603, 0.157756, -0.044721, -0.0106954, 0.031752, -0.0587333, 0.00795571, 0.0084516, 0.0345909, 0.0266274, -0.100845, -0.0236, -0.0222437, 0.0644078, -0.00271826, 0.0266274, -0.0833138, -0.0244923, 0.0294526, -0.0895447, 0.00658904, -0.0340333, 0.153078, 0.0205899, -0.0106954, -0.136233, 0.00658904, -0.00602922, 0.0364004, 0.0579333, -0.0106954, 0.157756, -0.0307201, 0.0126288, -0.0522114, 0.00192968, 0.0359667, 0.0644078, -0.00271826, -0.0246941, 0.0644078, -0.0587333, -0.0106954, -0.0971574, -0.0228492, 0.0234259, -0.136233, 0.0112598, 0.00795571, 0.0644078, -0.0587333, 0.00795571, 0.157756, 0.0112598, 0.0126288, -0.136233, 0.0252607, -0.00602922)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o6yrk"]
@@ -28,7 +38,7 @@ cull_mode = 2
 albedo_color = Color(0.399993, 0.399993, 0.399993, 1)
 roughness = 0.5
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_7d7ss"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_2wi4c"]
 _surfaces = [{
 "aabb": AABB(-0.119214, -0.0564314, -0.0239482, 0.279337, 0.113292, 0.0479297),
 "format": 34896613377,
@@ -64,7 +74,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_ts6iw"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_k0ru0"]
 resource_name = "Sci_Fi Gun_Cube"
 _surfaces = [{
 "aabb": AABB(-0.119214, -0.0564314, -0.0239482, 0.279337, 0.113292, 0.0479297),
@@ -103,41 +113,157 @@ _surfaces = [{
 "vertex_data": PackedByteArray("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/7//f+GPmZIdcGVtzoLRq6VYvIzhj5mSHXBlbf+//3/hj5mSGYo4r86C0av2g++34Y+ZkhmKOK//v/9/GYo4r/y7jA72g++3zmxhvxmKOK/8u4wO/7//f6XBPjX8u4wOVFhXws5sYb+lwT41/LuMDv+//39UWFfCj1S92/9///+PVL3bUk4R/v9////A0rTwUk4R/v9///+lWLyMwNK08P9////OgtGrpVi8jP9////OgtGr9oPvt/9////2g++3zmxhv/9///9UWFfCzmxhv/9////hj5mSHXBlbf9////hj5mSGYo4r/9///8Zijiv/LuMDv9///+lwT41/LuMDv9///+lwT41WT7Ayv9///9ZPsDKAkRy8f9////ldcZQAkRy8f9///8dcGVt5XXGUP9////hj5mSHXBlbf9////hj5mSGYo4r/9///8Zijiv/LuMDv9///+lwT41/LuMDv9///+lwT41WT7Ayv9///9ZPsDKAkRy8f9////ldcZQAkRy8f9///8dcGVt5XXGUP9///9ieUt59HSDUj+44/ozgv7/P4hwiP9//78zgv7/mD5AwhxEde8/uOP6M4L+/6bB7Tz/f/+/M4L+/2J5S3n0dINSUaVDWm+/434/iHCI/3//v2+/436YPkDCHER171GlQ1pvv+N+psHtPP9//79vv+N+8HCmWvR0g1I/uOP6d7Gf/HZDyuQcRHXvP7jj+nexn/zwcKZa9HSDUlGlQ1pHq6pgdkPK5BxEde9RpUNaR6uqYPBwplrHc75UmLl/+nexn/x2Q8rkH0TA7Ji5f/p3sZ/88HCmWsdzvlTZo85YR6uqYHZDyuQfRMDs2aPOWEerqmDHc75UgXggTPS9MfmYuX/6H0TA7FxDRPb0vTH5mLl/+sdzvlSBeCBM6J1cU9mjzlgfRMDsXENE9uidXFPZo85YgXggTP9//z/0vTH5XENE9v9//z/0vTH5gXggTP9//z/onVxTXENE9v9//z/onVxTP4hwiGJ5S3kzgv7/psHtPJg+QMIzgv7/psHtPJg+QMJvv+N+P4hwiGJ5S3lvv+N+amCmygKA//9Lw7tAamCmyk56kbsCgP//6o//hU56kbtLw7tA6o//hUhn18ADesLE6GMQ0rQ/lwBIvKkbSGfXwAN6wsT2wQ89SLypG0hn18DoYxDSUod8tgN6wsR8dHnA7omriJaPjaRSh3y2fHR5wLQ/lwCWj42kUod8tgN6wsT2wQ89SLypG7Q/lwBIvKkbtD+XAJaPjaTuiauIlo+NpPbBDz1iwi48tWKdzOhjENJiwi48S8O7QGpgpsq1Yp3MamCmyrVincwCgP//tWKdzOhjENICgP//YsIuPEvDu0D2wQ89YsIuPEJ6qL98dHnAAoD//056kbtCeqi/AoD//1aNoIrqj/+FTnqRu0J6qL/uiauIVo2gikJ6qL98dHnA7omriFaNoIpWjaCK6o//hf9//3//f/+//3////8//7//f/+//3////8//7//f/+//7//f/9//3//f/+//7//f/9//3//f/+//3////8//7//f/+//3////8//7//f/+//7//f/9//3//f/+//7//f/8//7/6fSdD778egDvBgP3/f/9//0C2/e+/HoA7wYD9/3//f/9Atv3/P/+/+n0nQ/8//7/6fSdDK4IWQT2A////f/9//0C2/SuCFkE9gP///z//v++/HoAEgte8Z322vv9//3/vvx6A/75IAmd9tr7/f/9//75IAv8//78Egte8/z//v/k+CgIEgte8PYD///9//3/5PgoC/75IAj2A//+fatnea4B+2IV5IMNrgH7Y7W/d8Sxz1NiFeSDDLHPU2KO9SfnhTKb44Uym+J9q2d6jvUn5gV+a/oFfmv7tb93xT6n9dNGrqY+DLA0eLMICkNKfClXApJVlqhmLxSTI3nCDLA0e0aupjyTI3nAswgKQwKSVZU+p/XTSnwpVqhmLxSiAFECNQOPXgywNHtGrqY8ogBRAjUDj14V5IMNrgH7YwYq/iuFusGIkyN5wLMICkMGKv4rhbrBi7W/d8Sxz1Nj1weU7wKSVZU+p/XTLvOoc9cHlO8u86hzhTKb4n2rZ3tKfClWqGYvFf49HpPN/+b9/j0ek83/5v6O9SfmBX5r+wYq/in+PR6SBX5r+7W/d8cu86hzzf/m/o71J+eFMpvgogBRA4W6wYoV5IMMsc9TY9cHlO41A49efatnea4B+2PXB5TuNQOPXT6n9dNGrqY8ogBRA4W6wYoMsDR4swgKQ0p8KVcCklWXLvOoc83/5v8GKv4qqGYvFJMjecH+PR6TGurXqNrlp7BZbM8FE159PE2hcwd6Cb5T+h8dscJ5WnIPe6FsBT9gAt6HFhv9s/N2XWcW63odrr6RhQsbHij6lQo49ooMhpPKDIaTygr5q2gxT9NtyvRvfDFP02+N91NqfQonaziAI1ZYrCuY+usCe")
 }]
 blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_7d7ss")
+shadow_mesh = SubResource("ArrayMesh_2wi4c")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_schsn"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x6nbl"]
 albedo_color = Color(0, 0, 0, 1)
 emission_enabled = true
-emission = Color(0.0175767, 0.872282, 1, 1)
+emission = Color(0.407843, 1, 0, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="Resource" id="Resource_ubyxd"]
-script = ExtResource("4_r8rk6")
-open_pose = ExtResource("3_6rt34")
-closed_pose = ExtResource("3_6rt34")
+[sub_resource type="Resource" id="Resource_72exg"]
+script = ExtResource("7_syll8")
+open_pose = ExtResource("6_11pgc")
+closed_pose = ExtResource("6_11pgc")
 
-[sub_resource type="Resource" id="Resource_5pc8y"]
-script = ExtResource("4_r8rk6")
-open_pose = ExtResource("6_080ay")
-closed_pose = ExtResource("6_080ay")
+[sub_resource type="Resource" id="Resource_ng01g"]
+script = ExtResource("7_syll8")
+open_pose = ExtResource("9_jii82")
+closed_pose = ExtResource("9_jii82")
 
-[node name="PickableGun2" instance=ExtResource("1_4ye46")]
-second_hand_grab = 1
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ynvuk"]
+points = PackedVector3Array(0, 0, 0, 0.4, 0, -1.3, 0, 0.4, -1.3, 0, -0.4, -1.3, -0.4, 0, -1.3, 0, 0, -1.5)
+
+[sub_resource type="Gradient" id="Gradient_rn3qd"]
+offsets = PackedFloat32Array(0, 0.582317, 0.996951)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_q172i"]
+gradient = SubResource("Gradient_rn3qd")
+
+[sub_resource type="Curve" id="Curve_sudfs"]
+max_value = 3.0
+_data = [Vector2(1e-05, 0), 0.0, 10.0227, 0, 0, Vector2(0.115169, 0.530635), 0.0, 0.0, 0, 0, Vector2(1, 3), 9.76524, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_1lnvn"]
+curve = SubResource("Curve_sudfs")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_h21wa"]
+particle_flag_damping_as_friction = true
+angle_min = -45.0
+angle_max = 45.0
+direction = Vector3(0, 0, -1)
+spread = 10.0
+initial_velocity_min = 0.2
+initial_velocity_max = 0.6
+angular_velocity_min = -90.0
+angular_velocity_max = 90.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.8
+scale_max = 1.2
+scale_curve = SubResource("CurveTexture_1lnvn")
+color_ramp = SubResource("GradientTexture1D_q172i")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ysvx6"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.411765, 1, 0, 1)
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_0q1rf"]
+material = SubResource("StandardMaterial3D_ysvx6")
+size = Vector2(0.04, 0.04)
+
+[sub_resource type="Resource" id="Resource_t37ra"]
+script = ExtResource("19_73heb")
+name = "PickableGun"
+grab_sound = ExtResource("18_8c3se")
+drop_sound = ExtResource("12_oxmf3")
+hit_sound = ExtResource("12_oxmf3")
+
+[node name="PickableRepairer" instance=ExtResource("1_dxbeg")]
+collision_mask = 16842759
+center_of_mass_mode = 1
+center_of_mass = Vector3(-0.0392181, 0.00977903, 0)
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("2_w42jp")
+repair_per_second = 0.1
+label_color = SubResource("Gradient_aend0")
 
 [node name="CollisionShape3D" parent="." index="0"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_26sju")
+shape = SubResource("ConvexPolygonShape3D_x2xof")
 
 [node name="Gun" type="MeshInstance3D" parent="." index="1"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
-mesh = SubResource("ArrayMesh_ts6iw")
+mesh = SubResource("ArrayMesh_k0ru0")
 skeleton = NodePath("")
-surface_material_override/1 = SubResource("StandardMaterial3D_schsn")
+surface_material_override/1 = SubResource("StandardMaterial3D_x6nbl")
 
-[node name="GrabPointHandLeft" parent="." index="2" instance=ExtResource("2_dn2xy")]
+[node name="GrabPointHandLeft" parent="." index="2" instance=ExtResource("5_ukx26")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0205547)
-hand_pose = SubResource("Resource_ubyxd")
+hand_pose = SubResource("Resource_72exg")
 
-[node name="GrabPointHandRight" parent="." index="3" instance=ExtResource("5_n6mbb")]
+[node name="GrabPointHandRight" parent="." index="3" instance=ExtResource("8_qlsgm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0205547)
-hand_pose = SubResource("Resource_5pc8y")
+hand_pose = SubResource("Resource_ng01g")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00389812, -0.0236776)
+light_color = Color(0.407843, 1, 0, 1)
+light_energy = 0.5
+omni_range = 1.0973
+
+[node name="DamageDetector" type="Area3D" parent="." index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0158443, -0.136604)
+collision_layer = 2
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageDetector" index="0"]
+shape = SubResource("ConvexPolygonShape3D_ynvuk")
+
+[node name="LabelFix" type="Label3D" parent="." index="6"]
+unique_name_in_owner = true
+transform = Transform3D(0.075, 0, 0, 0, 0.0393815, 0.0638287, 0, -0.0638287, 0.0393815, 0, 0.0233207, 0.0688204)
+visible = false
+modulate = Color(0.392157, 1, 0, 1)
+text = "100%"
+
+[node name="HighlightRing" parent="." index="7" instance=ExtResource("10_qdpak")]
+
+[node name="RepairingAudio" type="AudioStreamPlayer3D" parent="." index="8"]
+unique_name_in_owner = true
+stream = ExtResource("9_jfn2c")
+volume_db = -10.0
+unit_size = 1.0
+max_polyphony = 2
+
+[node name="EmptyAudio" type="AudioStreamPlayer3D" parent="." index="9"]
+unique_name_in_owner = true
+stream = ExtResource("12_oxmf3")
+unit_size = 1.0
+max_polyphony = 4
+
+[node name="ShootParticles" type="GPUParticles3D" parent="." index="10"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0224068, -0.135145)
+emitting = false
+amount = 20
+randomness = 0.5
+process_material = SubResource("ParticleProcessMaterial_h21wa")
+draw_pass_1 = SubResource("QuadMesh_0q1rf")
+
+[node name="PickableAudio" parent="." index="11" instance=ExtResource("17_fantb")]
+pickable_audio_type = SubResource("Resource_t37ra")
+
+[connection signal="action_pressed" from="." to="." method="_on_action_pressed"]
+[connection signal="action_released" from="." to="." method="_on_action_released"]
+[connection signal="area_entered" from="DamageDetector" to="." method="_on_damage_detector_area_entered"]
+[connection signal="area_exited" from="DamageDetector" to="." method="_on_damage_detector_area_exited"]

@@ -4,19 +4,28 @@ signal amount_changed(new_amount: int)
 
 @export var max_hp: int = 5
 
+var leak := preload("res://objects/oxygen_leak.tscn")
+
 @onready var hp: int = max_hp:
 	set(new_value):
 		hp = new_value
 		amount_changed.emit(hp)
 
 func _on_body_entered(body: Node3D) -> void:
-	if not body.is_in_group("EnemyProjectile"): return
+	var projectile := body as Projectile
 	
-	body.destroy(true, false)
+	if not projectile or not projectile.is_in_group("EnemyProjectile"): return
+	
+	projectile.destroy(true, false)
 	
 	hp -= 1
 	
-	%HitSound.global_position = body.global_position
+	if projectile.causes_leaks:
+		var new_leak = leak.instantiate() as OxygenLeak
+		new_leak.position = projectile.global_position
+		Singletons.damages.add_child(new_leak)
+	
+	%HitSound.global_position = projectile.global_position
 	%HitSound.play()
 	if hp <= 0:
 		%DownSound.play()

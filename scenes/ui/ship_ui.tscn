@@ -57,6 +57,10 @@ text = "Regenerate Shield"
 layout_mode = 2
 text = "Spawn Enemies"
 
+[node name="ButtonSlow" type="CheckButton" parent="TopMarginContainer/TopVBoxContainer/ButtonMarginContainer/ButtonVBoxContainer"]
+layout_mode = 2
+text = "Time Slow"
+
 [node name="HSeparator" type="HSeparator" parent="TopMarginContainer/TopVBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
@@ -74,3 +78,4 @@ autowrap_mode = 3
 [connection signal="pressed" from="TopMarginContainer/TopVBoxContainer/ButtonMarginContainer/ButtonVBoxContainer/Button2" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="TopMarginContainer/TopVBoxContainer/ButtonMarginContainer/ButtonVBoxContainer/ButtonShield" to="." method="_on_button_shield_pressed"]
 [connection signal="pressed" from="TopMarginContainer/TopVBoxContainer/ButtonMarginContainer/ButtonVBoxContainer/ButtonSpawn" to="." method="_on_button_spawn_pressed"]
+[connection signal="toggled" from="TopMarginContainer/TopVBoxContainer/ButtonMarginContainer/ButtonVBoxContainer/ButtonSlow" to="." method="_on_button_slow_toggled"]

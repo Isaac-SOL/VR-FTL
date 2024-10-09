@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b7cea2r8li5ut"]
 
 [ext_resource type="PackedScene" uid="uid://o82114q4g4vl" path="res://objects/big_gun.tscn" id="1_owxdb"]
-[ext_resource type="PackedScene" uid="uid://cx285m2psxgkk" path="res://objects/player_ion_projectile.tscn" id="2_gxylh"]
+[ext_resource type="PackedScene" uid="uid://cx285m2psxgkk" path="res://objects/projectiles/player_ion_projectile.tscn" id="2_gxylh"]
 [ext_resource type="AudioStream" uid="uid://dwbvxcxyehv61" path="res://assets/audio/Kenney/SciFi/laserLarge_001.ogg" id="3_vca44"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mcu6l"]

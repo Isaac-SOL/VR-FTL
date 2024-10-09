@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://cvglwib0nbv3w"]
+[gd_scene load_steps=50 format=3 uid="uid://cvglwib0nbv3w"]
 
 [ext_resource type="Script" path="res://scripts/main_xr.gd" id="1_xgn4l"]
 [ext_resource type="PackedScene" uid="uid://ddsj74hpt1kgb" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_physics_tac_glove.tscn" id="2_1fc4o"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://c2fybfvjcllyl" path="res://objects/quarter_circle_mesh.tscn" id="11_nb36m"]
 [ext_resource type="Shader" path="res://assets/shaders/hp_bar_bicolor.gdshader" id="12_qyjwu"]
 [ext_resource type="PackedScene" uid="uid://ixj7l3f60i34" path="res://objects/omni_screen_ui.tscn" id="13_1tfvx"]
+[ext_resource type="PackedScene" uid="uid://44oljc3uxs0l" path="res://objects/oxygen_bar.tscn" id="13_ugd5s"]
 [ext_resource type="PackedScene" uid="uid://diqcwca2on1df" path="res://objects/pickable_energy_cell.tscn" id="14_trw2q"]
 [ext_resource type="PackedScene" uid="uid://b7lx1bvrt3glp" path="res://objects/nav_system_example.tscn" id="16_bwulk"]
 [ext_resource type="PackedScene" uid="uid://lkjo5h61h48m" path="res://objects/pickable_solar_cell.tscn" id="16_m57o7"]
@@ -23,11 +24,13 @@
 [ext_resource type="Script" path="res://scripts/enemy_spawner.gd" id="19_w5q7l"]
 [ext_resource type="PackedScene" uid="uid://ceff8bovxbblw" path="res://objects/enemies/enemy_basic.tscn" id="20_r6ant"]
 [ext_resource type="PackedScene" uid="uid://bf4ig4wt66p01" path="res://objects/enemies/enemy_orbital.tscn" id="21_5n1s0"]
+[ext_resource type="PackedScene" uid="uid://cu3gi5eyhp7r7" path="res://objects/pickable_repairer.tscn" id="22_altib"]
 [ext_resource type="PackedScene" uid="uid://c114yohjuthyh" path="res://objects/enemies/enemy_shielder.tscn" id="22_ntop1"]
 [ext_resource type="PackedScene" uid="uid://bfcgkjerxsay3" path="res://objects/weapons/weapon_base.tscn" id="22_t2x7m"]
 [ext_resource type="PackedScene" uid="uid://1am3p863flny" path="res://objects/weapons/weapon_bl2.tscn" id="23_u3ac8"]
 [ext_resource type="PackedScene" uid="uid://wnvmmlsqe474" path="res://objects/weapons/weapon_dual.tscn" id="24_2saj3"]
 [ext_resource type="Material" uid="uid://ds5mtrfu2ym3o" path="res://assets/models/sky_crossfade_mat.tres" id="26_2suw1"]
+[ext_resource type="PackedScene" uid="uid://bin5j3v726idw" path="res://objects/weapons/weapon_leak.tscn" id="29_sti0e"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_0yy2b"]
 size = Vector3(2, 0.1, 1.5)
@@ -53,6 +56,10 @@ height = 1.0
 [sub_resource type="TorusMesh" id="TorusMesh_ett78"]
 inner_radius = 1.1
 outer_radius = 1.2
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lldlq"]
+radius = 0.05
+height = 1.0
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ci6b3"]
 friction = 0.0
@@ -112,12 +119,14 @@ unique_name_in_owner = true
 [node name="XRCamera3D" type="XRCamera3D" parent="Ship/XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 cull_mask = 1048543
+metadata/_edit_group_ = true
 
 [node name="VRCommonShaderCache" parent="Ship/XROrigin3D/XRCamera3D" instance=ExtResource("2_r5drp")]
 
 [node name="LeftHand" type="XRController3D" parent="Ship/XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 1, -0.5)
 tracker = &"left_hand"
+metadata/_edit_group_ = true
 
 [node name="LeftPhysicsHand2" parent="Ship/XROrigin3D/LeftHand" instance=ExtResource("2_1fc4o")]
 
@@ -128,6 +137,7 @@ ranged_enable = false
 [node name="RightHand" type="XRController3D" parent="Ship/XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 1, -0.5)
 tracker = &"right_hand"
+metadata/_edit_group_ = true
 
 [node name="RightPhysicsHand" parent="Ship/XROrigin3D/RightHand" instance=ExtResource("4_ajr61")]
 
@@ -138,9 +148,12 @@ ranged_enable = false
 [node name="World" type="Node3D" parent="Ship"]
 
 [node name="Hull" type="Node3D" parent="Ship/World"]
+metadata/_edit_lock_ = true
 
 [node name="Ground" type="StaticBody3D" parent="Ship/World/Hull"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ship/World/Hull/Ground"]
 mesh = SubResource("BoxMesh_0yy2b")
@@ -151,6 +164,8 @@ shape = SubResource("BoxShape3D_jdo30")
 
 [node name="Stash1" type="StaticBody3D" parent="Ship/World/Hull"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0.6)
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Ship/World/Hull/Stash1"]
 mesh = SubResource("BoxMesh_f08eb")
@@ -161,6 +176,8 @@ shape = SubResource("BoxShape3D_u0l7m")
 
 [node name="Stash2" type="StaticBody3D" parent="Ship/World/Hull"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, -0.6)
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Ship/World/Hull/Stash2"]
 mesh = SubResource("BoxMesh_f08eb")
@@ -171,6 +188,8 @@ shape = SubResource("BoxShape3D_u0l7m")
 
 [node name="Pillar1" type="StaticBody3D" parent="Ship/World/Hull"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.45, -0.7)
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ship/World/Hull/Pillar1"]
 mesh = SubResource("CylinderMesh_kcmwr")
@@ -180,6 +199,8 @@ shape = SubResource("CapsuleShape3D_rt0sp")
 
 [node name="Pillar2" type="StaticBody3D" parent="Ship/World/Hull"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.45, -0.7)
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ship/World/Hull/Pillar2"]
 mesh = SubResource("CylinderMesh_kcmwr")
@@ -189,6 +210,8 @@ shape = SubResource("CapsuleShape3D_rt0sp")
 
 [node name="Pillar3" type="StaticBody3D" parent="Ship/World/Hull"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.45, 0.7)
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ship/World/Hull/Pillar3"]
 mesh = SubResource("CylinderMesh_kcmwr")
@@ -198,6 +221,8 @@ shape = SubResource("CapsuleShape3D_rt0sp")
 
 [node name="Pillar4" type="StaticBody3D" parent="Ship/World/Hull"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.45, 0.7)
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ship/World/Hull/Pillar4"]
 mesh = SubResource("CylinderMesh_kcmwr")
@@ -205,15 +230,54 @@ mesh = SubResource("CylinderMesh_kcmwr")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ship/World/Hull/Pillar4"]
 shape = SubResource("CapsuleShape3D_rt0sp")
 
-[node name="WeaponHolder" type="MeshInstance3D" parent="Ship/World/Hull"]
+[node name="WeaponHolder" type="StaticBody3D" parent="Ship/World/Hull"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.15, 0)
+collision_mask = 7
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="WeaponHolderMesh" type="MeshInstance3D" parent="Ship/World/Hull/WeaponHolder"]
 mesh = SubResource("TorusMesh_ett78")
-skeleton = NodePath("../../../..")
+skeleton = NodePath("../../../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ship/World/Hull/WeaponHolder"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 1.12)
+shape = SubResource("CapsuleShape3D_lldlq")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Ship/World/Hull/WeaponHolder"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, -1.12)
+shape = SubResource("CapsuleShape3D_lldlq")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Ship/World/Hull/WeaponHolder"]
+transform = Transform3D(1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, 1.12, 0, 0)
+shape = SubResource("CapsuleShape3D_lldlq")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Ship/World/Hull/WeaponHolder"]
+transform = Transform3D(1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, -1.12, 0, 0)
+shape = SubResource("CapsuleShape3D_lldlq")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="Ship/World/Hull/WeaponHolder"]
+transform = Transform3D(3.09086e-08, -0.707107, 0.707107, -1, -4.37114e-08, 0, 3.09086e-08, -0.707107, -0.707107, -0.8, 0, 0.8)
+shape = SubResource("CapsuleShape3D_lldlq")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="Ship/World/Hull/WeaponHolder"]
+transform = Transform3D(3.09086e-08, -0.707107, -0.707107, -1, -4.37114e-08, 0, -3.09086e-08, 0.707107, -0.707107, -0.8, 0, -0.8)
+shape = SubResource("CapsuleShape3D_lldlq")
+
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="Ship/World/Hull/WeaponHolder"]
+transform = Transform3D(-3.09086e-08, 0.707107, -0.707107, -1, -4.37114e-08, 0, -3.09086e-08, 0.707107, 0.707107, 0.8, 0, -0.8)
+shape = SubResource("CapsuleShape3D_lldlq")
+
+[node name="CollisionShape3D8" type="CollisionShape3D" parent="Ship/World/Hull/WeaponHolder"]
+transform = Transform3D(-3.09086e-08, 0.707107, 0.707107, -1, -4.37114e-08, 0, 3.09086e-08, -0.707107, 0.707107, 0.8, 0, 0.8)
+shape = SubResource("CapsuleShape3D_lldlq")
 
 [node name="Boundaries" type="StaticBody3D" parent="Ship/World"]
 collision_layer = 16777216
 collision_mask = 196614
 physics_material_override = SubResource("PhysicsMaterial_ci6b3")
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ship/World/Boundaries"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, -0.750425)
@@ -237,6 +301,7 @@ shape = SubResource("BoxShape3D_r52ql")
 
 [node name="ShipScreenHolder" type="Node3D" parent="Ship/World"]
 transform = Transform3D(-1, 1.13133e-08, -8.59334e-08, -1.13133e-08, 0.965926, 0.258819, 8.59334e-08, 0.258819, -0.965926, 0.732633, 1.30764, 0.58551)
+metadata/_edit_group_ = true
 
 [node name="ShipScreenContent" parent="Ship/World/ShipScreenHolder" instance=ExtResource("6_47cmc")]
 unique_name_in_owner = true
@@ -256,10 +321,12 @@ shape = SubResource("BoxShape3D_xljkp")
 
 [node name="OmniScreen" parent="Ship/World" instance=ExtResource("9_8cl48")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+metadata/_edit_lock_ = true
 
 [node name="Shield" parent="Ship/World" instance=ExtResource("10_mnrau")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+metadata/_edit_lock_ = true
 
 [node name="Core" parent="Ship/World" instance=ExtResource("10_07g72")]
 unique_name_in_owner = true
@@ -275,6 +342,10 @@ segments = 96
 inner_radius = 1.5
 outer_radius = 2.0
 degrees = 360.0
+
+[node name="OxygenBar" parent="Ship/World" instance=ExtResource("13_ugd5s")]
+unique_name_in_owner = true
+transform = Transform3D(-4.37114e-08, 1.06581e-14, 1, 0, 1, -1.06581e-14, -1, -4.65882e-22, -4.37114e-08, 0, 0.000890236, 0)
 
 [node name="ReflectionProbe" type="ReflectionProbe" parent="Ship/World"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
@@ -292,6 +363,7 @@ linear_damp_space_override = 2
 linear_damp = 3.0
 angular_damp_space_override = 3
 angular_damp = 0.0
+metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ship/World/AntigravUpper"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.805365, 0)
@@ -308,6 +380,7 @@ linear_damp_space_override = 1
 linear_damp = 1.0
 angular_damp_space_override = 1
 angular_damp = 0.3
+metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ship/World/AntigravLower"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.363013, 0)
@@ -315,11 +388,12 @@ shape = SubResource("BoxShape3D_ol3sv")
 
 [node name="OmniScreenUI" parent="Ship" instance=ExtResource("13_1tfvx")]
 unique_name_in_owner = true
+metadata/_edit_lock_ = true
 
 [node name="Dynamic" type="Node3D" parent="Ship"]
 
 [node name="PickableGun" parent="Ship/Dynamic" instance=ExtResource("11_iq5it")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.756285, 1.10079, -0.620969)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.657799, 1.10079, -0.620969)
 
 [node name="PickableEnergyCell" parent="Ship/Dynamic" instance=ExtResource("14_trw2q")]
 transform = Transform3D(0.865029, -0.501722, 0, 0.501722, 0.865029, 0, 0, 0, 1, 0.846122, 1.11955, 0.511702)
@@ -340,11 +414,17 @@ shield = NodePath("../../World/Shield")
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.8, 0, 0.6)
 
+[node name="PickableRepairer" parent="Ship/Dynamic" instance=ExtResource("22_altib")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.893657, 1.09259, -0.641879)
+
+[node name="Damages" type="Node3D" parent="Ship"]
+unique_name_in_owner = true
+
 [node name="EnemySpawner" type="Node3D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("19_w5q7l")
 enemies = Array[PackedScene]([ExtResource("20_r6ant"), ExtResource("21_5n1s0"), ExtResource("22_ntop1")])
-weapons = Array[PackedScene]([ExtResource("22_t2x7m"), ExtResource("23_u3ac8"), ExtResource("24_2saj3")])
+weapons = Array[PackedScene]([ExtResource("22_t2x7m"), ExtResource("23_u3ac8"), ExtResource("24_2saj3"), ExtResource("29_sti0e")])
 
 [node name="Projectiles" type="Node3D" parent="."]
 unique_name_in_owner = true
@@ -355,8 +435,9 @@ environment = SubResource("Environment_bssff")
 camera_attributes = SubResource("CameraAttributesPractical_2pxkv")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.888281, 0.282452, -0.362186, 0, 0.788558, 0.61496, 0.459301, -0.546257, 0.700461, 0, 4.42039, 0)
+transform = Transform3D(0.888281, 0.282452, -0.362185, 0, 0.788558, 0.61496, 0.459301, -0.546257, 0.700461, 0, 4.42039, 0)
 light_color = Color(0.842333, 0.78, 1, 1)
+light_cull_mask = 4294967263
 shadow_enabled = true
 shadow_bias = 0.03
 directional_shadow_mode = 1

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bin5j3v726idw"]
+
+[ext_resource type="PackedScene" uid="uid://bfcgkjerxsay3" path="res://objects/weapons/weapon_base.tscn" id="1_3ji0g"]
+[ext_resource type="PackedScene" uid="uid://tcrr652j21n3" path="res://objects/projectiles/enemy_projectile_leak.tscn" id="2_w2v44"]
+
+[node name="WeaponLeak" instance=ExtResource("1_3ji0g")]
+projectile_scene = ExtResource("2_w2v44")
+shoot_impulse = 1.0
+weapon_cooldown = 17.0

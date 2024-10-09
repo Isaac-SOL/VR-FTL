@@ -41,6 +41,7 @@ max_contacts_reported = 1
 linear_damp = 0.5
 script = ExtResource("1_gdbee")
 correction_force = 0.5
+destructible_by_energy = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_chbtw")

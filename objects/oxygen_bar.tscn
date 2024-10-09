@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://44oljc3uxs0l"]
+
+[ext_resource type="PackedScene" uid="uid://c2fybfvjcllyl" path="res://objects/quarter_circle_mesh.tscn" id="1_gx1yo"]
+[ext_resource type="Script" path="res://scripts/oxygen_bar.gd" id="1_yu0pa"]
+[ext_resource type="Shader" path="res://assets/shaders/hp_bar_bicolor_continuous.gdshader" id="2_jnkwg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t7etp"]
+render_priority = 0
+shader = ExtResource("2_jnkwg")
+shader_parameter/fill_ratio = 1.0
+shader_parameter/color_filled = Color(0, 1, 0, 1)
+shader_parameter/color_empty = Color(1, 0, 0, 1)
+shader_parameter/reverse = false
+shader_parameter/emission = 1.5
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_y3u4d"]
+resource_local_to_scene = true
+
+[node name="OxygenBar" type="Node3D"]
+script = ExtResource("1_yu0pa")
+
+[node name="OxygenBar" parent="." instance=ExtResource("1_gx1yo")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.000890236, 0)
+material_override = SubResource("ShaderMaterial_t7etp")
+mesh = SubResource("ImmediateMesh_y3u4d")
+segments = 96
+inner_radius = 0.2
+outer_radius = 0.6
+degrees = 360.0
+swap_uv = true
+
+[node name="LabelPercentage" type="Label3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+double_sided = false
+modulate = Color(0, 1, 0, 1)
+text = "100%
+O2"
+font_size = 24

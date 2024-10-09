@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://clr2dopl0oy4w"]
+
+[ext_resource type="Script" path="res://scripts/general/parameters.gd" id="1_vgmkx"]
+
+[node name="Parameters" type="Node"]
+script = ExtResource("1_vgmkx")
+game_speed = 0.5

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cx285m2psxgkk"]
 
-[ext_resource type="PackedScene" uid="uid://c4jw4lk5fvjek" path="res://objects/player_projectile.tscn" id="1_guetx"]
+[ext_resource type="PackedScene" uid="uid://c4jw4lk5fvjek" path="res://objects/projectiles/player_projectile.tscn" id="1_guetx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ie72h"]
 albedo_color = Color(0, 1, 1, 1)

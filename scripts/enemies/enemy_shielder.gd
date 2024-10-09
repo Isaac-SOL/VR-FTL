@@ -5,7 +5,7 @@ class_name EnemyShielder extends EnemyBase
 
 func _ready() -> void:
 	super()
-	%ShieldTimer.wait_time = shield_cooldown
+	%ShieldTimer.wait_time = shield_cooldown / Parameters.game_speed
 	%ShieldTimer.start()
 	%Indicator.set_special_active(true)
 	started_ion.connect(_on_started_ion)

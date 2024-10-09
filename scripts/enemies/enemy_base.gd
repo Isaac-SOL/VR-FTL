@@ -33,7 +33,7 @@ var weapon: WeaponBase:
 func _ready() -> void:
 	%Indicator.set_max_hp(max_hp)
 	%Indicator.set_hp(hp)
-	%IonTimer.wait_time = ion_pause
+	%IonTimer.wait_time = ion_pause / Parameters.game_speed
 	if %WeaponAttachPoint.get_child_count() > 0:
 		weapon = %WeaponAttachPoint.get_child(0)
 	else:
@@ -53,7 +53,7 @@ func frame(_delta: float):
 	pass
 
 func update_indicator():
-	%Indicator.set_ion(%IonTimer.time_left / ion_pause)
+	%Indicator.set_ion(%IonTimer.time_left / %IonTimer.wait_time)
 	if weapon: weapon.update_indicator()
 
 func attach_weapon(wpn: PackedScene):

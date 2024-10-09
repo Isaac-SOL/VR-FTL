@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bhsx1muleg6rb"]
+[gd_scene load_steps=18 format=3 uid="uid://bhsx1muleg6rb"]
 
 [ext_resource type="Material" uid="uid://c6j4a1mb0lsnn" path="res://assets/models/brushed_metal.tres" id="1_o8xko"]
 [ext_resource type="Script" path="res://scripts/weapon_system.gd" id="1_svxjn"]
@@ -14,10 +14,13 @@
 [sub_resource type="BoxMesh" id="BoxMesh_j288w"]
 size = Vector3(1.01, 0.11, 0.31)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_cusyt"]
-size = Vector3(0.539, 0.15, 0.23)
+[sub_resource type="BoxShape3D" id="BoxShape3D_mq0vt"]
+size = Vector3(1.01, 0.11, 0.31)
 
 [sub_resource type="BoxMesh" id="BoxMesh_4lolr"]
+size = Vector3(0.539, 0.15, 0.23)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cusyt"]
 size = Vector3(0.539, 0.15, 0.23)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_gvebs"]
@@ -46,7 +49,7 @@ skeleton = NodePath("../../..")
 surface_material_override/0 = ExtResource("1_o8xko")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Rack"]
-shape = SubResource("BoxShape3D_cusyt")
+shape = SubResource("BoxShape3D_mq0vt")
 
 [node name="Label3D" type="Label3D" parent="Rack"]
 transform = Transform3D(0.44, 0, 0, 0, 0.44, 0, 0, 0, 0.44, 0, 0, 0.156462)

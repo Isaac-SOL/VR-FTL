@@ -28,7 +28,7 @@ func _process(delta: float) -> void:
 
 func shoot():
 	var collider := %ShootRayCast.get_collider() as Projectile
-	if collider and collider.is_in_group("EnemyProjectile"):
+	if collider and collider.is_in_group("EnemyProjectile") and collider.destructible_by_energy:
 		collider.destroy()
 		inject_energy()
 		%HitAudio.play()

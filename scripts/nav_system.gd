@@ -47,7 +47,7 @@ func _on_big_red_button_button_pressed(_button: Variant) -> void:
 		moving = true
 		%OrientableHinge.set_interactable(false)
 		%MovingIndicator.set_surface_override_material(0, moving_material)
-		var length := absf(%OrientableHinge.hinge_position) / degrees_per_second
+		var length := absf(%OrientableHinge.hinge_position) / (degrees_per_second / Parameters.game_speed)
 		reset_tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
 		reset_tween.tween_property(%OrientableHinge, "hinge_position", 0, length)
 		started_moving.emit(%OrientableHinge.hinge_position, length)
