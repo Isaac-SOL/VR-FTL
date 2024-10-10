@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dh63iq0vdr0wy"
+path="res://.godot/imported/SCIWeap_Shot Pulse YR 05_RSCPC_SFEW_reverberated.ogg-961d4d3e6e38d614bba48ddff6a61329.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Soniss/SCIWeap_Shot Pulse YR 05_RSCPC_SFEW_reverberated.ogg"
+dest_files=["res://.godot/imported/SCIWeap_Shot Pulse YR 05_RSCPC_SFEW_reverberated.ogg-961d4d3e6e38d614bba48ddff6a61329.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

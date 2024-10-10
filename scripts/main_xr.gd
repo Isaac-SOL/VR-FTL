@@ -2,6 +2,8 @@ class_name MainXR extends Node3D
 
 signal oxygen_changed(new_amount: int)
 
+@export var oxygen_per_second: float = 1.0
+
 var xr_interface: XRInterface
 @onready var sky_material: ShaderMaterial = %WorldEnvironment.environment.sky.sky_material
 @onready var ship_ui: ShipUI = %ShipScreenContent.get_node("Viewport/ShipUI")
@@ -9,6 +11,7 @@ var xr_interface: XRInterface
 
 var scrap: int = 0
 var oxygen: int = 100: set = _set_oxygen
+var next_oxygen: float = 0.0
 
 func _ready() -> void:
 	Singletons.main = self
@@ -29,6 +32,11 @@ func _ready() -> void:
 	
 	ship_ui.regenerate_shield_pressed.connect(func(): %Shield.hp = %Shield.max_hp)
 
+func _process(delta: float) -> void:
+	next_oxygen += delta * oxygen_per_second * Parameters.game_speed
+	while next_oxygen >= 1.0:
+		oxygen += 1
+		next_oxygen -= 1
 
 func _on_navigation_system_started_moving(degrees: float, length: float) -> void:
 	var curr_rotation: Vector3 = %Ship.rotation
@@ -81,6 +89,8 @@ func _on_core_hit(_by: Projectile) -> void:
 	prev_core_hp = %Core.hp
 
 func _set_oxygen(new_value: int) -> void:
+	if new_value > 100: new_value = 100
+	if new_value < 0: new_value = 0
 	%OxygenBar.set_ratio(new_value / 100.0)
 	if new_value <= 50 and oxygen > 50:
 		%OmniScreenUI.flash_big_warning(OmniScreenUI.WARNING_O2_50)

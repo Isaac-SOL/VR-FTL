@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://cvglwib0nbv3w"]
+[gd_scene load_steps=51 format=3 uid="uid://cvglwib0nbv3w"]
 
 [ext_resource type="Script" path="res://scripts/main_xr.gd" id="1_xgn4l"]
 [ext_resource type="PackedScene" uid="uid://ddsj74hpt1kgb" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_physics_tac_glove.tscn" id="2_1fc4o"]
@@ -28,6 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://c114yohjuthyh" path="res://objects/enemies/enemy_shielder.tscn" id="22_ntop1"]
 [ext_resource type="PackedScene" uid="uid://bfcgkjerxsay3" path="res://objects/weapons/weapon_base.tscn" id="22_t2x7m"]
 [ext_resource type="PackedScene" uid="uid://1am3p863flny" path="res://objects/weapons/weapon_bl2.tscn" id="23_u3ac8"]
+[ext_resource type="PackedScene" uid="uid://b2qrsricdd3db" path="res://objects/pickable_shotgun.tscn" id="23_u4aii"]
 [ext_resource type="PackedScene" uid="uid://wnvmmlsqe474" path="res://objects/weapons/weapon_dual.tscn" id="24_2saj3"]
 [ext_resource type="Material" uid="uid://ds5mtrfu2ym3o" path="res://assets/models/sky_crossfade_mat.tres" id="26_2suw1"]
 [ext_resource type="PackedScene" uid="uid://bin5j3v726idw" path="res://objects/weapons/weapon_leak.tscn" id="29_sti0e"]
@@ -393,7 +394,10 @@ metadata/_edit_lock_ = true
 [node name="Dynamic" type="Node3D" parent="Ship"]
 
 [node name="PickableGun" parent="Ship/Dynamic" instance=ExtResource("11_iq5it")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.657799, 1.10079, -0.620969)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.582551, 1.10079, -0.620969)
+
+[node name="PickableRepairer" parent="Ship/Dynamic" instance=ExtResource("22_altib")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.743159, 1.09259, -0.641879)
 
 [node name="PickableEnergyCell" parent="Ship/Dynamic" instance=ExtResource("14_trw2q")]
 transform = Transform3D(0.865029, -0.501722, 0, 0.501722, 0.865029, 0, 0, 0, 1, 0.846122, 1.11955, 0.511702)
@@ -414,8 +418,8 @@ shield = NodePath("../../World/Shield")
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.8, 0, 0.6)
 
-[node name="PickableRepairer" parent="Ship/Dynamic" instance=ExtResource("22_altib")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.893657, 1.09259, -0.641879)
+[node name="PickableShotGun" parent="Ship/Dynamic" instance=ExtResource("23_u4aii")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.915627, 1.06307, -0.65106)
 
 [node name="Damages" type="Node3D" parent="Ship"]
 unique_name_in_owner = true

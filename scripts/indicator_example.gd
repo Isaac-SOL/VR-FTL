@@ -17,7 +17,7 @@ func set_reload(reload: float):
 func set_special_reload(reload: float):
 	%SpecialLoad.degrees = reload * 80
 
-func set_angle(angle: float):
+func set_angle(_angle: float):
 	pass
 
 func set_max_hp(hp: int):

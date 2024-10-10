@@ -14,8 +14,9 @@ radius = 0.05
 height = 0.1
 
 [node name="EnemyProjectileLeak" instance=ExtResource("1_fn1mo")]
-correction_force = 0.25
+correction_force = 0.2
 destructible_by_energy = false
+destructible_by_physical = true
 causes_leaks = true
 
 [node name="MeshInstance3D" parent="." index="1"]

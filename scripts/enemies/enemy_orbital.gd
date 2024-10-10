@@ -11,7 +11,7 @@ func _ready() -> void:
 
 func frame(delta: float):
 	if not paused:
-		angle += deg_to_rad(degrees_per_second / Parameters.game_speed) * delta
+		angle += deg_to_rad(degrees_per_second * Parameters.game_speed) * delta
 		global_position = (Vector3.FORWARD * dist).rotated(Vector3.UP, angle) + Vector3(0, 1.7, 0)
 
 func _on_started_ion():

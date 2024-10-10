@@ -1,0 +1,104 @@
+[gd_scene load_steps=13 format=3 uid="uid://cmanr4bwcfjql"]
+
+[ext_resource type="Script" path="res://scripts/projectile.gd" id="1_qfnfy"]
+[ext_resource type="PackedScene" uid="uid://bk4s7o5oj1n5" path="res://objects/indicator_projectile.tscn" id="2_1ly15"]
+[ext_resource type="PackedScene" uid="uid://c2fybfvjcllyl" path="res://objects/quarter_circle_mesh.tscn" id="2_5rdcy"]
+[ext_resource type="Material" uid="uid://bv53a01uoe3rd" path="res://assets/models/projectile_explosion.tres" id="3_qy2u6"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_chbtw"]
+radius = 0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5os1x"]
+metallic = 1.0
+metallic_specular = 1.0
+roughness = 0.2
+anisotropy_enabled = true
+anisotropy = 0.3
+
+[sub_resource type="SphereMesh" id="SphereMesh_3ac2h"]
+material = SubResource("StandardMaterial3D_5os1x")
+radius = 0.05
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t3ip5"]
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_h2unt"]
+material = SubResource("StandardMaterial3D_t3ip5")
+top_radius = 0.051
+bottom_radius = 0.051
+height = 0.01
+rings = 1
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_e1jns"]
+resource_local_to_scene = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mr1cg"]
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_asrbp"]
+material = SubResource("StandardMaterial3D_mr1cg")
+size = Vector2(0.04, 0.04)
+
+[node name="EnemyBomb" type="RigidBody3D" groups=["EnemyProjectile"]]
+collision_layer = 256
+collision_mask = 262143
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 1
+linear_damp = 0.5
+script = ExtResource("1_qfnfy")
+correction_force = 0.5
+destructible_by_physical = true
+ignore_shields = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_chbtw")
+
+[node name="Ball" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+mesh = SubResource("SphereMesh_3ac2h")
+
+[node name="Display" type="MeshInstance3D" parent="Ball"]
+mesh = SubResource("CylinderMesh_h2unt")
+skeleton = NodePath("../..")
+
+[node name="QuarterCircleMesh" parent="." instance=ExtResource("2_5rdcy")]
+mesh = SubResource("ImmediateMesh_e1jns")
+segments = 96
+inner_radius = 0.04
+outer_radius = 0.07
+degrees = 360.0
+reverse = true
+
+[node name="IndicatorProjectile" parent="." instance=ExtResource("2_1ly15")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
+editor_preview = true
+
+[node name="ExplosionParticles" type="GPUParticles3D" parent="."]
+unique_name_in_owner = true
+emitting = false
+amount = 30
+one_shot = true
+explosiveness = 1.0
+process_material = ExtResource("3_qy2u6")
+draw_pass_1 = SubResource("QuadMesh_asrbp")
+
+[node name="BombTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

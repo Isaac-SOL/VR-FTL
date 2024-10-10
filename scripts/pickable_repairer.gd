@@ -16,7 +16,7 @@ var current_target: OxygenLeak:
 
 func _process(delta: float) -> void:
 	if current_target:
-		if action_pressed:
+		if is_action_pressed:
 			current_target.fix_amount += delta * repair_per_second * Parameters.game_speed
 		%LabelFix.text = str(floori(current_target.fix_amount * 100)) + "%"
 		%LabelFix.modulate = label_color.sample(current_target.fix_amount)
@@ -37,7 +37,7 @@ func _on_action_pressed(_pickable: Variant) -> void:
 	%ShootParticles.emitting = true
 	%RepairingAudio.playing = true
 
-func _on_action_released(pickable: Variant) -> void:
+func _on_action_released(_pickable: Variant) -> void:
 	is_action_pressed = false
 	%ShootParticles.emitting = false
 	%RepairingAudio.playing = false

@@ -3,8 +3,7 @@ class_name Shield extends Area3D
 signal amount_changed(new_amount: int)
 
 @export var max_hp: int = 5
-
-var leak := preload("res://objects/oxygen_leak.tscn")
+@export var leak_scene: PackedScene
 
 @onready var hp: int = max_hp:
 	set(new_value):
@@ -15,15 +14,17 @@ func _on_body_entered(body: Node3D) -> void:
 	var projectile := body as Projectile
 	
 	if not projectile or not projectile.is_in_group("EnemyProjectile"): return
+	if projectile.ignore_shields: return
 	
 	projectile.destroy(true, false)
 	
 	hp -= 1
 	
 	if projectile.causes_leaks:
-		var new_leak = leak.instantiate() as OxygenLeak
-		new_leak.position = projectile.global_position
+		var new_leak = leak_scene.instantiate() as OxygenLeak
 		Singletons.damages.add_child(new_leak)
+		new_leak.global_position = projectile.global_position * 0.8
+		new_leak.reset_lookat()
 	
 	%HitSound.global_position = projectile.global_position
 	%HitSound.play()

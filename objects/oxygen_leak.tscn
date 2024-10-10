@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/indicator.gd" id="1_nieyq"]
 [ext_resource type="Texture2D" uid="uid://ysolxx2cpgyp" path="res://assets/textures/Kenney/leak0.png" id="2_ac7t0"]
 [ext_resource type="Texture2D" uid="uid://dbk6tdgqhy1qc" path="res://assets/textures/Kenney/leak1.png" id="3_8o2mg"]
-[ext_resource type="AudioStream" uid="uid://dux5fvt3ppsaj" path="res://assets/audio/Soniss/pipe.ogg" id="4_j35gn"]
+[ext_resource type="AudioStream" uid="uid://vt8p0y54sl5o" path="res://assets/audio/Soniss/gas_leak.ogg" id="5_yg41h"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fbah2"]
 animations = [{
@@ -65,11 +65,13 @@ material = SubResource("StandardMaterial3D_lm0hu")
 size = Vector2(0.1, 0.1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_uj54o"]
+radius = 0.1
 
 [node name="OxygenLeak" type="Area3D"]
-collision_layer = 2
+collision_layer = 256
 collision_mask = 2
 script = ExtResource("1_eouwf")
+oxygen_per_second = 1.667
 
 [node name="Indicator" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
@@ -103,12 +105,13 @@ process_material = SubResource("ParticleProcessMaterial_rg1my")
 draw_pass_1 = SubResource("QuadMesh_bqmxg")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("4_j35gn")
+stream = ExtResource("5_yg41h")
 attenuation_model = 1
+volume_db = 10.0
 unit_size = 1.0
-pitch_scale = 0.63
+pitch_scale = 1.47
 autoplay = true
-max_distance = 3.0
+max_distance = 4.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_uj54o")

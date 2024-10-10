@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://dcb2rnjj7i53k"]
+[gd_scene load_steps=14 format=3 uid="uid://dcb2rnjj7i53k"]
 
 [ext_resource type="Script" path="res://scripts/shield.gd" id="1_kr24l"]
 [ext_resource type="Shader" uid="uid://b4xrhyma4ma41" path="res://assets/shaders/shield.tres" id="1_yg5oa"]
+[ext_resource type="PackedScene" uid="uid://dy0gd3byhm3x0" path="res://objects/oxygen_leak.tscn" id="2_lu0aw"]
 [ext_resource type="AudioStream" uid="uid://bd5ig8kcecon3" path="res://assets/audio/Kenney/Digital/zap1b.ogg" id="3_144ls"]
 [ext_resource type="AudioStream" uid="uid://clyegecx23x44" path="res://assets/audio/Kenney/Digital/zap1c.ogg" id="4_jo21d"]
 
@@ -157,6 +158,7 @@ collision_layer = 2
 collision_mask = 256
 input_ray_pickable = false
 script = ExtResource("1_kr24l")
+leak_scene = ExtResource("2_lu0aw")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_iptjo")

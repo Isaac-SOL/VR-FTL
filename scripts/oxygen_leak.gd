@@ -10,11 +10,13 @@ var fix_amount: float = 0.0:
 			queue_free()
 
 func _ready() -> void:
-	next_leak = (1 / oxygen_per_second) * Parameters.game_speed
+	next_leak = 1 / (oxygen_per_second * Parameters.game_speed)
+
+func reset_lookat():
 	look_at(Indicator.SHIELD_CENTER)
 
 func _process(delta: float) -> void:
 	next_leak -= delta
 	while next_leak < 0:
 		Singletons.main.oxygen -= 1
-		next_leak += (1 / oxygen_per_second) * Parameters.game_speed
+		next_leak += 1 / (oxygen_per_second * Parameters.game_speed)
